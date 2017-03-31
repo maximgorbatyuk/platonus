@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\Constants;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -37,6 +38,17 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Перезаписываю метод вывода сообщения ол регистрации для того, чтобь запретить
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        flash('Регистрация временно закрыта', Constants::Error);
+        return \Redirect::back() ;
+        //return view('auth.register');
     }
 
     /**

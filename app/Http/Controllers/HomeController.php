@@ -14,7 +14,6 @@ class HomeController extends Controller
 
     public function index()
     {
-        flash('Sorry! Please try again.', 'danger');
         return view('home');
     }
 }

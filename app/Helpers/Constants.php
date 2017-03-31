@@ -6,7 +6,7 @@
  * Time: 21:40
  */
 
-namespace Helpers;
+namespace App\Helpers;
 
 
 abstract class Constants
