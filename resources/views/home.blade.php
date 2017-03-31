@@ -1,16 +1,13 @@
-@extends('layouts.default.app')
+@extends('layouts._FrontLayout')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
 
-                <div class="panel-body">
-                    You are logged in!
-                </div>
-            </div>
+<div class="container my-2">
+    <div class="card">
+        <div class="card-block h-100">
+
+            <div class="display-2">Панель управления</div>
+
         </div>
     </div>
 </div>
