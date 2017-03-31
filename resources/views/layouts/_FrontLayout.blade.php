@@ -8,10 +8,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="robots.txt">
 
-    <title>@yield('title', "HABB - Сообщество геймеров Казахстана")</title>
+    <title>@yield('title', "Platest")</title>
     <!--title>{{ config('app.name', 'Laravel') }}</title-->
 
-    <link href="{{ asset('t/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bt/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('custom/css/app.css') }}" rel="stylesheet">
     @yield('styles')
 
 </head>
