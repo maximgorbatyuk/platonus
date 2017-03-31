@@ -44,6 +44,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
         // https://mattstauffer.co/blog/bringing-whoops-back-to-laravel-5
         // Настройка whoops вывода исключений на дев-сборке
         if ($this->isHttpException($exception))

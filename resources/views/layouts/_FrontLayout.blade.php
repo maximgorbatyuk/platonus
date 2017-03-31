@@ -12,6 +12,7 @@
     <!--title>{{ config('app.name', 'Laravel') }}</title-->
 
     <link href="{{ asset('bt/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('thirdparty/fa/font-awesome.min.css') }}" rel="stylesheet" >
     <link href="{{ asset('custom/css/app.css') }}" rel="stylesheet">
     @yield('styles')
 
