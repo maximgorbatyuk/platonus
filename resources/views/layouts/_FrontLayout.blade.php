@@ -16,8 +16,13 @@
 
 </head>
 <body>
-    <h1>Hello, world!</h1>
 
+    @include("layouts._FrontNavigation")
+    @include('flash::message')
+
+    @yield('content')
+
+    @include('layouts._FrontFooter')
 
     <script src="{{ asset('thirdparty/jquery/jquery-3.1.1.slim.min.js') }}"></script>
     <script src="{{ asset('thirdparty/jquery/tether-1.4.0.min.js') }}"></script>
