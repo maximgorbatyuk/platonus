@@ -22,3 +22,5 @@ Route::group(['prefix'=>'admin'], function(){
     Route::resource('documents', 'DocumentController');
 });
 
+Route::any('/uploads', 'UploadController@fineUpload');
+

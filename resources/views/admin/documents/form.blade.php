@@ -1,5 +1,5 @@
 
-<div class="row mt-1">
+<div class="mt-1">
     <div class="form-group">
         {{ Form::text('title', old('title'),
                 array('class' => 'form-control', 'required', 'maxlength' => '100', 'placeholder' => 'Введите название документа')) }}
@@ -22,6 +22,10 @@
         </span><br>
         @endif
         <small>Максимальное кол-во знаков: 400</small>
+    </div>
+
+    <div class="form-group">
+        <div id="fine-uploader"></div>
     </div>
 
     <div class="mt-1">

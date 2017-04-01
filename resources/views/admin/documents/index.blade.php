@@ -6,7 +6,8 @@
     <div class="container">
         <h1 class="mt-2">Загруженные документы</h1>
         <div class="mb-1">
-            <a href="#">Создать запись</a>
+
+            {{ link_to_action('DocumentController@create', 'Создать запись', [], ['class'=>'btn btn-link']) }}
         </div>
 
         <table class="table table-striped dataTable">

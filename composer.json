@@ -9,6 +9,7 @@
         "barryvdh/laravel-ide-helper": "^2.3",
         "doctrine/dbal": "^2.5",
         "filp/whoops": "^2.1",
+        "fineuploader/php-traditional-server": "^1.2",
         "guzzlehttp/guzzle": "^6.2",
         "laracasts/flash": "^2.0",
         "laravel/framework": "5.4.*",
