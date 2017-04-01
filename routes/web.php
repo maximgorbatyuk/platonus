@@ -17,3 +17,8 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
+
+Route::group(['prefix'=>'admin'], function(){
+    Route::resource('documents', 'DocumentController');
+});
+

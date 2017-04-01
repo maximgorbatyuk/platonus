@@ -9,17 +9,25 @@
         </a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!--ul class="navbar-nav">
-                <li class="nav-item">
-                    @Html.ActionLink("Домашняя страница", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item">
-                    @Html.ActionLink("О программе", "About", "Home", new { area = "" }, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Контакт", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
-                </li>
-            </ul-->
+            @if (!Auth::guest())
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Объекты
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                            {{ link_to_action('DocumentController@index', 'Документы', [], ['class' => 'dropdown-item']) }}
+
+                        </div>
+                    </li>
+
+                </ul>
+
+            @endif
+
+
             <!--form class="form-inline my-2 my-sm-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

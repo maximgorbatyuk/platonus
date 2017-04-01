@@ -5,6 +5,7 @@
 ## Сторонние библиотеки
 - https://github.com/RobinHerbots/Inputmask
 - https://datatables.net/
+- doctrine/dbal
 
 ## StackoverFlow Driven Development
 - [Ключ](http://stackoverflow.com/questions/23786359/laravel-migration-unique-key-is-too-long-even-if-specified) миграции для MySQL
@@ -12,6 +13,11 @@
 - [Авторизация](http://stackoverflow.com/questions/39196968/laravel-5-3-new-authroutes/39197278#39197278)  в laravel 5.3
 - [Обновление](http://stackoverflow.com/questions/22405762/laravel-update-model-with-unique-validation-rule-for-attribute) модели с уникальным полем
 - [Аякс](https://laracasts.com/discuss/channels/requests/laravel-5-cant-use-ajax-post-request) запросы
+
+## Полезные команды студии/фреймворка
+``
+php artisan ide-helper:models "App\Models\Document"
+``
 
 ## Обновление сервера
 Инструкция по обновлению сервера из мастера
