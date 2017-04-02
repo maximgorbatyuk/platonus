@@ -17,7 +17,7 @@ class CreateFineUploadFilesTable extends Migration
             $table->string('path')->comment('Путь до загруженного файла uploads/*');
             $table->string('filename')->comment('Исходное название файла');
             $table->string('uuid')->unique()->comment('Уникальный идентификатор файла');
-            $table->string('document_id')->comment('Связанный документ');
+            $table->string('document_id')->nullable()->comment('Связанный документ');
             $table->timestamps();
         });
     }
