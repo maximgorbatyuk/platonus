@@ -21,7 +21,7 @@
     <script src="{{ asset('thirdparty/fineuploader/fine-uploader.js') }}" type="text/javascript"></script>
     <!-- Шаблон для fineuploader'а -->
     <script type="text/template" id="qq-template">
-        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
+        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Перетащите файлы сюда">
             <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
                 <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
             </div>
@@ -32,7 +32,7 @@
                 <div>Загрузить файл</div>
             </div>
             <span class="qq-drop-processing-selector qq-drop-processing">
-                <span>Обрабботка загруженных файлов...</span>
+                <span>Обработка загруженных файлов...</span>
                 <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
             </span>
             <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">
@@ -109,7 +109,16 @@
                     console.log(responseJSON);
 
                 }
-            }
+            },
+            messages: {
+                typeError: "Файл {file} имеет недопустимое расширение. Валидные расширения: {extensions}.",
+                sizeError: "Файл {file} имеет слишком большой размер, сервер принимает максимум {sizeLimit}.",
+                minSizeError: "Файл {file} слишком маленький, сервер принимает минимум {minSizeLimit}.",
+                emptyError: "{file} пуст, удалите его, пожалуйста",
+                noFilesError: "Нет файлов для загрузки",
+                tooManyItemsError: "Слишком много файлов ({netItems}) для загрузки. Установлен лимит в {itemLimit}.",
+                unsupportedBrowserIos8Safari: "Вот это да! Ваш браузер не поддерживает загрузку файлов или другие операции, связанные с загрузкой.  ПОжалуйста, используйте браузер Chrome"
+            },
         };
         var uploader = new qq.FineUploader(options);
     </script>
