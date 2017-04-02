@@ -5,26 +5,44 @@
 @section('content')
     <div class="container">
         <div class="mt-1">
-            <h1>{{ $instance->title }} [ID {{ $instance->id }}]</h1>
-            <p class="text-muted">Создание: {{ $instance->created_at }}. Обновление: {{ $instance->updated_at }}</p>
+            <h1>{{ $document->title }} [ID {{ $document->id }}]</h1>
+            <p class="text-muted">Создание: {{ $document->created_at }}. Обновление: {{ $document->updated_at }}</p>
         </div>
 
 
         <div class="mt-1">
 
+            <h3>Документ</h3>
             <dl class="row">
-                <dt class="col-md-4">Описание</dt>
-                <dd class="col-md-8">{{ $instance->description }}</dd>
+                <dt class="col-3 text-right">Описание</dt>
+                <dd class="col-9">{{ $document->description }}</dd>
 
-                <dt class="col-md-4">Имя файла</dt>
-                <dd class="col-md-8">{{ $instance->filename }}</dd>
+                <dt class="col-3 text-right">Имя файла</dt>
+                <dd class="col-9">{{ $document->filename }}</dd>
 
-                <dt class="col-md-4">Путь загрузки</dt>
-                <dd class="col-md-8">{{ $instance->path }}</dd>
+                <dt class="col-3 text-right">Путь загрузки</dt>
+                <dd class="col-9">{{ $document->path }}</dd>
 
-                <dt class="col-md-4">Загрузил</dt>
-                <dd class="col-md-8">{{ $instance->authorId }}</dd>
+                <dt class="col-3 text-right">Загрузил</dt>
+                <dd class="col-9">{{ $document->authorId }}</dd>
             </dl>
+            <hr>
+            <h3>Файл</h3>
+            <dl class="row">
+                <dt class="col-3 text-right">ID</dt>
+                <dd class="col-9">{{ $file->id }}</dd>
+
+                <dt class="col-3 text-right">Имя файла</dt>
+                <dd class="col-9">{{ $file->filename }}</dd>
+
+                <dt class="col-3 text-right">UUID</dt>
+                <dd class="col-9">{{ $file->uuid }}</dd>
+
+                <dt class="col-3 text-right">Обновлен</dt>
+                <dd class="col-9">{{ $file->updated_at }}</dd>
+            </dl>
+
+
 
         </div>
         <hr>
@@ -32,11 +50,11 @@
         <div class="mt-1">
             <div class="row">
                 <div class="col-md-6">
-                    {{ link_to_action('PostController@index', 'В список', null, ['class' => 'btn btn-secondary']) }}
+                    {{ link_to_action('DocumentController@index', 'В список', null, ['class' => 'btn btn-secondary']) }}
                 </div>
 
                 <div class="col-md-6 text-sm-right">
-                    {{ link_to_action('PostController@edit', 'Редактировать', ['id' => $instance->id], ['class' => 'btn btn-primary']) }}
+                    {{ link_to_action('DocumentController@edit', 'Редактировать', ['id' => $document->id], ['class' => 'btn btn-primary']) }}
                     <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteDialog">Удалить</button>
                 </div>
 
@@ -53,9 +71,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {!! Form::open(['method' =>'delete', 'action' => ['DocumentController@destroy', $instance->id]]) !!}
+                {!! Form::open(['method' =>'delete', 'action' => ['DocumentController@destroy', $document->id]]) !!}
                 <div class="modal-body">
-                    Вы уверены, что хотите удалить документ #{{ $instance->id }}?
+                    Вы уверены, что хотите удалить документ #{{ $document->id }}?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button>

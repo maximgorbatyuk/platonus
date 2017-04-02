@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Constants;
 use App\Helpers\VarDumper;
 use App\Models\Document;
+use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -30,7 +31,6 @@ class DocumentController extends Controller
         $input = $request->input();
         $validator = \Validator::make($input, Document::$rules);
 
-        VarDumper::VarExport($files = $request->files);
 
         if ($validator->fails()) {
             return Redirect::action('DocumentController@create')
@@ -40,22 +40,48 @@ class DocumentController extends Controller
 
 
 
-        $instance = new Document();
-        $instance->authorId = $request->session()->getId();
-        $instance->title = Input::get('title');
-        $instance->description = Input::get('description');
+        $instance               = new Document();
+        $instance->authorId     = $request->session()->getId();
+        $instance->title        = Input::get('title');
+        $instance->description  = Input::get('description');
 
 
+        $uuid = Input::get('uuid');
+        /** @var File $file */
+        $file = File::where('uuid', "=", $uuid)->first();
+
+        $instance->path = $file->path;
+        $instance->filename = $file->filename;
         $instance->save();
-        flash("Данные сохранены!", Constants::Success);
-        return Redirect::action('DocumentController@show', ["id" => $instance->id])
-            ->with('success', 'Данные сохранены');
+
+
+        $file->document_id = $instance->id;
+
+        $updateResult = $file->updateUniques();
+
+        if ($updateResult == true)
+        {
+            flash("Данные сохранены!", Constants::Success);
+        }
+        else
+        {
+            $errors = join('<br>', $file->errors());
+            flash("Не удалось обновить связанный файл <br>".$errors, Constants::Error);
+        }
+
+
+        return Redirect::action('DocumentController@show', ["id" => $instance->id]);
     }
 
     public function show($id)
     {
-        $instance = Document::find($id);
-        return view('admin.documents.show', ['instance'=>$instance]);
+        /** @var Document $document */
+        $document = Document::find($id);
+        $file = $document->file;
+        return view('admin.documents.show', [
+            'document'=>$document,
+            'file' => $file
+        ]);
     }
 
     public function edit($id)
