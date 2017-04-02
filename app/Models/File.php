@@ -22,6 +22,9 @@ class File extends Ardent
     public static $relationsData = array(
         'document' => array(self::BELONGS_TO, 'Document'),
     );
+    public static $rules = array(
+        'uuid' => 'required|unique:files'
+    );
 
     protected $table = 'files';
 

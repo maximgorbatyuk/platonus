@@ -16,6 +16,7 @@ use LaravelArdent\Ardent\Ardent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @mixin \Eloquent
+ * @property-read \App\Models\File $file
  */
 class Document extends Ardent
 {
