@@ -7,12 +7,18 @@
     width: 105px;
     padding: 7px 0;
     text-align: center;
-    background: #880000;
+
+    border-radius: 1px;
+    background-color: #d9534f;
+    border-color: #d9534f;
+
     border-bottom: 1px solid #DDD;
     color: #FFF;
+
 }
 .qq-upload-button-hover {
-    background: #CC0000;
+    background-color: #c9302c;
+    border-color: #c12e2a;
 }
 .qq-upload-button-focus {
     outline: 1px dotted #000000;
@@ -122,7 +128,9 @@
     color: #FFFFFF;
 }
 .qq-upload-list li.qq-upload-fail {
-    background-color: #D60000;
+    background-color: #d9534f;
+    border-color: #d9534f;
+
     color: #FFFFFF;
 }
 .qq-progress-bar {

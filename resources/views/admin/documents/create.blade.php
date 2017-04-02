@@ -14,7 +14,7 @@
 @endsection
 
 @section('styles')
-    <link href="{{ asset('thirdparty/fineuploader/fine-uploader.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('thirdparty/fineuploader/fine-uploader-new.css') }}" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section('scripts')

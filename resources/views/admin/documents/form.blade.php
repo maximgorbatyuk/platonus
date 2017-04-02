@@ -17,7 +17,7 @@
                 array('class' => 'form-control', 'required'=> true, 'maxlength' => '400',
                 'placeholder' => 'Описание документа будет доступно публично всем пользователям. Отнеситесь, пожалуйста, ответственно')) }}
         @if ($errors->has('description'))
-            <span class="help-block text-danger">
+            <span class="help-block text-danger btn-danger">
             <strong>{{ $errors->first('description') }}</strong>
         </span><br>
         @endif
