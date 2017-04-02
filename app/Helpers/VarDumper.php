@@ -6,7 +6,7 @@
  * Time: 22:12
  */
 
-namespace Helpers;
+namespace App\Helpers;
 
 
 abstract class VarDumper

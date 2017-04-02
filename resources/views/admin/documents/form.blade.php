@@ -26,6 +26,7 @@
 
     <div class="form-group">
         <div id="fine-uploader"></div>
+
     </div>
 
     <div class="mt-1">

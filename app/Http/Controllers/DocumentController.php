@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Constants;
+use App\Helpers\VarDumper;
 use App\Models\Document;
-use Helpers\VarDumper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -30,7 +30,7 @@ class DocumentController extends Controller
         $input = $request->input();
         $validator = \Validator::make($input, Document::$rules);
 
-        VarDumper::VarExport($request);
+        VarDumper::VarExport($files = $request->files);
 
         if ($validator->fails()) {
             return Redirect::action('DocumentController@create')
