@@ -42,7 +42,11 @@ class UploadController extends Controller
 
     public function fineUploadDelete(Request $request, $uuid) {
 
-        $file = File::where('uuid', "=", $uuid);
+        $file = File::where('uuid', "=", $uuid)->first();
+
+        $dir = 'uploads'.DIRECTORY_SEPARATOR.$file->path;
+        $deleteResult = \Storage::delete($dir);
+
         $deleted = $file->delete();
 
         $result = new FineUploadResult();
