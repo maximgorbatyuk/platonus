@@ -7,6 +7,8 @@
  */
 
 namespace App\Traits;
+use App\Models\File;
+use App\ViewModels\FineUploadResult;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 
@@ -35,11 +37,9 @@ trait FileUploader
 
     /**
      * @param Request $request
-     * @param string $uploadDirectory
      */
-    public function InitRequest(Request $request, $uploadDirectory = 'uploads'){
+    public function InitRequest(Request $request){
         $this->request = $request;
-        $this->uploadDirectory = $uploadDirectory;
     }
 
     /**
@@ -115,9 +115,14 @@ trait FileUploader
     }
 
     /**
-     * Process the upload.
+     * Запускает обработчик загрузки файла
+     * @param Request $request
+     * @return FineUploadResult
      */
-    public function handleUpload(){
+    public function handleUpload(Request $request){
+
+        $result = new FineUploadResult();
+        $this->request = $request;
 
         if (is_writable($this->chunksFolder) &&
             1 == mt_rand(1, 1/$this->chunksCleanupProbability)){
@@ -129,18 +134,19 @@ trait FileUploader
         // Check that the max upload size specified in class configuration does not
         // exceed size allowed by server config
         if ($this->toBytes(ini_get('post_max_size')) < $this->sizeLimit ||
-            $this->toBytes(ini_get('upload_max_filesize')) < $this->sizeLimit){
+            $this->toBytes(ini_get('upload_max_filesize')) < $this->sizeLimit)
+        {
             $neededRequestSize = max(1, $this->sizeLimit / 1024 / 1024) . 'M';
-            return [
-                'error'=>"Server error. Increase post_max_size and upload_max_filesize to ".$neededRequestSize
-            ];
+
+            $result->error = "Server error. Increase post_max_size and upload_max_filesize to $neededRequestSize";
+            return $result;
         }
 
-        if ($this->isInaccessible($this->uploadDirectory)){
-            return [
-                'error' => "Server error. Uploads directory isn't writable"
-            ];
-        }
+        /*if ($this->isInaccessible($this->uploadDirectory))
+        {
+            $result->error = "Server error. Uploads directory isn't writable";
+            return $result;
+        }*/
 
         $type = $this->request->server('CONTENT_TYPE');
         $httpContentType = $this->request->server('HTTP_CONTENT_TYPE');
@@ -149,14 +155,15 @@ trait FileUploader
             $type = $httpContentType;
         }
 
-        if(is_null($type)) {
-            return [
-                'error' => "No files were uploaded."
-            ];
-        } else if (strpos(strtolower($type), 'multipart/') !== 0){
-            return [
-                'error' => "Server error. Not a multipart request. Please set forceMultipart to default value (true)."
-            ];
+        if(is_null($type))
+        {
+            $result->error = "No files were uploaded.";
+            return $result;
+        }
+        else if (strpos(strtolower($type), 'multipart/') !== 0)
+        {
+            $result->error = "Server error. Not a multipart request. Please set forceMultipart to default value (true).";
+            return $result;
         }
 
         // Get size and name
@@ -172,24 +179,29 @@ trait FileUploader
         $name = $this->getName();
 
         // check file error
-        if($file->getError() != UPLOAD_ERR_OK) {
-            return [
-                'error' => 'Upload Error #'.$file->getErrorMessage()
-            ];
+        if($file->getError() != UPLOAD_ERR_OK)
+        {
+            $result->error = 'Upload Error #'.$file->getErrorMessage();
+            return $result;
         }
 
         // Validate name
-        if ($name === null || $name === ''){
-            return ['error' => 'File name empty.'];
+        if ($name === null || $name === '')
+        {
+            $result->error = 'File name empty.';
+            return $result;
         }
 
         // Validate file size
         if ($size == 0){
-            return array('error' => 'File is empty.');
+            $result->error = 'File is empty.';
+            return $result;
         }
 
         if (!is_null($this->sizeLimit) && $size > $this->sizeLimit) {
-            return ['error' => 'File is too large.', 'preventRetry' => true];
+            $result->error = 'File is too large.';
+            $result->preventRetry = true;
+            return $result;
         }
 
         // Validate file extension
@@ -198,7 +210,8 @@ trait FileUploader
 
         if($this->allowedExtensions && !in_array(strtolower($ext), array_map("strtolower", $this->allowedExtensions))){
             $these = implode(', ', $this->allowedExtensions);
-            return ['error' => "File has an invalid extension, it should be one of $these."];
+            $result->error = "File has an invalid extension, it should be one of $these.";
+            return $result;
         }
 
         // Save a chunk
@@ -208,28 +221,25 @@ trait FileUploader
         $uuid = $this->request->input('qquuid');
         if ($totalParts > 1){
 
-            $result = $file->store('uploads');
-
-            return [
-                "success" => $result,
-                "uploadName" => $this->getUploadName(),
-                "uuid" => $uuid,
-                'chunked' => true
-            ];
-
-        }
-        else {
-
-            $this->uploadName = $name;
             $storedFilename = $file->store('uploads');
-            return [
-                'success'=> true,
-                'storedFilename' => $storedFilename,
-                "uploadName" => $this->getUploadName(),
-                "uuid" => $uuid,
 
-            ];
+            $result->success = true;
+            $result->storedFilename = $storedFilename;
+            $result->uploadName = $this->getUploadName();
+            $result->uuid = $uuid;
+
+            return $result;
+
         }
+        $this->uploadName = $name;
+        $storedFilename = $file->store('uploads');
+
+        $result->success = true;
+        $result->storedFilename = $storedFilename;
+        $result->uploadName = $this->getUploadName();
+        $result->uuid = $uuid;
+
+        return $result;
     }
 
     /**
@@ -321,6 +331,7 @@ trait FileUploader
     /**
      * Converts a given size with units to bytes.
      * @param string $str
+     * @return int
      */
     protected function toBytes($str){
         $str = trim($str);
@@ -349,6 +360,7 @@ trait FileUploader
      * otherwise, it checks additionally for executable status (like before).
      *
      * @param string $directory The target directory to test access
+     * @return bool
      */
     protected function isInaccessible($directory) {
         $isWin = $this->isWindows();
@@ -365,5 +377,21 @@ trait FileUploader
     protected function isWindows() {
         $isWin = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
         return $isWin;
+    }
+
+
+    /**
+     * Трансформирует результат загрузки в файл
+     * @param FineUploadResult $result
+     * @return File
+     */
+    protected function ReturnResultToFile(FineUploadResult $result) {
+        $file = new File();
+        $file->filename = $result->uploadName;
+        $file->path = $result->storedFilename;
+        $file->uuid = $result->uuid;
+        $file->document_id = null;
+
+        return $file;
     }
 }

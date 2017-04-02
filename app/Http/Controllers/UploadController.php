@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
+use App\ViewModels\FineUploadResult;
 use Illuminate\Http\Request;
 use App\Traits\FileUploader;
-use UploadHandler;
 
 class UploadController extends Controller
 {
@@ -12,7 +13,6 @@ class UploadController extends Controller
 
     public function fineUpload (Request $request)
     {
-        $this->InitRequest($request);
 
         if (!is_null($request->input("done"))) {
             // Assumes you have a chunking.success.endpoint set to point here with a query parameter of "done".
@@ -21,14 +21,33 @@ class UploadController extends Controller
         }
         else {
 
-            $result = $this->handleUpload();
+            $result = $this->handleUpload($request);
+
+            if ($result->success == true) {
+                $file = $this->ReturnResultToFile($result);
+                $saved = $file->save();
+                if ($saved) {
+                    $result->fileId = $file->id;
+
+                } else {
+                    $result->success = false;
+                    $result->error = join("; ", $file->errors()->all());
+                }
+            }
+
         }
         return \Response::json($result);
 
     }
 
-    public function fineUploadDelete(Request $request, $fileName) {
-        $this->InitRequest($request);
-        return \Response::json($fileName);
+    public function fineUploadDelete(Request $request, $uuid) {
+
+        $file = File::where('uuid', "=", $uuid);
+        $deleted = $file->delete();
+
+        $result = new FineUploadResult();
+        $result->success = $deleted == true;
+        $result->uuid = $uuid;
+        return \Response::json($result);
     }
 }

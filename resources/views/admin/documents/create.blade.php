@@ -80,9 +80,16 @@
     </script>
 
     <script>
-        var uploader = new qq.FineUploader({
-            debug: true,
+        var options = {
+            template: "qq-template",
+            //debug: true,
             element: document.getElementById('fine-uploader'),
+            thumbnails: {
+                placeholders: {
+                    waitingPath: "{{ asset('thirdparty/fineuploader/placeholders/waiting-generic.png') }}",
+                    notAvailablePath: "{{ asset('thirdparty/fineuploader/placeholders/not_available-generic.png') }}"
+                }
+            },
             request: {
                 endpoint: '/file-uploads'
             },
@@ -91,9 +98,20 @@
                 endpoint: '/file-uploads'
             },
             retry: {
-                enableAuto: true
+                enableAuto: false
+            },
+            validation: {
+                itemLimit: 1,
+                allowedExtensions: ['doc', 'docx', 'txt']
+            },
+            callbacks: {
+                onComplete: function(id, fileName, responseJSON) {
+                    console.log(responseJSON);
+
+                }
             }
-        });
+        };
+        var uploader = new qq.FineUploader(options);
     </script>
 
 

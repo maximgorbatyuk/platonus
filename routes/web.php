@@ -23,7 +23,7 @@ Route::group(['prefix'=>'admin'], function(){
 });
 
 Route::any('/file-uploads', 'UploadController@fineUpload');
-Route::any('/file-uploads/{fileName}', 'UploadController@fineUploadDelete');
+Route::any('/file-uploads/{uuid}', 'UploadController@fineUploadDelete');
 
 
 /**
