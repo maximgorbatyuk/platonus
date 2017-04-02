@@ -36,4 +36,11 @@ class File extends Ardent
     {
         return $this->belongsTo('App\Models\Document');
     }
+
+    public function deleteStoredFile()
+    {
+        $storageDir = join(DIRECTORY_SEPARATOR, [storage_path(), 'app']);
+
+
+    }
 }

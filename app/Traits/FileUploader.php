@@ -234,8 +234,10 @@ trait FileUploader
         $this->uploadName = $name;
         $storedFilename = $file->store('uploads');
 
+        //$path = str_replace('uploads/
+        $path = $file->hashName();
         $result->success = true;
-        $result->storedFilename = $storedFilename;
+        $result->storedFilename = $path;
         $result->uploadName = $this->getUploadName();
         $result->uuid = $uuid;
 
@@ -388,6 +390,8 @@ trait FileUploader
     protected function ReturnResultToFile(FineUploadResult $result) {
         $file = new File();
         $file->filename = $result->uploadName;
+
+
         $file->path = $result->storedFilename;
         $file->uuid = $result->uuid;
         $file->document_id = null;

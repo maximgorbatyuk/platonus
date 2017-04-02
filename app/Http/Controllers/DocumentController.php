@@ -34,7 +34,7 @@ class DocumentController extends Controller
 
         if ($validator->fails()) {
             return Redirect::action('DocumentController@create')
-                ->withErrors($validator)
+                ->withErrors($validator->errors())
                 ->withInput($input);
         }
 
@@ -87,16 +87,54 @@ class DocumentController extends Controller
     public function edit($id)
     {
         $instance = Document::find($id);
-        return view('admin.documents.edit', ['instance'=>$instance]);
+        return view('admin.documents.edit', [
+            'instance' => $instance
+        ]);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->input();
+        $validator = \Validator::make($input, Document::$rules);
+
+        if ($validator->fails()) {
+            return Redirect::action('DocumentController@edit', ["id" => $id])
+                ->withErrors($validator->errors())
+                ->withInput($input);
+        }
+
+        /** @var Document $instance */
+        $instance = Document::find($id);
+        $instance->authorId     = $request->session()->getId();
+        $instance->title        = Input::get('title');
+        $instance->description  = Input::get('description');
+        $instance->path = Input::get('path');
+        $instance->filename = Input::get('filename');
+
+        $updateResult = $instance->updateUniques();
+        if ($updateResult == true)
+        {
+            flash("Данные сохранены!", Constants::Success);
+            return Redirect::action('DocumentController@show', ["id" => $instance->id]);
+        }
+        return Redirect::action('DocumentController@show', [
+            "id" => $instance->id
+        ])->withErrors($instance->errors())->withInput($input);
     }
 
     public function destroy($id)
     {
-        //
+        /** @var Document $document */
+        $document = Document::find($id);
+        $file = $document->file;
+
+        $dir = 'uploads'.DIRECTORY_SEPARATOR.$file->path;
+        $deleteResult = \Storage::delete($dir);
+
+        $document->delete();
+        $file->delete();
+        return Redirect::action('DocumentController@index')
+            ->with('success', "Документ $id был удален");
+
     }
 }
