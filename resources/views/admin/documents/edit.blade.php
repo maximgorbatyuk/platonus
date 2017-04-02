@@ -5,14 +5,10 @@
 @section('content')
     <div class="container">
         <h1 class="mt-2">Документ №{{ $instance->id }}</h1>
-        {!! Form::open(array('action' => array('DocumentController@update'))) !!}
+        {!! Form::model($instance, ['method' => 'PATCH', 'action' => ['DocumentController@update', $instance->id]]) !!}
             @include('admin.documents.form')
         {!! Form::close() !!}
     </div>
 
-
-@endsection
-
-@section('scripts')
 
 @endsection

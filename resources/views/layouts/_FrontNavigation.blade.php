@@ -33,7 +33,7 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form-->
 
-            <ul class="navbar-nav ml-auto float-right">
+            <ul class="navbar-nav ml-auto float-md-right">
                 @if (Auth::guest())
 
                     <li class="nav-item">
@@ -44,7 +44,7 @@
                     </li>
 
                 @else
-                    <li class="nav-item dropdown  float-sm-right">
+                    <li class="nav-item dropdown  float-md-right">
                         <a class="nav-link dropdown-toggle" href="#" id="profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user()->name }}
                         </a>
