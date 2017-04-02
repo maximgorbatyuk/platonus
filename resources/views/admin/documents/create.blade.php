@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <h1 class="mt-2">Новый документ</h1>
-        {!! Form::open(['action' => ['DocumentController@store'], 'files'=>true]) !!}
+        {!! Form::open(['action' => ['DocumentController@store']]) !!}
             @include('admin.documents.form')
         {!! Form::close() !!}
     </div>
@@ -79,48 +79,10 @@
         </div>
     </script>
 
-    <script>
-        var options = {
-            template: "qq-template",
-            //debug: true,
-            element: document.getElementById('fine-uploader'),
-            thumbnails: {
-                placeholders: {
-                    waitingPath: "{{ asset('thirdparty/fineuploader/placeholders/waiting-generic.png') }}",
-                    notAvailablePath: "{{ asset('thirdparty/fineuploader/placeholders/not_available-generic.png') }}"
-                }
-            },
-            request: {
-                endpoint: '/file-uploads'
-            },
-            deleteFile: {
-                enabled: true,
-                endpoint: '/file-uploads'
-            },
-            retry: {
-                enableAuto: false
-            },
-            validation: {
-                itemLimit: 1,
-                allowedExtensions: ['doc', 'docx', 'txt']
-            },
-            callbacks: {
-                onComplete: function(id, fileName, responseJSON) {
-                    console.log(responseJSON);
+    <script src="{{ asset('custom/js/fineWrapper.js') }}" type="text/javascript"></script>
 
-                }
-            },
-            messages: {
-                typeError: "Файл {file} имеет недопустимое расширение. Валидные расширения: {extensions}.",
-                sizeError: "Файл {file} имеет слишком большой размер, сервер принимает максимум {sizeLimit}.",
-                minSizeError: "Файл {file} слишком маленький, сервер принимает минимум {minSizeLimit}.",
-                emptyError: "{file} пуст, удалите его, пожалуйста",
-                noFilesError: "Нет файлов для загрузки",
-                tooManyItemsError: "Слишком много файлов ({netItems}) для загрузки. Установлен лимит в {itemLimit}.",
-                unsupportedBrowserIos8Safari: "Вот это да! Ваш браузер не поддерживает загрузку файлов или другие операции, связанные с загрузкой.  ПОжалуйста, используйте браузер Chrome"
-            },
-        };
-        var uploader = new qq.FineUploader(options);
+    <script>
+        var fineWrapper = new FineWrapper();
     </script>
 
 

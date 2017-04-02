@@ -26,8 +26,9 @@
 
     <div class="form-group">
         <div id="fine-uploader"></div>
-
     </div>
+
+    {{ Form::hidden('uuid', null, ['id' => 'uuidInputId']) }}
 
     <div class="mt-1">
         <div class="form-group">
