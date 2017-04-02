@@ -19,6 +19,19 @@ use LaravelArdent\Ardent\Ardent;
  */
 class Document extends Ardent
 {
+    public static $relationsData = array(
+        'document' => array(self::HAS_ONE, 'File'),
+    );
+
     protected $table = 'documents';
+
+    /**
+     * Возвращает связанный файл при загрузке
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne | File
+     */
+    public function file()
+    {
+        return $this->hasOne('App\Models\File');
+    }
 
 }
