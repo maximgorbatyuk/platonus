@@ -36,12 +36,16 @@
             <ul class="navbar-nav ml-auto float-md-right">
                 @if (Auth::guest())
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">Логин</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
-                    </li>
+                    @if(env('APP_DEBUG'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Логин</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
+                        </li>
+                    @endif
+
 
                 @else
                     <li class="nav-item dropdown  float-md-right">

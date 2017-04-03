@@ -4,9 +4,9 @@
 
 <div class="container my-2">
     <div class="card">
-        <div class="card-block h-100">
+        <div class="card-block">
 
-            <div class="display-2">Панель управления</div>
+            <div class="display-2">Платонус-тестировщик</div>
 
         </div>
     </div>
