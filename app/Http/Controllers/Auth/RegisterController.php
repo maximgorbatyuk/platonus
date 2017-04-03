@@ -46,9 +46,11 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
+        if (env('APP_DEBUG') == true) {
+            return view('auth.register');
+        }
         flash('Регистрация временно закрыта', Constants::Error);
         return \Redirect::back() ;
-        //return view('auth.register');
     }
 
     /**

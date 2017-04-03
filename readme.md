@@ -15,6 +15,7 @@
 - [Обновление](http://stackoverflow.com/questions/22405762/laravel-update-model-with-unique-validation-rule-for-attribute) модели с уникальным полем
 - [Аякс](https://laracasts.com/discuss/channels/requests/laravel-5-cant-use-ajax-post-request) запросы
 - [Как](http://stackoverflow.com/questions/37474887/how-to-use-a-vendor-class-in-laravel) использовать сервер fine-uploader'а
+- [Решение](https://laracasts.com/discuss/channels/laravel/parse-error-syntax-error-unexpected-expecting-or-variable-t-variable-in-pathsitevendorlaravelframeworksrcilluminatefoundationhelpersphp-on-line-475) ошибки синтаксиса в либовсом файле
 
 ## Полезные команды студии/фреймворка
 ``
