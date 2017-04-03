@@ -17,21 +17,20 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
+Route::get('/about', 'HomeController@about');
 
 Route::group(['prefix'=>'admin'], function(){
     Route::resource('documents', 'DocumentController');
 });
 
+Route::resource('documents', 'DocumentFrontController');
+
+
+
 Route::any('/file-uploads', 'UploadController@fineUpload');
 Route::any('/file-uploads/{uuid}', 'UploadController@fineUploadDelete');
 
 
-/**
- * Пути для скрытия данных
- */
-Route::any('uploads', function(){
-    //throw new HttpUrlException('Запрошен путь до папки загрузок');
-});
 
 if (env('APP_DEBUG') == true) {
     Route::get('/error404', 'HomeController@error404');

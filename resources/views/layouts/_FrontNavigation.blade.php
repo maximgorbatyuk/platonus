@@ -9,12 +9,22 @@
         </a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            @if (!Auth::guest())
-                <ul class="navbar-nav">
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    {{ link_to_action('DocumentFrontController@index', 'Загруженные документы', [], ['class' => 'nav-link']) }}
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('about') }}" class="nav-link">О портале</a>
+                </li>
+
+                @if (!Auth::guest())
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle"
                            href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Объекты
+                            <i class="fa fa-lock" aria-hidden="true"></i> Объекты
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
@@ -23,9 +33,13 @@
                         </div>
                     </li>
 
-                </ul>
+                @endif
 
-            @endif
+
+
+            </ul>
+
+
 
 
             <!--form class="form-inline my-2 my-sm-0">

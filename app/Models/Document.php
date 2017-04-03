@@ -35,4 +35,8 @@ class Document extends Ardent
         return $this->hasOne('App\Models\File');
     }
 
+    public function UpdatedAt() {
+        return $this->updated_at->format('d.m.Y');
+    }
+
 }
