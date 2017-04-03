@@ -5,14 +5,18 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            <span class="app-logo">{{ config('app.name', 'Laravel') }}</span>
         </a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
 
                 <li class="nav-item">
-                    {{ link_to_action('DocumentFrontController@index', 'Загруженные документы', [], ['class' => 'nav-link']) }}
+                    {{ link_to_action('DocumentFrontController@create', 'Загрузить документ', [], ['class' => 'nav-link active']) }}
+                </li>
+
+                <li class="nav-item">
+                    {{ link_to_action('DocumentFrontController@index', 'Документы', [], ['class' => 'nav-link']) }}
                 </li>
 
                 <li class="nav-item">
