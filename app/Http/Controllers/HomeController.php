@@ -17,4 +17,20 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    #region Errors
+
+    public function error404() {
+        return view('errors.404');
+    }
+
+    public function error500() {
+        return view('errors.500');
+    }
+
+    public function error503() {
+        return view('errors.503');
+    }
+
+    #endregion
 }

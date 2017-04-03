@@ -32,3 +32,9 @@ Route::any('/file-uploads/{uuid}', 'UploadController@fineUploadDelete');
 Route::any('uploads', function(){
     //throw new HttpUrlException('Запрошен путь до папки загрузок');
 });
+
+if (env('APP_DEBUG') == true) {
+    Route::get('/error404', 'HomeController@error404');
+    Route::get('/error500', 'HomeController@error500');
+    Route::get('/error503', 'HomeController@error503');
+}
