@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Constants;
+use App\Helpers\VarDumper;
 use App\Models\Document;
 use App\Models\File;
+use App\Traits\TestProcessingTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Traits\WordDocTrait;
 
 class DocumentFrontController extends Controller
 {
+
+    use WordDocTrait, TestProcessingTrait;
 
     public function index()
     {
@@ -37,8 +42,6 @@ class DocumentFrontController extends Controller
                 ->withErrors($validator->errors())
                 ->withInput($input);
         }
-
-
 
         $instance               = new Document();
         $instance->authorId     = $request->session()->getId();
@@ -74,8 +77,16 @@ class DocumentFrontController extends Controller
 
     public function show($id)
     {
+        /** @var Document $instance */
         $instance = Document::find($id);
-        return view('front.documents.show', ['instance' => $instance]);
+        $content = $this->getFileContent($instance->file->path);
+
+        $variants = $this->GetTest($content);
+        VarDumper::VarExport($variants);
+        return view('front.documents.show', [
+            'instance' => $instance,
+            'content' => $content
+        ]);
     }
 
     public function edit($id)
