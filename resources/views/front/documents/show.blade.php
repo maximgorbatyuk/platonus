@@ -20,9 +20,11 @@
 
                     </dl>
                 </div>
-
+                <hr>
+                <p>
+                    {{ $content }}
+                </p>
             </div>
-
         </div>
 
     </div>

@@ -14,22 +14,25 @@
 
             @for($i=0;$i<count($instances);$i++)
 
-                <div class="card">
-                    <div class="card-block">
-                        <h4 class="card-title">
-                            {{ $instances[$i]->title }} #{{ $instances[$i]->id }}
-                        </h4>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">
+                                {{ $instances[$i]->title }} #{{ $instances[$i]->id }}
+                            </h4>
 
-                        <div class="card-subtitle mb-2 text-muted">
-                            {{ $instances[$i]->updated_at }}
+                            <div class="card-subtitle mb-2 text-muted">
+                                {{ $instances[$i]->updated_at }}
+                            </div>
+
+                            <p class="card-text">
+                                {{ $instances[$i]->description }}
+                            </p>
+                            {{ link_to_action('DocumentFrontController@show', 'Открыть', ['id' => $instances[$i]->id]) }}
                         </div>
-
-                        <p class="card-text">
-                            {{ $instances[$i]->description }}
-                        </p>
-                        {{ link_to_action('DocumentFrontController@show', 'Открыть', ['id' => $instances[$i]->id]) }}
                     </div>
                 </div>
+
 
             @endfor
 
