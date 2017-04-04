@@ -15,7 +15,8 @@
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelbook/ardent": "v3.4.2",
-        "laravelcollective/html": "^5.4"
+        "laravelcollective/html": "^5.4",
+        "phpoffice/phpword": "^0.13.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
