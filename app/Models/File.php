@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\WordDocTrait;
 use LaravelArdent\Ardent\Ardent;
 
 /**
@@ -19,6 +20,8 @@ use LaravelArdent\Ardent\Ardent;
  */
 class File extends Ardent
 {
+    use WordDocTrait;
+
     public static $relationsData = array(
         'document' => array(self::BELONGS_TO, 'Document'),
     );
@@ -44,5 +47,9 @@ class File extends Ardent
 
     public function UpdatedAt() {
         return $this->updated_at->format('d.m.Y');
+    }
+
+    public function getFileContent() {
+
     }
 }

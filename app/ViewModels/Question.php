@@ -11,9 +11,18 @@ namespace App\ViewModels;
 
 class Question
 {
+    /**
+     * @var string
+     */
     public $content;
 
+    /**
+     * @var string
+     */
     public $correct;
 
+    /**
+     * @var array
+     */
     public $variants;
 }

@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
+use App\Traits\TestProcessingTrait;
+use App\ViewModels\Question;
 use LaravelArdent\Ardent\Ardent;
+use Psy\Exception\ErrorException;
 
 /**
  * App\Models\TestSource
  *
  * @property int $id
- * @property string $questions Вопросы
- * @property string $corrects Верные варианты ответа
- * @property string $variant_arrays Варианты ответа
+ * @property array $questions Вопросы
+ * @property array $corrects Верные варианты ответа
+ * @property array $variant_arrays Варианты ответа
  * @property string $document_id Связанный документ
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -18,6 +21,25 @@ use LaravelArdent\Ardent\Ardent;
  */
 class TestSource extends Ardent
 {
+    use TestProcessingTrait;
+
+    /** @var Question[] $testQuestions Массив ВьюМоделей вопросов*/
+    public $testQuestions;
+
+    /**
+     * Преобразует контент в массив вопросов. Инициирует поля. Обязателен к вызову после создания
+     * @param $content
+     * @param null $doc_id
+     */
+    public function processFileContent($content, $doc_id = null)
+    {
+        $this->testQuestions = $this->contentToQuestions($content);
+        $this->questionsToFields($this->testQuestions);
+        if (!is_null($doc_id)) {
+            $this->document_id = $doc_id;
+        }
+    }
+
     public static $relationsData = array(
         'document' => array(self::BELONGS_TO, 'Document'),
     );
@@ -35,6 +57,19 @@ class TestSource extends Ardent
 
     public function UpdatedAt() {
         return $this->updated_at->format('d.m.Y');
+    }
+
+    /**
+     * Вызывается перед сохранением
+     * Делаю проверку на заполненность
+     */
+    public function beforeSave() {
+        if (count($this->questions) == 0 ||
+            count($this->corrects) == 0 ||
+            count($this->variant_arrays) == 0 )
+        {
+            throw new ErrorException('Не проинициирован объект теста');
+        }
     }
 
     #region Accessors / Mutators
