@@ -40,7 +40,9 @@ class File extends Ardent
     public function deleteStoredFile()
     {
         $storageDir = join(DIRECTORY_SEPARATOR, [storage_path(), 'app']);
+    }
 
-
+    public function UpdatedAt() {
+        return $this->updated_at->format('d.m.Y');
     }
 }

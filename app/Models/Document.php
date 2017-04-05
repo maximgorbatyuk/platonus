@@ -21,7 +21,8 @@ use LaravelArdent\Ardent\Ardent;
 class Document extends Ardent
 {
     public static $relationsData = array(
-        'document' => array(self::HAS_ONE, 'File'),
+        'file' => array(self::HAS_ONE, 'File'),
+        'test_source' => array(self::HAS_ONE, 'TestSource'),
     );
 
     protected $table = 'documents';
@@ -33,6 +34,15 @@ class Document extends Ardent
     public function file()
     {
         return $this->hasOne('App\Models\File');
+    }
+
+    /**
+     * Возвращает связанный файл при загрузке
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne | TestSource
+     */
+    public function test_source()
+    {
+        return $this->hasOne('App\Models\TestSource');
     }
 
     public function UpdatedAt() {
