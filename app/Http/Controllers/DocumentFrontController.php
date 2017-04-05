@@ -81,17 +81,13 @@ class DocumentFrontController extends Controller
     {
         /** @var Document $instance */
         $instance = Document::find($id);
-
-
-        if (!is_null($instance->test_source)) {
-            $questions = $instance->test_source->GetTestQuestions();
-            VarDumper::VarExport($questions);
-        }
-
-
+        $questions = $instance->test_source->GetTestQuestions();
+        $export = var_export($questions, true);
 
         return view('front.documents.show', [
             'instance' => $instance,
+            'questions' => $questions,
+            'export' => $export
         ]);
     }
 

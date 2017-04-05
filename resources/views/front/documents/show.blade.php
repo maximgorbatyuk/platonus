@@ -21,10 +21,12 @@
                     </dl>
                 </div>
                 <hr>
-                <!--p>
+                <p>
+                    <pre>
+                    {{ $export }}
+                    </pre>
 
-                    
-                </p-->
+                </p>
             </div>
         </div>
 
