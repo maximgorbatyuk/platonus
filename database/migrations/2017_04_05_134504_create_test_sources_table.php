@@ -14,9 +14,9 @@ class CreateTestSourcesTable extends Migration
     {
         Schema::create('test_sources', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('questions')->comment('Вопросы');
-            $table->string('corrects')->comment('Верные варианты ответа');
-            $table->string('variant_arrays')->comment('Варианты ответа');
+            $table->text('questions')->comment('Вопросы');
+            $table->text('corrects')->comment('Верные варианты ответа');
+            $table->text('variant_arrays')->comment('Варианты ответа');
             $table->string('document_id')->nullable()->comment('Связанный документ');
             $table->timestamps();
         });
