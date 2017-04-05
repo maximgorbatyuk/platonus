@@ -24,7 +24,7 @@ class TestSource extends Ardent
     use TestProcessingTrait;
 
     /** @var Question[] $testQuestions Массив ВьюМоделей вопросов*/
-    public $testQuestions;
+    private $testQuestions;
 
     /**
      * Преобразует контент в массив вопросов. Инициирует поля. Обязателен к вызову после создания
@@ -38,6 +38,14 @@ class TestSource extends Ardent
         if (!is_null($doc_id)) {
             $this->document_id = $doc_id;
         }
+    }
+
+    /**
+     * ВОзвращает массив вопросов
+     * @return Question[]
+     */
+    public function GetTestQuestions() {
+        return $this->testQuestions;
     }
 
     public static $relationsData = array(

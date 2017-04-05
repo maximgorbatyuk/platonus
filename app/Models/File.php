@@ -40,16 +40,36 @@ class File extends Ardent
         return $this->belongsTo('App\Models\Document');
     }
 
+    /**
+     * Удаление связанного файла в файловой системе.
+     * @return bool
+     */
     public function deleteStoredFile()
     {
-        $storageDir = join(DIRECTORY_SEPARATOR, [storage_path(), 'app']);
+        $dir = $this->getFullFilename($this->path);
+        return \Storage::delete($dir);
+    }
+
+    /**
+     * Удаление инстанса со связанным файлом в файловой системе
+     * @return bool|null
+     */
+    public function delete()
+    {
+        $this->deleteStoredFile();
+        return parent::delete();
     }
 
     public function UpdatedAt() {
         return $this->updated_at->format('d.m.Y');
     }
 
+    /**
+     * Получение контента файла
+     * @return string
+     */
     public function getFileContent() {
-
+        $content = $this->readContent($this->path);
+        return $content;
     }
 }

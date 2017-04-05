@@ -6,6 +6,7 @@ use App\Helpers\Constants;
 use App\Helpers\VarDumper;
 use App\Models\Document;
 use App\Models\File;
+use App\Models\TestSource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -57,9 +58,13 @@ class DocumentController extends Controller
 
         $file->document_id = $instance->id;
 
+        $test = new TestSource();
+        $test->processFileContent($file->getFileContent(), $instance->id);
+        $saveResult = $test->save();
+
         $updateResult = $file->updateUniques();
 
-        if ($updateResult == true)
+        if ($updateResult == true && $saveResult == true)
         {
             flash("Данные сохранены!", Constants::Success);
         }
@@ -126,13 +131,7 @@ class DocumentController extends Controller
     {
         /** @var Document $document */
         $document = Document::find($id);
-        $file = $document->file;
-
-        $dir = 'uploads'.DIRECTORY_SEPARATOR.$file->path;
-        $deleteResult = \Storage::delete($dir);
-
         $document->delete();
-        $file->delete();
         return Redirect::action('DocumentController@index')
             ->with('success', "Документ $id был удален");
 

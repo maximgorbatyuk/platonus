@@ -6,6 +6,7 @@ use App\Helpers\Constants;
 use App\Helpers\VarDumper;
 use App\Models\Document;
 use App\Models\File;
+use App\Models\TestSource;
 use App\Traits\TestProcessingTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -15,8 +16,6 @@ use App\Traits\WordDocTrait;
 
 class DocumentFrontController extends Controller
 {
-
-    use WordDocTrait, TestProcessingTrait;
 
     public function index()
     {
@@ -57,12 +56,15 @@ class DocumentFrontController extends Controller
         $instance->filename = $file->filename;
         $instance->save();
 
-
         $file->document_id = $instance->id;
+
+        $test = new TestSource();
+        $test->processFileContent($file->getFileContent(), $instance->id);
+        $saveResult = $test->save();
 
         $updateResult = $file->updateUniques();
 
-        if ($updateResult == true)
+        if ($updateResult == true && $saveResult == true)
         {
             flash("Данные сохранены!", Constants::Success);
         }
@@ -79,13 +81,17 @@ class DocumentFrontController extends Controller
     {
         /** @var Document $instance */
         $instance = Document::find($id);
-        $content = $this->getFileContent($instance->file->path);
 
-        $variants = $this->GetTest($content);
-        VarDumper::VarExport($variants);
+
+        if (!is_null($instance->test_source)) {
+            $questions = $instance->test_source->GetTestQuestions();
+            VarDumper::VarExport($questions);
+        }
+
+
+
         return view('front.documents.show', [
             'instance' => $instance,
-            'content' => $content
         ]);
     }
 

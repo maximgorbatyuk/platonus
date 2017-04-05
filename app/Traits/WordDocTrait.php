@@ -136,7 +136,12 @@ trait WordDocTrait
         return "";
     }
 
-    protected function getFileContent($filename)
+    /**
+     * Читает контент документа по переданному названию файла. Файл ищется в директории загрузок
+     * @param $filename
+     * @return string
+     */
+    protected function readContent($filename)
     {
         $filename = $this->getFullFilename($filename);
         return $this->readZippedXML($filename);
