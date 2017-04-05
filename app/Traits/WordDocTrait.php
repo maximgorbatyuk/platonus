@@ -19,12 +19,12 @@ use ZipArchive;
 trait WordDocTrait
 {
 
-    private function getFullFilename($filename) {
+    protected function getFullFilename($filename) {
         $dir = storage_path('app'.DIRECTORY_SEPARATOR.'uploads');
         return $dir.DIRECTORY_SEPARATOR.$filename;
     }
 
-    private function read_docx($filename){
+    protected function read_docx($filename){
 
         $striped_content = '';
         $content = '';

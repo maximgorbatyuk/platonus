@@ -13,7 +13,31 @@ use App\ViewModels\Question;
 
 trait TestProcessingTrait
 {
-    protected function GetTest($fileContent) {
+    /**
+     * @param Question[] $questions
+     */
+    protected function questionsToFields($questions) {
+        $questionsAttr = [];
+        $corrects = [];
+        $variant_arrays = [];
+
+        for($i = 0; $i < count($questions); $i++)
+        {
+            $questionsAttr[$i] = $questions[$i]->content;
+            $corrects[$i] = $questions[$i]->correct;
+            $variant_arrays[$i] = $questions[$i]->variants;
+
+        }
+        $this->questions = $questionsAttr;
+        $this->corrects = $corrects;
+        $this->variant_arrays = $variant_arrays;
+    }
+
+    /**
+     * @param $fileContent
+     * @return Question[]
+     */
+    protected function contentToQuestions($fileContent) {
 
         $result = [];
         $questionSplit = $this->splitContentByQuestions($fileContent);
@@ -22,12 +46,16 @@ trait TestProcessingTrait
             $qSource = $this->getQuestionSource($item);
 
             if (count($qSource) < 3) continue;
-            $result[] = $this->ConvertSourceToQuestion($qSource);
+            $result[] = $this->convertSourceToQuestion($qSource);
         }
         return $result;
     }
 
 
+    /**
+     * @param $content
+     * @return array
+     */
     protected function splitContentByQuestions($content)
     {
         $delimiter = '&lt;question&gt;';
@@ -35,6 +63,10 @@ trait TestProcessingTrait
         return $array;
     }
 
+    /**
+     * @param $content
+     * @return array
+     */
     protected function getQuestionSource($content)
     {
         $delimiter = '&lt;variant&gt;';
@@ -42,7 +74,11 @@ trait TestProcessingTrait
         return $array;
     }
 
-    protected function ConvertSourceToQuestion(array $questionSource)
+    /**
+     * @param array $questionSource
+     * @return Question
+     */
+    protected function convertSourceToQuestion(array $questionSource)
     {
         $content = $questionSource[0];
         $correct = $questionSource[1];
