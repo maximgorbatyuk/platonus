@@ -19,18 +19,57 @@ trait TestProcessingTrait
     protected function questionsToFields($questions) {
         $questionsAttr = [];
         $corrects = [];
-        $variant_arrays = [];
+        $var1 = [];
+        $var2 = [];
+        $var3 = [];
+        $var4 = [];
+        $var5 = [];
 
         for($i = 0; $i < count($questions); $i++)
         {
             $questionsAttr[$i] = $questions[$i]->content;
             $corrects[$i] = $questions[$i]->correct;
-            $variant_arrays[$i] = $questions[$i]->variants;
+
+            $var1[$i] = $questions[$i]->variants[0];
+            $var2[$i] = $questions[$i]->variants[1];
+            $var3[$i] = $questions[$i]->variants[2];
+            $var4[$i] = $questions[$i]->variants[3];
+            $var5[$i] = $questions[$i]->variants[4];
 
         }
         $this->questions = $questionsAttr;
         $this->corrects = $corrects;
-        $this->variant_arrays = $variant_arrays;
+
+        $this->vars_first = $var1;
+        $this->vars_second = $var2;
+        $this->vars_third = $var3;
+        $this->vars_forth = $var4;
+        $this->vars_fifth = $var5;
+    }
+
+    /**
+     * ФОрмирует массив вопросов из полей
+     * @return Question[]
+     */
+    protected function fieldsToQuestions() {
+        $result = [];
+
+        for($i = 0; $i < count($this->questions); $i++)
+        {
+            $question = new Question();
+            $question->content = $this->questions[$i];
+            $question->correct = $this->corrects[$i];
+
+            $question->variants = [
+                $this->vars_first[$i],
+                $this->vars_second[$i],
+                $this->vars_third[$i],
+                $this->vars_forth[$i],
+                $this->vars_fifth[$i]
+            ];
+            $result[$i] = $question;
+        }
+        return $result;
     }
 
     /**

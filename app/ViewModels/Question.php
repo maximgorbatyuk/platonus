@@ -22,7 +22,7 @@ class Question
     public $correct;
 
     /**
-     * @var array
+     * @var string[]
      */
     public $variants;
 }
