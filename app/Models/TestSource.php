@@ -13,18 +13,23 @@ use Psy\Exception\ErrorException;
  * @property int $id
  * @property array $questions Вопросы
  * @property array $corrects Верные варианты ответа
- * @property array $variant_arrays Варианты ответа
+ * @property string $vars_first Варианты 1 ответа
+ * @property string $vars_second Варианты 2 ответа
+ * @property string $vars_third Варианты 3 ответа
+ * @property string $vars_forth Варианты 4 ответа
+ * @property string $vars_fifth Варианты 5 ответа
  * @property string $document_id Связанный документ
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @mixin \Eloquent
+ * @property-read \App\Models\Document $document
  */
 class TestSource extends Ardent
 {
     use TestProcessingTrait;
 
     /** @var Question[] $testQuestions Массив ВьюМоделей вопросов*/
-    private $testQuestions;
+    private $testQuestions = null;
 
     /**
      * Преобразует контент в массив вопросов. Инициирует поля. Обязателен к вызову после создания
@@ -45,6 +50,10 @@ class TestSource extends Ardent
      * @return Question[]
      */
     public function GetTestQuestions() {
+
+        if (is_null($this->testQuestions)) {
+            $this->testQuestions = $this->fieldsToQuestions();
+        }
         return $this->testQuestions;
     }
 
@@ -73,8 +82,7 @@ class TestSource extends Ardent
      */
     public function beforeSave() {
         if (count($this->questions) == 0 ||
-            count($this->corrects) == 0 ||
-            count($this->variant_arrays) == 0 )
+            count($this->corrects) == 0)
         {
             throw new ErrorException('Не проинициирован объект теста');
         }
@@ -104,15 +112,59 @@ class TestSource extends Ardent
         $this->attributes['corrects'] = $json;
     }
 
-    public function getVariantArraysAttribute($value)
+    public function getVarsFirstAttribute($value)
     {
         return \GuzzleHttp\json_decode($value);
     }
 
-    public function setVariantArraysAttribute($value)
+    public function setVarsFirstAttribute($value)
     {
         $json = \GuzzleHttp\json_encode($value);
-        $this->attributes['variant_arrays'] = $json;
+        $this->attributes['vars_first'] = $json;
+    }
+
+    public function getVarsSecondAttribute($value)
+    {
+        return \GuzzleHttp\json_decode($value);
+    }
+
+    public function setVarsSecondAttribute($value)
+    {
+        $json = \GuzzleHttp\json_encode($value);
+        $this->attributes['vars_second'] = $json;
+    }
+
+    public function getVarsThirdAttribute($value)
+    {
+        return \GuzzleHttp\json_decode($value);
+    }
+
+    public function setVarsThirdAttribute($value)
+    {
+        $json = \GuzzleHttp\json_encode($value);
+        $this->attributes['vars_third'] = $json;
+    }
+
+    public function getVarsForthAttribute($value)
+    {
+        return \GuzzleHttp\json_decode($value);
+    }
+
+    public function setVarsForthAttribute($value)
+    {
+        $json = \GuzzleHttp\json_encode($value);
+        $this->attributes['vars_forth'] = $json;
+    }
+
+    public function getVarsFifthAttribute($value)
+    {
+        return \GuzzleHttp\json_decode($value);
+    }
+
+    public function setVarsFifthAttribute($value)
+    {
+        $json = \GuzzleHttp\json_encode($value);
+        $this->attributes['vars_fifth'] = $json;
     }
 
     #endregion
