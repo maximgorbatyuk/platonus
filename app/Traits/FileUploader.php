@@ -119,7 +119,8 @@ trait FileUploader
      * @param Request $request
      * @return FineUploadResult
      */
-    public function handleUpload(Request $request){
+    public function handleUpload(Request $request) : FineUploadResult
+    {
 
         $result = new FineUploadResult();
         $this->request = $request;

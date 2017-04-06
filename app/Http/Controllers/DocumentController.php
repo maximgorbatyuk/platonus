@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Constants;
-use App\Helpers\VarDumper;
 use App\Models\Document;
-use App\Models\File;
-use App\Models\TestSource;
+use App\Traits\DocumentTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Redirect;
 
 class DocumentController extends Controller
 {
+    // TODO отрефакторить редиректы и валидацию. По сути, нет необходимости в выводе формы. Да и вообще полей title и desc в форме сохжания
+
+    use DocumentTrait;
 
     public function index()
     {
@@ -29,48 +29,26 @@ class DocumentController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->input();
-        $validator = \Validator::make($input, Document::$rules);
 
+        $validator = $this->getValidator($request);
 
         if ($validator->fails()) {
             return Redirect::action('DocumentController@create')
                 ->withErrors($validator->errors())
-                ->withInput($input);
+                ->withInput($request->input());
         }
 
-
-
-        $instance               = new Document();
-        $instance->authorId     = $request->session()->getId();
-        $instance->title        = Input::get('title');
-        $instance->description  = Input::get('description');
-
-
-        $uuid = Input::get('uuid');
-        /** @var File $file */
-        $file = File::where('uuid', "=", $uuid)->first();
-
-        $instance->path = $file->path;
-        $instance->filename = $file->filename;
-        $instance->save();
-
-
-        $file->document_id = $instance->id;
-        $updateResult = $file->updateUniques();
-
-        if ($updateResult == true)
+        $document = $this->getCreatedDocument($request);
+        if (is_null($document))
         {
-            flash("Данные сохранены!", Constants::Success);
-        }
-        else
-        {
-            $errors = join('<br>', $file->errors());
-            flash("Не удалось обновить связанный файл <br>".$errors, Constants::Error);
+            return Redirect::action('DocumentController@create',
+                [ "id" => $document->id ])
+                ->withErrors($document->errors())
+                ->withInput($request->input());
         }
 
-
-        return Redirect::action('DocumentController@show', ["id" => $instance->id]);
+        flash("Данные сохранены!", Constants::Success);
+        return Redirect::action('DocumentController@show', ["id" => $document->id]);
     }
 
     public function show($id)
@@ -95,7 +73,7 @@ class DocumentController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->input();
-        $validator = \Validator::make($input, Document::$rules);
+        $validator = $this->getValidator($request);
 
         if ($validator->fails()) {
             return Redirect::action('DocumentController@edit', ["id" => $id])
@@ -103,23 +81,17 @@ class DocumentController extends Controller
                 ->withInput($input);
         }
 
-        /** @var Document $instance */
-        $instance = Document::find($id);
-        $instance->authorId     = $request->session()->getId();
-        $instance->title        = Input::get('title');
-        $instance->description  = Input::get('description');
-        $instance->path = Input::get('path');
-        $instance->filename = Input::get('filename');
-
-        $updateResult = $instance->updateUniques();
-        if ($updateResult == true)
+        $document = $this->getUpdatedDocument($id, $request);
+        if ($document->errors())
         {
-            flash("Данные сохранены!", Constants::Success);
-            return Redirect::action('DocumentController@show', ["id" => $instance->id]);
+            return Redirect::action('DocumentController@edit',
+                [ "id" => $document->id ])
+                ->withErrors($document->errors())
+                ->withInput($request->input());
         }
-        return Redirect::action('DocumentController@show', [
-            "id" => $instance->id
-        ])->withErrors($instance->errors())->withInput($input);
+
+        flash("Данные сохранены!", Constants::Success);
+        return Redirect::action('DocumentController@show', ["id" => $document->id]);
     }
 
     public function destroy($id)

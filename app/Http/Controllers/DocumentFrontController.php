@@ -3,20 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Constants;
-use App\Helpers\VarDumper;
 use App\Models\Document;
-use App\Models\File;
-use App\Models\TestSource;
-use App\Traits\TestProcessingTrait;
 use App\ViewModels\QuestionTest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Redirect;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use App\Traits\WordDocTrait;
+use App\Traits\DocumentTrait;
 
 class DocumentFrontController extends Controller
 {
+
+    use DocumentTrait;
 
     public function index()
     {
@@ -33,43 +30,29 @@ class DocumentFrontController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->input();
-        $validator = \Validator::make($input, Document::$rules);
+        if (is_null($request->input('uuid'))) {
+            return Redirect::action('HomeController@index');
+        }
 
+        $validator = $this->getValidator($request);
 
         if ($validator->fails()) {
             return Redirect::action('DocumentFrontController@create')
                 ->withErrors($validator->errors())
-                ->withInput($input);
+                ->withInput($request->input());
         }
 
-        $instance               = new Document();
-        $instance->authorId     = $request->session()->getId();
-        $instance->title        = Input::get('title');
-        $instance->description  = Input::get('description');
-
-
-        $uuid = Input::get('uuid');
-        /** @var File $file */
-        $file = File::where('uuid', "=", $uuid)->first();
-
-        $instance->path = $file->path;
-        $instance->filename = $file->filename;
-        $instance->save();
-
-        $file->document_id = $instance->id;
-        $updateResult = $file->updateUniques();
-
-        if ($updateResult == true)
+        $document = $this->getCreatedDocument($request);
+        if ($document->errors())
         {
-            flash("Данные сохранены!", Constants::Success);
+            return Redirect::action('DocumentFrontController@create',
+                [ "id" => $document->id ])
+                ->withErrors($document->errors())
+                ->withInput($request->input());
         }
-        else
-        {
-            $errors = join('<br>', $file->errors());
-            flash("Не удалось обновить связанный файл <br>".$errors, Constants::Error);
-        }
-        return Redirect::action('DocumentFrontController@show', ["id" => $instance->id]);
+
+        flash("Данные сохранены!", Constants::Success);
+        return Redirect::action('DocumentFrontController@show', ["id" => $document->id]);
     }
 
 
