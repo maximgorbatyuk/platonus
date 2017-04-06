@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Next
- * Date: 02.04.2017
- * Time: 14:42
- */
 
 namespace App\ViewModels;
 
@@ -13,7 +7,7 @@ namespace App\ViewModels;
  * @package ViewModels
  *
  * Аналог ВьюМодели из c#.
- * Используется в загрузчике файлов
+ * Используется в загрузчике файлов для того, чтобы быть преобразованным в json
  */
 class FineUploadResult
 {

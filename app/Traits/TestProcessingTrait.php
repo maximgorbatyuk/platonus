@@ -68,10 +68,7 @@ trait TestProcessingTrait
             $vars[] = $questionSource[$i];
         }
 
-        $result = new Question();
-        $result->content = $content;
-        $result->correct = $correct;
-        $result->variants = $vars;
+        $result = new Question($content, $correct, $vars);
         return $result;
     }
 }

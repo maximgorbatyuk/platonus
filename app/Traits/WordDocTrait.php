@@ -16,6 +16,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Whoops\Exception\ErrorException;
 use ZipArchive;
 
+/**
+ * Class WordDocTrait
+ * Сборник функций, которые используются для преобразования ворд-файла в объект
+ * @package App\Traits
+ */
 trait WordDocTrait
 {
 

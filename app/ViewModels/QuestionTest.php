@@ -1,16 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Next
- * Date: 06.04.2017
- * Time: 21:55
- */
 
+/**
+ * Неймспейс для ВьюМоделей, которые не участвуют в бд, однако играют роль посредника передачи данных во вьюхи
+ */
 namespace App\ViewModels;
 
 
 use App\Traits\TestProcessingTrait;
 
+/**
+ * Class QuestionTest
+ * Класс для репрезентации вопросов теста. Включает в себя вызов нужного вопроса, получение количества и прочее.
+ *
+ * @package App\ViewModels
+ */
 class QuestionTest
 {
     use TestProcessingTrait;
