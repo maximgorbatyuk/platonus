@@ -8,6 +8,7 @@ use App\Models\Document;
 use App\Models\File;
 use App\Models\TestSource;
 use App\Traits\TestProcessingTrait;
+use App\ViewModels\QuestionTest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -57,14 +58,9 @@ class DocumentFrontController extends Controller
         $instance->save();
 
         $file->document_id = $instance->id;
-
-        $test = new TestSource();
-        $test->processFileContent($file->getFileContent(), $instance->id);
-        $saveResult = $test->save();
-
         $updateResult = $file->updateUniques();
 
-        if ($updateResult == true && $saveResult == true)
+        if ($updateResult == true)
         {
             flash("Данные сохранены!", Constants::Success);
         }
@@ -81,7 +77,8 @@ class DocumentFrontController extends Controller
     {
         /** @var Document $instance */
         $instance = Document::find($id);
-        $questions = $instance->test_source->GetTestQuestions();
+        $questionTest = new QuestionTest($instance->file->getFileContent());
+        $questions = $questionTest->GetTestQuestions();
         $export = var_export($questions, true);
 
         return view('front.documents.show', [

@@ -57,14 +57,9 @@ class DocumentController extends Controller
 
 
         $file->document_id = $instance->id;
-
-        $test = new TestSource();
-        $test->processFileContent($file->getFileContent(), $instance->id);
-        $saveResult = $test->save();
-
         $updateResult = $file->updateUniques();
 
-        if ($updateResult == true && $saveResult == true)
+        if ($updateResult == true)
         {
             flash("Данные сохранены!", Constants::Success);
         }
@@ -82,7 +77,7 @@ class DocumentController extends Controller
     {
         /** @var Document $document */
         $document = Document::find($id);
-        $file = $document->file;
+        $file = $document->file();
         return view('admin.documents.show', [
             'document'=>$document,
             'file' => $file

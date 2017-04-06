@@ -44,7 +44,7 @@ class File extends Ardent
      * Удаление связанного файла в файловой системе.
      * @return bool
      */
-    public function deleteStoredFile()
+    public function deleteStoredFile() : bool
     {
         $dir = $this->getFullFilename($this->path);
         return \Storage::delete($dir);
@@ -54,13 +54,14 @@ class File extends Ardent
      * Удаление инстанса со связанным файлом в файловой системе
      * @return bool|null
      */
-    public function delete()
+    public function delete() : bool
     {
         $this->deleteStoredFile();
         return parent::delete();
     }
 
-    public function UpdatedAt() {
+    public function UpdatedAt() : string
+    {
         return $this->updated_at->format('d.m.Y');
     }
 
@@ -68,7 +69,8 @@ class File extends Ardent
      * Получение контента файла
      * @return string
      */
-    public function getFileContent() {
+    public function getFileContent() : string
+    {
         $content = $this->readContent($this->path);
         return $content;
     }

@@ -17,7 +17,6 @@ use LaravelArdent\Ardent\Ardent;
  * @property \Carbon\Carbon $updated_at
  * @mixin \Eloquent
  * @property-read \App\Models\File $file
- * @property-read \App\Models\TestSource $test_source
  */
 class Document extends Ardent
 {
@@ -37,15 +36,6 @@ class Document extends Ardent
         return $this->hasOne('App\Models\File');
     }
 
-    /**
-     * Возвращает связанный файл при загрузке
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne | TestSource
-     */
-    public function test_source()
-    {
-        return $this->hasOne('App\Models\TestSource');
-    }
-
     public function UpdatedAt() {
         return $this->updated_at->format('d.m.Y');
     }
@@ -58,7 +48,6 @@ class Document extends Ardent
     public function delete()
     {
         $this->file()->delete();
-        $this->test_source()->delete();
         return parent::delete();
     }
 
