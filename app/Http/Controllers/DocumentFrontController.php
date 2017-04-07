@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Constants;
 use App\Models\Document;
+use App\Models\File;
 use App\ViewModels\QuestionTest;
 use Illuminate\Http\Request;
 use Redirect;
@@ -37,18 +38,20 @@ class DocumentFrontController extends Controller
         $validator = $this->getValidator($request);
 
         if ($validator->fails()) {
+
             return Redirect::action('DocumentFrontController@create')
                 ->withErrors($validator->errors())
                 ->withInput($request->input());
         }
 
         $document = $this->getCreatedDocument($request);
-        if ($document->errors())
+        if (is_null($document))
         {
-            return Redirect::action('DocumentFrontController@create',
-                [ "id" => $document->id ])
-                ->withErrors($document->errors())
-                ->withInput($request->input());
+            $uuid = $request->input('uuid');
+            $file = $this->getFile($uuid);
+            $file->delete();
+            flash()->overlay('Документ не был сохранен. Попробуй снова');
+            return Redirect::action('DocumentFrontController@index');
         }
 
         flash("Данные сохранены!", Constants::Success);
@@ -61,7 +64,7 @@ class DocumentFrontController extends Controller
         /** @var Document $instance */
         $instance = Document::find($id);
         $questionTest = new QuestionTest($instance->file->getFileContent());
-        $questions = $questionTest->GetTestQuestions();
+        $questions = $questionTest->getTestQuestions();
         $export = var_export($questions, true);
 
         return view('front.documents.show', [

@@ -55,7 +55,7 @@ class DocumentController extends Controller
     {
         /** @var Document $document */
         $document = Document::find($id);
-        $file = $document->file();
+        $file = $document->file;
         return view('admin.documents.show', [
             'document'=>$document,
             'file' => $file

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\File;
 use App\ViewModels\FineUploadResult;
+use App\ViewModels\QuestionTest;
 use Illuminate\Http\Request;
 use App\Traits\FileUploader;
 
@@ -14,28 +15,37 @@ class UploadController extends Controller
     public function fineUpload (Request $request)
     {
 
-        if (!is_null($request->input("done"))) {
-            // Assumes you have a chunking.success.endpoint set to point here with a query parameter of "done".
-            // For example: /myserver/handlers/endpoint.php?done
-            $result = $this->combineChunks();
+        $result = $this->handleUpload($request);
+
+        if ($result->success == false)
+        {
+            return \Response::json($result);
         }
-        else {
 
-            $result = $this->handleUpload($request);
+        $file = $this->ReturnResultToFile($result);
 
-            if ($result->success == true) {
-                $file = $this->ReturnResultToFile($result);
-                $saved = $file->save();
-                if ($saved) {
-                    $result->fileId = $file->id;
+        $fileContent = $file->getFileContent();
+        $test = new QuestionTest($fileContent);
 
-                } else {
-                    $result->success = false;
-                    $result->error = join("; ", $file->errors()->all());
-                }
-            }
+        if (!is_null($test->getError()))
+        {
+            $result->success = false;
+            $result->error = $test->getError();
+            $result->questionCount = $test->getQuestionCount();
 
+            $result->deleteResult = $file->deleteStoredFile();
+
+            return \Response::json($result);
         }
+
+        $saved = $file->save();
+        if ($saved == false) {
+            $result->success = false;
+            $result->error = join("; ", $file->errors()->all());
+            $result->fileId = $file->id;
+            return \Response::json($result);
+        }
+        $result->fileId = $file->id;
         return \Response::json($result);
 
     }
