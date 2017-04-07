@@ -27,13 +27,16 @@ class QuestionTest
     function __construct($content)
     {
         $this->testQuestions = $this->contentToQuestions($content);
+        if (count($this->testQuestions) == 0) {
+            $this->error = "В файле не распознано вопросов";
+        }
     }
 
     /**
      * ВОзвращает массив вопросов
      * @return Question[]
      */
-    public function GetTestQuestions(): array
+    public function getTestQuestions(): array
     {
         return $this->testQuestions;
     }
@@ -42,11 +45,19 @@ class QuestionTest
      * Возвращает количество вопросов
      * @return int
      */
-    public function GetQuestionCount() : int
+    public function getQuestionCount() : int
     {
         if ($this->questionCount == -1) {
             $this->questionCount = count($this->testQuestions);
         }
         return $this->questionCount;
+    }
+
+    /**
+     * Если есть ошибки в файле, то вернет строку. Иначе null
+     * @return string|null
+     */
+    public function getError() {
+        return $this->error;
     }
 }

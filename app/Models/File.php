@@ -47,7 +47,7 @@ class File extends Ardent
     public function deleteStoredFile() : bool
     {
         $dir = $this->getFullFilename($this->path);
-        return \Storage::delete($dir);
+        return \File::delete($dir);
     }
 
     /**
@@ -56,8 +56,8 @@ class File extends Ardent
      */
     public function delete() : bool
     {
-        $this->deleteStoredFile();
-        return parent::delete();
+        //$this->deleteStoredFile();
+        return parent::delete() && $this->deleteStoredFile();
     }
 
     public function UpdatedAt() : string

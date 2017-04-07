@@ -11,6 +11,8 @@ namespace App\Traits;
 
 use App\Helpers\VarDumper;
 use DOMDocument;
+use Log;
+use Monolog\Logger;
 use PhpParser\Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Whoops\Exception\ErrorException;
@@ -26,7 +28,9 @@ trait WordDocTrait
 
     protected function getFullFilename($filename) {
         $dir = storage_path('app'.DIRECTORY_SEPARATOR.'uploads');
-        return $dir.DIRECTORY_SEPARATOR.$filename;
+        $dir = $dir.DIRECTORY_SEPARATOR.$filename;
+        Log::debug($dir);
+        return $dir;
     }
 
     protected function read_docx($filename){

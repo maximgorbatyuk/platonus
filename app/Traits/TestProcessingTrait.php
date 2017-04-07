@@ -14,6 +14,9 @@ use App\ViewModels\Question;
 trait TestProcessingTrait
 {
 
+    /** @var string Записанная ошибка, если парсинг документа не удался */
+    protected $error;
+
     /**
      * @param $fileContent
      * @return Question[]
@@ -22,6 +25,7 @@ trait TestProcessingTrait
 
         $result = [];
         $questionSplit = $this->splitContentByQuestions($fileContent);
+
         foreach ($questionSplit as $item) {
 
             $qSource = $this->getQuestionSource($item);
@@ -64,8 +68,8 @@ trait TestProcessingTrait
         $content = $questionSource[0];
         $correct = $questionSource[1];
         $vars = [];
-        for ($i = 1; $i < count($questionSource);$i++) {
-            $vars[] = $questionSource[$i];
+        for ($i = 1; $i < 5;$i++) {
+            $vars[] = $questionSource[$i] ?? "[Вариант $i потерялся]";
         }
 
         $result = new Question($content, $correct, $vars);
