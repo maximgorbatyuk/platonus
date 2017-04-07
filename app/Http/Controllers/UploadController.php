@@ -55,7 +55,7 @@ class UploadController extends Controller
         $file = File::where('uuid', "=", $uuid)->first();
 
         $dir = 'uploads'.DIRECTORY_SEPARATOR.$file->path;
-        $deleteResult = \Storage::delete($dir);
+        $deleteResult = \File::delete($dir);
 
         $deleted = $file->delete();
 

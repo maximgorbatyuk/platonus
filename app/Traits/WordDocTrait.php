@@ -25,7 +25,6 @@ trait WordDocTrait
     protected function getFullFilename($filename) {
         $dir = storage_path('app'.DIRECTORY_SEPARATOR.'uploads');
         $dir = $dir.DIRECTORY_SEPARATOR.$filename;
-        Log::debug($dir);
         return $dir;
     }
 
