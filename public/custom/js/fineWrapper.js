@@ -2,35 +2,68 @@
  * Класс-обертка для Файн-аплодера
  * @constructor
  */
-function FineWrapper() {
+function FineWrapper(config) {
+
+
     this.templateId = "qq-template";
     this.fineUploaderDivId = "fine-uploader";
     this.serverHandlerUrl = "/file-uploads";
     this.allowExtensionArray = ['doc', 'docx', 'txt'];
     this.uploadLimit = 1;
 
+    FineWrapper.prototype.customOnSuccessHandler = null;
+    FineWrapper.prototype.customOnDeleteHandler = null;
+    FineWrapper.prototype.customOnErrorHandler = null;
+
+    if (typeof config !== 'undefined' && config != null) {
+
+        if (config.onSuccessHandler) {
+            FineWrapper.prototype.customOnSuccessHandler = config.onSuccessHandler;
+        }
+        if (config.onDeleteHandler) {
+            FineWrapper.prototype.customOnDeleteHandler = config.onDeleteHandler;
+        }
+        if (config.onErrorHandler) {
+            FineWrapper.prototype.customOnErrorHandler = config.onErrorHandler;
+        }
+    }
+
     this.fineUploader = this._initFineUploader();
+
+
 }
 
 FineWrapper.prototype._onCompleteHandler = function (id, fileName, responseJSON) {
-    var uuid            = responseJSON["uuid"];
-    var uuidInput       = $("#uuidInputId");
+    var uuid = responseJSON["uuid"];
+    var uuidInput = $("#uuidInputId");
     uuidInput.val(uuid);
+
+
+    var self = FineWrapper.prototype;
+    if (self.customOnSuccessHandler) {
+        self.customOnSuccessHandler(id, fileName, responseJSON);
+    }
+
 };
 
 FineWrapper.prototype._onDeleteCompleteHandler = function (id, xhr, isError) {
     console.log(id);
-    var filenameInput   = $('#filenameInputId');
-    var uuidInput       = $("#uuidInputId");
-    var storedInput     = $("#storedInputId");
-    var fileIdInput     = $("#fileIdInputId");
-
-    filenameInput.val("");
+    var uuidInput = $("#uuidInputId");
     uuidInput.val("");
-    storedInput.val("");
-    fileIdInput.val("");
 
+    var self = FineWrapper.prototype;
+    if (self.customOnDeleteHandler) {
+        self.customOnDeleteHandler(id, xhr, isError);
+    }
 };
+
+FineWrapper.prototype._onErrorHandler = function(id, name, errorReason, xhr) {
+
+    var self = FineWrapper.prototype;
+    if (self.customOnErrorHandler) {
+        self.customOnErrorHandler(id, name, errorReason, xhr);
+    }
+}
 
 FineWrapper.prototype._initFineUploader = function () {
     // Настройки файн-аплодера
@@ -59,8 +92,9 @@ FineWrapper.prototype._initFineUploader = function () {
             allowedExtensions: this.allowExtensionArray
         },
         callbacks: {
-            onComplete: this._onCompleteHandler,
-            onDeleteComplete : this._onDeleteCompleteHandler
+            onComplete          : this._onCompleteHandler,
+            onDeleteComplete    : this._onDeleteCompleteHandler,
+            onError             : this._onErrorHandler
         },
         messages: {
             typeError: "Файл {file} имеет недопустимое расширение. Валидные расширения: {extensions}.",
