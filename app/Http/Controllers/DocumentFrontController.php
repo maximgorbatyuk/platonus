@@ -70,7 +70,7 @@ class DocumentFrontController extends Controller
         $model = new DocumentFrontShowViewModel();
         $model->document = Document::find($id);
         $model->test = new QuestionTest($model->document->file->getFileContent());
-        $model->questions = $model->test->getTestQuestions();
+        $model->questions = $model->test->getQuestions();
 
         return view('front.documents.show', [ 'model' => $model ]);
     }
@@ -88,5 +88,19 @@ class DocumentFrontController extends Controller
     public function destroy($id)
     {
         throw new NotFoundHttpException();
+    }
+
+    /**
+     * Открывает страницу, принимая и гет, и пост-параметры
+     * @param Request $request
+     * @param int $question
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function openTest(Request $request, int $question = -1)
+    {
+        $method = $request->method();
+        if ($method == "GET") {
+            return view('front.documents.create');
+        }
     }
 }

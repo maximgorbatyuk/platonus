@@ -15,16 +15,16 @@ class QuestionTest
 {
     use TestProcessingTrait;
 
-    /** @var Question[] $testQuestions Массив ВьюМоделей вопросов*/
-    private $testQuestions;
+    /** @var Question[] $questions Массив ВьюМоделей вопросов*/
+    private $questions;
 
     /** @var int $questionCount */
     private $questionCount = -1;
 
     function __construct($content)
     {
-        $this->testQuestions = $this->contentToQuestions($content);
-        if (count($this->testQuestions) == 0) {
+        $this->questions = $this->contentToQuestions($content);
+        if (count($this->questions) == 0) {
             $this->error = "В файле не распознано вопросов";
         }
     }
@@ -33,9 +33,25 @@ class QuestionTest
      * ВОзвращает массив вопросов
      * @return Question[]
      */
-    public function getTestQuestions(): array
+    public function getQuestions(): array
     {
-        return $this->testQuestions;
+        return $this->questions;
+    }
+
+    /**
+     * Перемешка вариантов ответа. Можно указать, чтобы перемешались и вариаты ответа
+     * @param bool $withVars
+     * @return bool
+     */
+    public function shuffleQuestions(bool $withVars = false) : bool
+    {
+        $res = shuffle($this->questions);
+        if ($withVars == true) {
+            foreach ($this->questions as $question) {
+                $res = $res && $question->shuffleVariants();
+            }
+        }
+        return $res;
     }
 
     /**
@@ -45,7 +61,7 @@ class QuestionTest
     public function getQuestionCount() : int
     {
         if ($this->questionCount == -1) {
-            $this->questionCount = count($this->testQuestions);
+            $this->questionCount = count($this->questions);
         }
         return $this->questionCount;
     }

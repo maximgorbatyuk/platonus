@@ -10,21 +10,30 @@ namespace App\LogicModels;
  */
 class Question
 {
-    /** @var string */
+    /** @var string Контент вопроса */
     private $content;
 
 
-    /** @var string[] */
+    /** @var string[] Варианты ответа, куда включен и правильный */
     private $variants;
 
-    /** @var string */
-    private $correct;
+    /** @var string Правильный ответ */
+    private $answer;
 
     function __construct(string $content, string $correct, array $variants)
     {
         $this->content = $content;
-        $this->correct = $correct;
+        $this->answer = $correct;
         $this->variants = $variants;
+    }
+
+    /**
+     * Перемешка вариантов ответа
+     * @return bool
+     */
+    public function shuffleVariants() : bool
+    {
+        return shuffle($this->variants);
     }
 
     /**
@@ -47,17 +56,17 @@ class Question
     /**
      * @return string
      */
-    public function getCorrect(): string
+    public function getAnswer(): string
     {
-        return $this->correct;
+        return $this->answer;
     }
 
     /**
-     * @param string $correct
+     * @param string $answer
      */
-    public function setCorrect(string $correct)
+    public function setAnswer(string $answer)
     {
-        $this->correct = $correct;
+        $this->answer = $answer;
     }
 
     /**
