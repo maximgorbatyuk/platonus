@@ -1,16 +1,10 @@
 
-{!! Form::open(['action' => ['DocumentFrontController@store']]) !!}
-
-    <div class="form-group">
-        <div id="fine-uploader"></div>
-    </div>
+{!! Form::open(['action' => ['DocumentFrontController@store'], 'id' => 'fine-form']) !!}
 
     {{ Form::hidden('uuid', null, ['id' => 'uuidInputId']) }}
 
-    <div class="mt-1">
-        <div class="form-group text-center">
-            <button type="submit" id="submit-btn" class="btn btn-primary disabled">Сохранить</button>
-        </div>
+    <div class="form-group">
+        <div id="fine-uploader"></div>
     </div>
 
 {!! Form::close() !!}
