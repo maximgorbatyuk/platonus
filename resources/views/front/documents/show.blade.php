@@ -11,7 +11,7 @@
     <div class="container mt-2">
         <div class="card">
             <div class="card-block">
-                <h1>{{ $model->document->title }} [ID {{ $model->document->id }}]</h1>
+                <h1>#{{ $model->document->id }} {{ $model->document->title }}</h1>
                 <p class="text-muted">
                     Создан: {{ $model->document->created_at }}. Кол-во вопросов {{ count($model->questions) }}
                 </p>
@@ -36,10 +36,10 @@
                             $question = $model->questions[$i - 1];
                         @endphp
                         <dl class="row">
-                            <dt class="col-6">
+                            <dt class="col-sm-6">
                                 {{ $i - 1 }}) {{ $question->getContent() }}
                             </dt>
-                            <dd class="col-6">
+                            <dd class="col-sm-6">
                                 <ul>
                                     @php($variants = $question->getVariants())
                                     @for($n = 0; $n < count($variants); $n++)
@@ -58,6 +58,7 @@
                             </dd>
 
                         </dl>
+                        <hr>
                     @endfor
                 </div>
             </div>

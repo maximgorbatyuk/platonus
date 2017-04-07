@@ -16,6 +16,7 @@
 - [Аякс](https://laracasts.com/discuss/channels/requests/laravel-5-cant-use-ajax-post-request) запросы
 - [Как](http://stackoverflow.com/questions/37474887/how-to-use-a-vendor-class-in-laravel) использовать сервер fine-uploader'а
 - [Решение](https://laracasts.com/discuss/channels/laravel/parse-error-syntax-error-unexpected-expecting-or-variable-t-variable-in-pathsitevendorlaravelframeworksrcilluminatefoundationhelpersphp-on-line-475) ошибки синтаксиса в либовсом файле
+- [Инструкция](http://stackoverflow.com/questions/38104348/install-php-zip-on-php-5-6-on-ubuntu) по установке zip-либы
 
 ## Полезные команды студии/фреймворка
 ``
