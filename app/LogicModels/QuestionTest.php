@@ -1,9 +1,6 @@
 <?php
 
-/**
- * Неймспейс для ВьюМоделей, которые не участвуют в бд, однако играют роль посредника передачи данных во вьюхи
- */
-namespace App\ViewModels;
+namespace App\LogicModels;
 
 
 use App\Traits\TestProcessingTrait;

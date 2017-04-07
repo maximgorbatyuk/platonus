@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\File;
 use App\ViewModels\FineUploadResult;
-use App\ViewModels\QuestionTest;
+use App\LogicModels\QuestionTest;
 use Illuminate\Http\Request;
 use App\Traits\FileUploader;
 

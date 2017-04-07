@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Constants;
 use App\Models\Document;
-use App\Models\File;
-use App\ViewModels\QuestionTest;
+use App\LogicModels\QuestionTest;
 use Illuminate\Http\Request;
 use Redirect;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

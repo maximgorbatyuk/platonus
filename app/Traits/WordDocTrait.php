@@ -8,13 +8,9 @@
 
 namespace App\Traits;
 
-
-use App\Helpers\VarDumper;
 use DOMDocument;
 use Log;
-use Monolog\Logger;
 use PhpParser\Error;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Whoops\Exception\ErrorException;
 use ZipArchive;
 

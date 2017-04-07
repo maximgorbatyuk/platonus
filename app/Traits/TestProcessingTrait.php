@@ -9,7 +9,7 @@
 namespace App\Traits;
 
 
-use App\ViewModels\Question;
+use App\LogicModels\Question;
 
 trait TestProcessingTrait
 {
