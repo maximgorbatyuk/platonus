@@ -5,14 +5,14 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="{{ url('/') }}">
-            <span class="app-logo">{{ config('app.name', 'Laravel') }}</span>
+            <span class="app-logo">{{ config('app.name', 'Platest') }}</span>
         </a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
 
                 <li class="nav-item">
-                    {{ link_to_action('DocumentFrontController@create', 'Загрузить документ', [], ['class' => 'nav-link active']) }}
+                    {{ link_to_action('DocumentFrontController@create', 'Загрузить', [], ['class' => 'nav-link active']) }}
                 </li>
 
                 <li class="nav-item">
@@ -22,22 +22,6 @@
                 <li class="nav-item">
                     <a href="{{ url('about') }}" class="nav-link">О портале</a>
                 </li>
-
-                @if (!Auth::guest())
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"
-                           href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-lock" aria-hidden="true"></i> Объекты
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-
-                            {{ link_to_action('DocumentController@index', 'Документы', [], ['class' => 'dropdown-item']) }}
-
-                        </div>
-                    </li>
-
-                @endif
 
 
 
@@ -66,6 +50,19 @@
 
 
                 @else
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-lock" aria-hidden="true"></i> Админка
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                            {{ link_to_action('DocumentController@index', 'Документы', [], ['class' => 'dropdown-item']) }}
+
+                        </div>
+                    </li>
+
                     <li class="nav-item dropdown  float-md-right">
                         <a class="nav-link dropdown-toggle" href="#" id="profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-user" aria-hidden="true"></i> {{ Auth::user()->name }}

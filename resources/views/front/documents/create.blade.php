@@ -3,11 +3,37 @@
 @section('title', 'Загрузка нового документа')
 
 @section('content')
-    <div class="container">
-        <h1 class="mt-2">Загрузка нового документа</h1>
-        {!! Form::open(['action' => ['DocumentFrontController@store']]) !!}
-        @include('front.documents.form')
-        {!! Form::close() !!}
+
+    <div class="container my-1">
+        <div class="card card-block">
+            <h1 class="text-center">Загрузка файла</h1>
+            <p class="text-center">
+                Просто перетяни файл в область для загрузки и просмотри его, почувствуй его, пойми, как он важен для тебя.
+                Только так ты сможешь выучить на стольник! А не сможешь, да и ладно, 50 ведь тоже проходной =)
+            </p>
+            @include('front.fine-uploader')
+        </div>
+    </div>
+
+    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        Ошибка записи файла
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ну окей, бывает</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -19,70 +45,35 @@
 
 @section('scripts')
     <script src="{{ asset('thirdparty/fineuploader/fine-uploader.js') }}" type="text/javascript"></script>
-    <!-- Шаблон для fineuploader'а -->
-    <script type="text/template" id="qq-template">
-        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Перетащите файлы сюда">
-            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
-                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
-            </div>
-            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
-                <span class="qq-upload-drop-area-text-selector"></span>
-            </div>
-            <div class="qq-upload-button-selector qq-upload-button">
-                <div>Загрузить файл</div>
-            </div>
-            <span class="qq-drop-processing-selector qq-drop-processing">
-                <span>Обработка загруженных файлов...</span>
-                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
-            </span>
-            <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">
-                <li>
-                    <div class="qq-progress-bar-container-selector">
-                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
-                    </div>
-                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
-                    <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
-                    <span class="qq-upload-file-selector qq-upload-file"></span>
-                    <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
-                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
-                    <span class="qq-upload-size-selector qq-upload-size"></span>
-                    <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">Отмена</button>
-                    <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">Повторить</button>
-                    <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">Удалить</button>
-                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
-                </li>
-            </ul>
-
-            <dialog class="qq-alert-dialog-selector">
-                <div class="qq-dialog-message-selector"></div>
-                <div class="qq-dialog-buttons">
-                    <button type="button" class="qq-cancel-button-selector">Закрыть</button>
-                </div>
-            </dialog>
-
-            <dialog class="qq-confirm-dialog-selector">
-                <div class="qq-dialog-message-selector"></div>
-                <div class="qq-dialog-buttons">
-                    <button type="button" class="qq-cancel-button-selector">Нет</button>
-                    <button type="button" class="qq-ok-button-selector">Да</button>
-                </div>
-            </dialog>
-
-            <dialog class="qq-prompt-dialog-selector">
-                <div class="qq-dialog-message-selector"></div>
-                <input type="text">
-                <div class="qq-dialog-buttons">
-                    <button type="button" class="qq-cancel-button-selector">Отмена</button>
-                    <button type="button" class="qq-ok-button-selector">Ok</button>
-                </div>
-            </dialog>
-        </div>
-    </script>
-
     <script src="{{ asset('custom/js/fineWrapper.js') }}" type="text/javascript"></script>
-
     <script>
-        var fineWrapper = new FineWrapper();
+        // TODO Написать обработчик кнопки. ЧТобы открывалась после того как файл загрузили
+
+        var displayModal = function (body) {
+            var modal = $('#notificationModal');
+            modal.find('.modal-body').html(body);
+            modal.modal('show');
+        };
+
+        var onSuccess = function(id, fileName, responseJSON) {
+
+            if (responseJSON.success == true) {
+                $('#fine-form').submit();
+            }
+        };
+
+        var onError = function(id, name, errorReason, xhr) {
+
+            var response = JSON.parse(xhr.responseText);
+            var body = "Файл " + response.uploadName +" не был сохранен. <br>"+
+                "Сервер ляпнул следующее:<br><b class='text-danger'>"+response.error+"</b>";
+            displayModal(body);
+        };
+
+        var fineWrapper = new FineWrapper({
+            onCompleteHandler : onSuccess,
+            onErrorHandler : onError
+        });
     </script>
 
 

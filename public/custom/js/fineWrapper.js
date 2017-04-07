@@ -17,8 +17,8 @@ function FineWrapper(config) {
 
     if (typeof config !== 'undefined' && config != null) {
 
-        if (config.onSuccessHandler) {
-            FineWrapper.prototype.customOnSuccessHandler = config.onSuccessHandler;
+        if (config.onCompleteHandler) {
+            FineWrapper.prototype.customOnCompleteHandler = config.onCompleteHandler;
         }
         if (config.onDeleteHandler) {
             FineWrapper.prototype.customOnDeleteHandler = config.onDeleteHandler;
@@ -38,11 +38,14 @@ FineWrapper.prototype._onCompleteHandler = function (id, fileName, responseJSON)
     var uuidInput = $("#uuidInputId");
     uuidInput.val(uuid);
 
-
     var self = FineWrapper.prototype;
-    if (self.customOnSuccessHandler) {
-        self.customOnSuccessHandler(id, fileName, responseJSON);
+    if (self.customOnCompleteHandler) {
+        self.customOnCompleteHandler(id, fileName, responseJSON);
     }
+};
+
+FineWrapper.prototype._onSubmitted = function (id, name) {
+
 
 };
 
@@ -94,7 +97,8 @@ FineWrapper.prototype._initFineUploader = function () {
         callbacks: {
             onComplete          : this._onCompleteHandler,
             onDeleteComplete    : this._onDeleteCompleteHandler,
-            onError             : this._onErrorHandler
+            onError             : this._onErrorHandler,
+            onSubmitted         : this._onSubmitted,
         },
         messages: {
             typeError: "Файл {file} имеет недопустимое расширение. Валидные расширения: {extensions}.",

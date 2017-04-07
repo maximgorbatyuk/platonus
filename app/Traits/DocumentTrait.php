@@ -28,11 +28,14 @@ trait DocumentTrait
      * @param Request $request
      * @return Document|null
      */
-    protected function getCreatedDocument(Request $request) : Document
+    protected function getCreatedDocument(Request $request)
     {
         $uuid = $request->input('uuid');
         $file = $this->getFile($uuid);
 
+        if (is_null($file)) {
+            return null;
+        }
         $document = $this->constructDocument($request, $file);
         $saveResult = $document->save();
         if ($saveResult == false)
@@ -76,7 +79,11 @@ trait DocumentTrait
         return $document;
     }
 
-    protected function getFile(string $uuid) : File
+    /**
+     * @param string $uuid
+     * @return File|null
+     */
+    protected function getFile(string $uuid)
     {
         $file = File::where('uuid', "=", $uuid)->first();
         return $file;

@@ -22,7 +22,7 @@
                 <p class="text-center">
                     Загрузи тест для того, чтобы начать тестирование и узнать, насколько ты заучка =)
                 </p>
-                @include('layouts.fine-uploader')
+                @include('front.fine-uploader')
             </div>
         </div>
     </div>
@@ -60,26 +60,32 @@
     <script>
         // TODO Написать обработчик кнопки. ЧТобы открывалась после того как файл загрузили
 
-        var modal = $('#notificationModal');
+
 
         var displayModal = function (body) {
+            var modal = $('#notificationModal');
             modal.find('.modal-body').html(body);
             modal.modal('show');
         };
 
-        var form = $('#fine-form');
-
 
         var onSuccess = function(id, fileName, responseJSON) {
 
+            if (responseJSON.success == true) {
+                $('#fine-form').submit();
+            }
+            //
         };
+
         var onError = function(id, name, errorReason, xhr) {
             var response = JSON.parse(xhr.responseText);
-            var body = "Файл " + response.uploadName +" не был сохранен. <br> Сервер ляпнул следующее: <b>"+response.error+"</b>";
+            var body = "Файл " + response.uploadName +" не был сохранен. <br>"+
+                "Сервер ляпнул следующее:<br><b class='text-danger'>"+response.error+"</b>";
             displayModal(body);
         };
+
         var fineWrapper = new FineWrapper({
-            onSuccessHandler : onSuccess,
+            onCompleteHandler : onSuccess,
             onErrorHandler : onError
         });
     </script>

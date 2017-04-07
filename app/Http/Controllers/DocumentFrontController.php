@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Constants;
 use App\Models\Document;
 use App\LogicModels\QuestionTest;
+use App\ViewModels\DocumentFrontShowViewModel;
 use Illuminate\Http\Request;
 use Redirect;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -48,7 +49,11 @@ class DocumentFrontController extends Controller
         {
             $uuid = $request->input('uuid');
             $file = $this->getFile($uuid);
-            $file->delete();
+
+            if (!is_null($file))  {
+                $file->delete();
+            }
+
             flash()->overlay('Документ не был сохранен. Попробуй снова');
             return Redirect::action('DocumentFrontController@index');
         }
@@ -60,17 +65,14 @@ class DocumentFrontController extends Controller
 
     public function show($id)
     {
-        /** @var Document $instance */
-        $instance = Document::find($id);
-        $questionTest = new QuestionTest($instance->file->getFileContent());
-        $questions = $questionTest->getTestQuestions();
-        $export = var_export($questions, true);
+        /** @var Document $model->document */
 
-        return view('front.documents.show', [
-            'instance' => $instance,
-            'questions' => $questions,
-            'export' => $export
-        ]);
+        $model = new DocumentFrontShowViewModel();
+        $model->document = Document::find($id);
+        $model->test = new QuestionTest($model->document->file->getFileContent());
+        $model->questions = $model->test->getTestQuestions();
+
+        return view('front.documents.show', [ 'model' => $model ]);
     }
 
     public function edit($id)

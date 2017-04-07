@@ -68,7 +68,7 @@ trait TestProcessingTrait
         $content = $questionSource[0];
         $correct = $questionSource[1];
         $vars = [];
-        for ($i = 1; $i < 5;$i++) {
+        for ($i = 1; $i < 6;$i++) {
             $vars[] = $questionSource[$i] ?? "[Вариант $i потерялся]";
         }
 
