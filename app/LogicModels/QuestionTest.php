@@ -39,6 +39,36 @@ class QuestionTest
     }
 
     /**
+     * Возвращает вопрос на указанном индексе, начиная с нуля. Null, если индекс вне диапазона значений
+     * @param int $index
+     * @return Question|null
+     */
+    public function getQuestion(int $index)
+    {
+        if ($index < 0 || $index > count($this->questions)) {
+            return null;
+        }
+        return $this->questions[$index];
+    }
+
+    /**
+     * Возвращает вопрос по указанному индексу изначального порядка. Null, если индекс вне диапазона значений
+     * @param int $orderIndex
+     * @return Question|null
+     */
+    public function getQuestionByOrder(int $orderIndex)
+    {
+        $result = null;
+        for($i = 0; $i < count($this->questions);$i++) {
+            if ($this->questions[$i]->getOrderIndex() != $orderIndex) continue;
+
+            $result = $this->questions[$i];
+            break;
+        }
+        return $result;
+    }
+
+    /**
      * Перемешка вариантов ответа. Можно указать, чтобы перемешались и вариаты ответа
      * @param bool $withVars
      * @return bool

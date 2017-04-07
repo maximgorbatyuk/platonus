@@ -26,13 +26,15 @@ trait TestProcessingTrait
         $result = [];
         $questionSplit = $this->splitContentByQuestions($fileContent);
 
-        foreach ($questionSplit as $item) {
-
+        for($i = 0; $i < count($questionSplit); $i++)
+        {
+            $item = $questionSplit[$i];
             $qSource = $this->getQuestionSource($item);
 
             if (count($qSource) < 3) continue;
-            $result[] = $this->convertSourceToQuestion($qSource);
+            $result[] = $this->convertSourceToQuestion($i, $qSource);
         }
+
         return $result;
     }
 
@@ -60,10 +62,11 @@ trait TestProcessingTrait
     }
 
     /**
+     * @param int $index
      * @param array $questionSource
      * @return Question
      */
-    protected function convertSourceToQuestion(array $questionSource) : Question
+    protected function convertSourceToQuestion(int $index, array $questionSource) : Question
     {
         $content = $questionSource[0];
         $correct = $questionSource[1];
@@ -72,7 +75,7 @@ trait TestProcessingTrait
             $vars[] = $questionSource[$i] ?? "[Вариант $i потерялся]";
         }
 
-        $result = new Question($content, $correct, $vars);
+        $result = new Question($index, $content, $correct, $vars);
         return $result;
     }
 }

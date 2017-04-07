@@ -13,18 +13,28 @@ class Question
     /** @var string Контент вопроса */
     private $content;
 
-
     /** @var string[] Варианты ответа, куда включен и правильный */
     private $variants;
 
     /** @var string Правильный ответ */
     private $answer;
 
-    function __construct(string $content, string $correct, array $variants)
+    /** @var int Изначальный орядок вопроса в тесте */
+    private $orderIndex = -1;
+
+    /**
+     * Question constructor.
+     * @param int $index Порядок в тесте
+     * @param string $content Вопрос
+     * @param string $answer Правильный ответ
+     * @param array $variants Массив вариантов ответа, включая правильный
+     */
+    function __construct(int $index, string $content, string $answer, array $variants)
     {
         $this->content = $content;
-        $this->answer = $correct;
+        $this->answer = $answer;
         $this->variants = $variants;
+        $this->orderIndex = $index;
     }
 
     /**
@@ -34,6 +44,15 @@ class Question
     public function shuffleVariants() : bool
     {
         return shuffle($this->variants);
+    }
+
+    /**
+     * Возвращает изначальный индекс порядка вопроса, даже если была совершена сортировка
+     * @return int
+     */
+    public function getOrderIndex(): int
+    {
+        return $this->orderIndex;
     }
 
     /**
