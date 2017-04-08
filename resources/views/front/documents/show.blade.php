@@ -13,7 +13,7 @@
             <div class="card-block">
                 <h1>#{{ $model->document->id }} {{ $model->document->title }}</h1>
                 <p class="text-muted">
-                    Создан: {{ $model->document->created_at }}. Кол-во вопросов {{ count($model->questions) }}
+                    Создан: {{ $model->document->CreatedAt() }}. Кол-во вопросов {{ count($model->questions) }}
                 </p>
                 <div class="mt-1">
 

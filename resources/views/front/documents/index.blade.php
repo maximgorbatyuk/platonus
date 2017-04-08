@@ -2,6 +2,10 @@
 @extends('layouts._FrontLayout')
 @section('title', 'Список документов')
 
+@php
+    /** @var \App\Models\Document[] $instances */
+@endphp
+
 @section('content')
     <div class="container">
         <h1 class="mt-2">Загруженные документы</h1>
@@ -14,24 +18,7 @@
 
             @for($i=0;$i<count($instances);$i++)
 
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">
-                                {{ $instances[$i]->title }} #{{ $instances[$i]->id }}
-                            </h4>
-
-                            <div class="card-subtitle mb-2 text-muted">
-                                {{ $instances[$i]->updated_at }}
-                            </div>
-
-                            <p class="card-text">
-                                {{ $instances[$i]->description }}
-                            </p>
-                            {{ link_to_action('DocumentFrontController@show', 'Открыть', ['id' => $instances[$i]->id]) }}
-                        </div>
-                    </div>
-                </div>
+                @include('front.documents._doc_card')
 
 
             @endfor

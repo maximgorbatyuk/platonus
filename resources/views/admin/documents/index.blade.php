@@ -2,6 +2,10 @@
 @extends('layouts._FrontLayout')
 @section('title', 'Список документов')
 
+    @php
+        /** @var \App\Models\Document[] $instances */
+    @endphp
+
 @section('content')
     <div class="container">
         <h1 class="mt-2">Загруженные документы</h1>
@@ -21,7 +25,7 @@
                     <td>{{ $instances[$i]->id }}</td>
                     <td>{{ link_to_action('DocumentController@show', $instances[$i]->title, ['id' => $instances[$i]->id]) }}</td>
                     <td>{{ $instances[$i]->views  }}</td>
-                    <td>{{ $instances[$i]->created_at  }}</td>
+                    <td>{{ $instances[$i]->CreatedAt()  }}</td>
                 </tr>
 
             @endfor
@@ -35,8 +39,13 @@
 @section('scripts')
     <script src="{{ asset('thirdparty/dataTables/dataTables.min.js') }}"></script>
     <script>
+        var url = '/thirdparty/dataTables/i18n/ru.json';
         $(document).ready(function(){
-            $('.dataTable').DataTable();
+            $('.dataTable').DataTable({
+                language: {
+                    url: "http//cdn.datatables.net/plug-ins/1.10.13/i18n/Russian.json"
+                }
+            });
         });
     </script>
 @endsection
