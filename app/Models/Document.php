@@ -14,6 +14,7 @@ use LaravelArdent\Ardent\Ardent;
  * @property string $path Полный путь до файла
  * @property string $description Описание файла
  * @property int $views Описание файла
+ * @property int question_count Кол-во вопросов
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @mixin \Eloquent

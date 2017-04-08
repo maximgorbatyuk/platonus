@@ -14,6 +14,7 @@ class AddViewField extends Migration
     {
         Schema::table('documents', function (Blueprint $table){
             $table->integer('views')->default(0)->comment('Просмотры документа');
+            $table->integer('question_count')->default(0)->comment('Кол-во вопросов');
         });
     }
 
@@ -26,6 +27,7 @@ class AddViewField extends Migration
     {
         Schema::table('documents', function (Blueprint $table) {
             $table->dropColumn('views');
+            $table->dropColumn('question_count');
         });
     }
 }

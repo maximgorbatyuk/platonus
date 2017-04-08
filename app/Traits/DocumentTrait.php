@@ -8,6 +8,7 @@
 
 namespace App\Traits;
 
+use App\LogicModels\QuestionTest;
 use App\Models\Document;
 use App\Models\File;
 use Illuminate\Http\Request;
@@ -79,6 +80,9 @@ trait DocumentTrait
         $document->description  = $request->input('description') ?? null;
         $document->path         = $file->path;
         $document->filename     = $file->filename;
+
+        $test = new QuestionTest($file->getFileContent());
+        $document->question_count = $test->getQuestionCount();
         return $document;
     }
 
