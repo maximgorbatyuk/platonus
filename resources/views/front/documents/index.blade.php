@@ -18,18 +18,33 @@
 
                 {{ link_to_action('DocumentFrontController@create', 'Создать запись', [], ['class'=>'btn btn-outline-info', 'id' => 'load-button']) }}
             </div>
-
-            <div class="mt-1">
-
-                <div class="row">
-                    @foreach($instances as $instance)
-                        @include('front.documents._doc_cards')
-                    @endforeach
-
-                </div>
-            </div>
         </div>
+
+        <div class="my-2">
+            @for($i = 0; $i < count($instances); $i++)
+
+                @php
+                    $instance = $instances[$i];
+                    $start = 0;
+                @endphp
+                @if ($i % 3 == 0)
+
+                    @php($start = $i)
+                    <div class="row mt-1">
+
+                @endif
+
+                @include('front.documents._doc_cards')
+
+                @if ($i == ($start + 2) || $i == count($instances) - 1)
+                    </div>
+                @endif
+
+            @endfor
+        </div>
+
     </div>
+
 
 @endsection
 

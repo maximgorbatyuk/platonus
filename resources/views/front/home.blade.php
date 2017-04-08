@@ -42,22 +42,26 @@
                 <span class="float-md-right"><a href="{{ url('documents') }}" class="btn btn-outline-info">Все документы</a></span>
             </div>
 
-            @if(count($model->documents) > 0)
-                <div class="row">
-                    @foreach($model->documents as $instance)
-                        @include('front.documents._doc_cards')
-                    @endforeach
-                </div>
-            @endif
+            @for($i = 0; $i < count($model->documents); $i++)
 
-            @if (count($model->documents) > 3)
-                <div class="row">
-                    @for($i=2; $i < count($model->documents); $i++)
-                        @php($instance = $model->documents[$i])
+                @php
+                    $instance = $model->documents[$i];
+                    $start = 0;
+                @endphp
+                @if ($i % 3 == 0)
+
+                    @php($start = $i)
+                    <div class="row mt-1">
+
+                        @endif
+
                         @include('front.documents._doc_cards')
-                    @endfor
-                </div>
-            @endif
+
+                        @if ($i == ($start + 2) || $i == count($model->documents) - 1)
+                    </div>
+                @endif
+
+            @endfor
 
         </div>
 

@@ -4,7 +4,7 @@
     @endphp
 
     <div class="col-md-4">
-        <div class="card card-block text-md-center mt-1">
+        <div class="card card-block h-100">
             <a href="{{ url('documents/'.$instance->id) }}" class="h5">
                 {{ $instance->title }} #{{ $instance->id }}
             </a>
