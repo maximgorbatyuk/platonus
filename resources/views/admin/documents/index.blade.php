@@ -37,7 +37,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('thirdparty/dataTables/datatables.min.js') }}"></script>
+    <script src="{{ asset('thirdparty/dataTables/datatables.js') }}"></script>
     <script src="{{ asset('custom/js/DataTable.js') }}"></script>
     <script>
         $(document).ready(function(){
@@ -47,5 +47,5 @@
     </script>
 @endsection
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('thirdparty/dataTables/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('thirdparty/dataTables/datatables.css') }}">
 @endsection
