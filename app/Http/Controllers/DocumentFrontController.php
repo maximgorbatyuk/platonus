@@ -93,18 +93,4 @@ class DocumentFrontController extends Controller
     {
         throw new NotFoundHttpException();
     }
-
-    /**
-     * Открывает страницу, принимая и гет, и пост-параметры
-     * @param Request $request
-     * @param int $question
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function openTest(Request $request, int $question = -1)
-    {
-        $method = $request->method();
-        if ($method == "GET") {
-            return view('front.documents.create');
-        }
-    }
 }

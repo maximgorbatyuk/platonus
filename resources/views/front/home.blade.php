@@ -8,8 +8,8 @@
 
     <div id="jumb-back" class="jumbotron-fluid pt-10 pb-5">
         <div class="container text-center ">
-            <div id="jumb-text">
-                <h1 class="display-3 my-2">Platest</h1>
+            <div id="jumb-text" class="my-1 py-2">
+                <h1 class="display-3">Platest</h1>
                 <p class="lead">
                     Пробное тестирование Platonus
                 </p>
