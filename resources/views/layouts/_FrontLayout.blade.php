@@ -6,10 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <meta name="keywords" content="Platest, Platonus, тесты Плантонус, пробные тесты платонус, тестирование platonus, туран, университет" />
+    @include('layouts._OpenGraphMeta')
+
     <meta name="robots" content="robots.txt">
 
-    <title>@yield('title', "Platest")</title>
-    <!--title>{{ config('app.name', 'Laravel') }}</title-->
+    <title>@yield('title', config('app.name', 'Platest').' - тесты, радость и веселье')</title>
 
     <link href="{{ asset('bt/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('thirdparty/fa/font-awesome.min.css') }}" rel="stylesheet" >
