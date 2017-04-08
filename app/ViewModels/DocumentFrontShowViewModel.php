@@ -23,4 +23,30 @@ class DocumentFrontShowViewModel
 
     /** @var  Question[] */
     public $questions;
+
+    /**
+     * Можно проиницировать объект сразу
+     * DocumentFrontShowViewModel constructor.
+     * @param Document|null $document Объект документа
+     * @param QuestionTest|null $questionTest Объект теста
+     * @param array|null $questions Список вопросов теста
+     */
+    function __construct(Document $document = null,
+                        QuestionTest $questionTest = null,
+                        array $questions = null
+                    )
+    {
+        if (!is_null($document)) {
+            $this->document = $document;
+        }
+
+        if (!is_null($questionTest)) {
+            $this->test = $questionTest;
+        }
+
+        if (!is_null($questions)) {
+            $this->questions = $questions;
+        }
+
+    }
 }

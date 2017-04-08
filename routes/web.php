@@ -25,6 +25,14 @@ Route::group(['prefix'=>'admin'], function(){
 
 Route::resource('documents', 'DocumentFrontController');
 
+#region Тестирование
+
+Route::get('test/start/{id}', 'TestController@start');
+Route::get('test/question', 'TestController@question');
+Route::get('test/result', 'TestController@question');
+
+#endregion
+
 
 
 Route::any('/file-uploads', 'UploadController@fineUpload');

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\LogicModels\QuestionTest;
+use App\Models\Document;
+use App\ViewModels\DocumentFrontShowViewModel;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -12,11 +15,25 @@ class TestController extends Controller
      * @param int $id Айди документа, который открывается для тестирования
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function openTest(Request $request, int $id)
+    public function start(Request $request, int $id)
     {
-        $method = $request->method();
-        if ($method == "GET") {
-            return view('front.documents.create');
-        }
+        /** @var Document $document */
+        $document = Document::find($id);
+        $test = new QuestionTest($document->file->getFileContent());
+        $questions = $test->getQuestions();
+
+        $model = new DocumentFrontShowViewModel($document, $test, $questions);
+        return view('front.test.start', ['model' => $model]);
     }
+
+    public function question(Request $request)
+    {
+        return view('front.test.question');
+    }
+
+    public function result(Request $request, int $id)
+    {
+        return view('front.test.result');
+    }
+
 }

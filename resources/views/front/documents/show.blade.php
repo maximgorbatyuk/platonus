@@ -1,25 +1,45 @@
 
 @extends('layouts._FrontLayout')
-@section('title', 'Документ')
 
 @php
     /** @var App\ViewModels\DocumentFrontShowViewModel $model */
 @endphp
+
+@section('title', 'Документ '.$model->document->title)
 
 @section('content')
 
     <div class="container mt-2">
         <div class="card">
             <div class="card-block">
-                <h1>#{{ $model->document->id }} {{ $model->document->title }}</h1>
-                <p class="text-muted">
-                    Создан: {{ $model->document->CreatedAt() }}. Кол-во вопросов {{ count($model->questions) }}
-                </p>
+                <h2>#{{ $model->document->id }} {{ $model->document->title }}</h2>
+
+                <div class="text-muted d-inline-flex">
+                    <dl class="row">
+                        <dt class="col-sm-6  text-md-right">Просмотров</dt>
+                        <dd class="col-sm-6">{{ $model->document->views }}</dd>
+
+                        <dt class="col-sm-6  text-md-right">Вопросов</dt>
+                        <dd class="col-sm-6">{{ $model->document->question_count }}</dd>
+                    </dl>
+
+                    <dl class="row ">
+                        <dt class="col-sm-6 text-md-right">ID</dt>
+                        <dd class="col-sm-6">{{ $model->document->id }}</dd>
+
+                        <dt class="col-sm-6 text-md-right">Создан</dt>
+                        <dd class="col-sm-6">{{ $model->document->CreatedAt() }}</dd>
+                    </dl>
+
+                </div>
+
                 <div class="mt-1">
 
                     <a class="btn btn-secondary float-md-left"
-                       data-toggle="collapse" href="#questions" aria-expanded="false" aria-controls="questions">Раскрыть</a>
-                    <a href="#" class="btn btn-primary float-md-right">Пройти тестирование</a>
+                       data-toggle="collapse" href="#questions" aria-expanded="false" aria-controls="questions">Раскрыть вопросы</a>
+                    {{ link_to_action('TestController@start', 'Начать тестирование',
+                        ['id' => $model->document->id],
+                        ['class'=>'btn btn-primary float-md-right']) }}
 
                 </div>
             </div>

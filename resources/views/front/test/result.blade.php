@@ -1,6 +1,7 @@
+
 @extends('layouts._FrontLayout')
 
-@section('title', 'Platest - о портале')
+@section('title', 'Тестирование')
 
 @section('content')
 

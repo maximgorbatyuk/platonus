@@ -10,10 +10,10 @@
                         <a href="https://vk.com/maximgorbatyuk">Профиль разработчика</a>
                     </li>
                     <li>
-                        <a href="{{ url('about') }}">Поддержать проект</a>
+                        <a href="{{ url('about/#donate') }}">Поддержать проект</a>
                     </li>
                     <li>
-                        <a href="{{ url('about') }}">О портале</a>
+                        <a href="{{ url('about/') }}">О портале</a>
                     </li>
                 </ul>
             </div>
