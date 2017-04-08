@@ -48,7 +48,7 @@ class DocumentFrontController extends Controller
         if (is_null($document))
         {
             $uuid = $request->input('uuid');
-            $file = $this->getFile($uuid);
+            $file = $this->getFileByUuid($uuid);
 
             if (!is_null($file))  {
                 $file->delete();
@@ -69,6 +69,10 @@ class DocumentFrontController extends Controller
 
         $model = new DocumentFrontShowViewModel();
         $model->document = Document::find($id);
+
+        $model->document->views += 1;
+        $model->document->save();
+
         $model->test = new QuestionTest($model->document->file->getFileContent());
         $model->questions = $model->test->getQuestions();
 

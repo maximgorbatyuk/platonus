@@ -41,6 +41,10 @@ class Document extends Ardent
         return $this->updated_at->format('d.m.Y');
     }
 
+    public function CreatedAt() {
+        return $this->created_at->format('d.m.Y');
+    }
+
 
     /**
      * Удаление инстанса со связанным файлом в файловой системе и в БД

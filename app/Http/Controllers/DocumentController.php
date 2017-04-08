@@ -82,12 +82,10 @@ class DocumentController extends Controller
         }
 
         $document = $this->getUpdatedDocument($id, $request);
-        if ($document->errors())
+        if (!is_null($document))
         {
             return Redirect::action('DocumentController@edit',
-                [ "id" => $document->id ])
-                ->withErrors($document->errors())
-                ->withInput($request->input());
+                [ "id" => $document->id ]);
         }
 
         flash("Данные сохранены!", Constants::Success);

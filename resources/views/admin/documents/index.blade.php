@@ -5,18 +5,13 @@
 @section('content')
     <div class="container">
         <h1 class="mt-2">Загруженные документы</h1>
-        <div class="mb-1">
-
-            {{ link_to_action('DocumentController@create', 'Создать запись', [], ['class'=>'btn btn-link']) }}
-        </div>
 
         <table class="table table-striped dataTable">
             <thead>
             <tr>
                 <th>ID</th>
-                <th>название</th>
-                <th>Имя файла</th>
-                <th>Путь</th>
+                <th>Название</th>
+                <th>Просмотры</th>
                 <th>Создан</th>
             </tr>
             </thead>
@@ -25,8 +20,7 @@
                 <tr>
                     <td>{{ $instances[$i]->id }}</td>
                     <td>{{ link_to_action('DocumentController@show', $instances[$i]->title, ['id' => $instances[$i]->id]) }}</td>
-                    <td>{{ $instances[$i]->filename  }}</td>
-                    <td>{{ $instances[$i]->path  }}</td>
+                    <td>{{ $instances[$i]->views  }}</td>
                     <td>{{ $instances[$i]->created_at  }}</td>
                 </tr>
 

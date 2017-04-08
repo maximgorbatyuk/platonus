@@ -31,7 +31,7 @@ trait DocumentTrait
     protected function getCreatedDocument(Request $request)
     {
         $uuid = $request->input('uuid');
-        $file = $this->getFile($uuid);
+        $file = $this->getFileByUuid($uuid);
 
         if (is_null($file)) {
             return null;
@@ -55,10 +55,13 @@ trait DocumentTrait
      */
     protected function getUpdatedDocument(string $id, Request $request) : Document
     {
-        $uuid = $request->input('uuid');
-        $file = $this->getFile($uuid);
+        /** @var Document $document */
+        $document = Document::find($id);
+        $document->title = $request->input('title');
+        $document->views = $request->input('views');
+        $document->description = $request->input('description');
 
-        $document = $this->constructDocument($request, $file, $id);
+
         $saveResult = $document->save();
 
         if ($saveResult == false)
@@ -83,7 +86,7 @@ trait DocumentTrait
      * @param string $uuid
      * @return File|null
      */
-    protected function getFile(string $uuid)
+    protected function getFileByUuid(string $uuid)
     {
         $file = File::where('uuid', "=", $uuid)->first();
         return $file;
