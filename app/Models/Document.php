@@ -13,6 +13,7 @@ use LaravelArdent\Ardent\Ardent;
  * @property string $filename Краткое имя файла
  * @property string $path Полный путь до файла
  * @property string $description Описание файла
+ * @property int $views Описание файла
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @mixin \Eloquent
