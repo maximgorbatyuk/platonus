@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-toggleable-md navbar-inverse bg-indigo">
+<nav class="navbar navbar-toggleable-sm navbar-inverse bg-indigo">
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

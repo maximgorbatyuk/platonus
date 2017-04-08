@@ -37,18 +37,15 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('thirdparty/dataTables/dataTables.min.js') }}"></script>
+    <script src="{{ asset('thirdparty/dataTables/datatables.min.js') }}"></script>
+    <script src="{{ asset('custom/js/DataTable.js') }}"></script>
     <script>
-        var url = '/thirdparty/dataTables/i18n/ru.json';
         $(document).ready(function(){
-            $('.dataTable').DataTable({
-                language: {
-                    url: "http//cdn.datatables.net/plug-ins/1.10.13/i18n/Russian.json"
-                }
-            });
+            var dataTable = new DataTable('dataTable');
+            $(".dataTables_wrapper").css("width","100%");
         });
     </script>
 @endsection
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('thirdparty/dataTables/dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('thirdparty/dataTables/datatables.min.css') }}">
 @endsection

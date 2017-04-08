@@ -17,6 +17,7 @@
 - [Как](http://stackoverflow.com/questions/37474887/how-to-use-a-vendor-class-in-laravel) использовать сервер fine-uploader'а
 - [Решение](https://laracasts.com/discuss/channels/laravel/parse-error-syntax-error-unexpected-expecting-or-variable-t-variable-in-pathsitevendorlaravelframeworksrcilluminatefoundationhelpersphp-on-line-475) ошибки синтаксиса в либовсом файле
 - [Инструкция](http://stackoverflow.com/questions/38104348/install-php-zip-on-php-5-6-on-ubuntu) по установке zip-либы
+ - [Как](http://stackoverflow.com/questions/9847177/datatables-width-not-being-set-correctly) сделать таблицу dataTables во всю ширину родителя
 
 ## Полезные команды студии/фреймворка
 ``
