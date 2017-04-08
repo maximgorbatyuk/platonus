@@ -60,3 +60,33 @@ footer {
 .nounderline{
     text-decoration: none
 }
+
+
+.btn-outline-orange {
+    color: #f08f1a  !important;
+    background: transparent none;
+    border-color: #f08f1a;
+}
+
+.btn-outline-orange:hover {
+    color: #000000 !important;
+    background-color: #f08f1a;
+    border-color: #f08f1a;
+}
+
+.btn-outline-orange:focus, .btn-outline-orange.focus {
+    -webkit-box-shadow: 0 0 0 2px rgba(214, 120, 26, 0.89);
+    box-shadow: 0 0 0 2px rgba(214, 120, 26, 0.89);
+}
+
+.btn-outline-orange.disabled, .btn-outline-orange:disabled {
+    color: rgba(240, 143, 26, 0.7);
+    background-color: transparent;
+}
+
+.btn-outline-orange:active, .btn-outline-orange.active,
+.show > .btn-outline-orange.dropdown-toggle {
+    color: #000000 !important;
+    background-color: #f08f1a;
+    border-color: #f08f1a;
+}

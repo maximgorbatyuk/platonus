@@ -1,3 +1,38 @@
+
+
+var fineUploader = {
+    Initiate : function() {
+        var displayModal = function (body) {
+            var modal = $('#notificationModal');
+            modal.find('.modal-body').html(body);
+            modal.modal('show');
+        };
+
+
+        var onSuccess = function(id, fileName, responseJSON) {
+
+            if (responseJSON.success == true) {
+                $('#fine-form').submit();
+            }
+            //
+        };
+
+        var onError = function(id, name, errorReason, xhr) {
+            var response = JSON.parse(xhr.responseText);
+            var body = "Файл " + response.uploadName +" не был сохранен. <br>"+
+                "Сервер ляпнул следующее:<br><b class='text-danger'>"+response.error+"</b>";
+            displayModal(body);
+        };
+
+        var fineWrapper = new FineWrapper({
+            onCompleteHandler : onSuccess,
+            onErrorHandler : onError
+        });
+        return fineWrapper;
+    }
+};
+
+
 /**
  * Класс-обертка для Файн-аплодера
  * @constructor

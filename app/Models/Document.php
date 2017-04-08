@@ -57,4 +57,15 @@ class Document extends Ardent
         return parent::delete();
     }
 
+    public static function getTop(int $limit){
+
+        $rows = \DB::table('documents')
+            ->select()
+            ->orderByDesc('views')
+            ->limit($limit)
+            ->get();
+
+        return $rows;
+    }
+
 }

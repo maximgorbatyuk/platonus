@@ -16,13 +16,17 @@
             </p>
             <div class="my-1 text-center">
 
-                {{ link_to_action('DocumentFrontController@create', 'Создать запись', [], ['class'=>'btn btn-primary', 'id' => 'load-button']) }}
+                {{ link_to_action('DocumentFrontController@create', 'Создать запись', [], ['class'=>'btn btn-outline-info', 'id' => 'load-button']) }}
             </div>
 
             <div class="mt-1">
 
-                @include('front.documents._doc_cards')
+                <div class="row">
+                    @foreach($instances as $instance)
+                        @include('front.documents._doc_cards')
+                    @endforeach
 
+                </div>
             </div>
         </div>
     </div>

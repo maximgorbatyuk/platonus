@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Document;
 use Auth;
 use Illuminate\Http\Request;
+use App\ViewModels\HomePageViewModel;
 
 class HomeController extends Controller
 {
@@ -15,7 +17,9 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('front.home');
+        $model = new HomePageViewModel();
+        $model->documents = Document::getTop(6);
+        return view('front.home', ['model' => $model]);
     }
 
     public function about(){
