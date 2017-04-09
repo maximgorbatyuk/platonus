@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\LogicModels\QuestionTest;
 use App\Models\Document;
 use App\ViewModels\DocumentFrontShowViewModel;
+use Carbon\Carbon;
+use Illuminate\Cookie\CookieJar;
 use Illuminate\Http\Request;
+use Session;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class TestController extends Controller
 {
@@ -23,11 +27,13 @@ class TestController extends Controller
         $questions = $test->getQuestions();
 
         $model = new DocumentFrontShowViewModel($document, $test, $questions);
+
         return view('front.test.start', ['model' => $model]);
     }
 
     public function question(Request $request)
     {
+
         return view('front.test.question');
     }
 

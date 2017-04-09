@@ -29,7 +29,8 @@ Route::resource('documents', 'DocumentFrontController');
 
 Route::get('test/start/{id}', 'TestController@start');
 Route::get('test/question', 'TestController@question');
-Route::get('test/result', 'TestController@question');
+Route::post('test/question', 'TestController@question');
+Route::get('test/result', 'TestController@result');
 
 #endregion
 
