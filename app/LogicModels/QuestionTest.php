@@ -60,7 +60,7 @@ class QuestionTest
     {
         $result = null;
         for($i = 0; $i < count($this->questions);$i++) {
-            if ($this->questions[$i]->getOrderIndex() != $orderIndex) continue;
+            if ($this->questions[$i]->getId() != $orderIndex) continue;
 
             $result = $this->questions[$i];
             break;

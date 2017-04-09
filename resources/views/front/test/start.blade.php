@@ -32,9 +32,9 @@
                     {{ Form::hidden('current_id', null) }}
 
                     <div class="form-group row">
-                        {{ Form::label('question_limit', 'Лимит вопросов', ['class' => 'col-md-3 col-form-label']) }}
+                        {{ Form::label('limit', 'Лимит вопросов', ['class' => 'col-md-3 col-form-label']) }}
                         <div class="col-md-9">
-                            {{ Form::select('question_limit', [
+                            {{ Form::select('limit', [
                                 '0' => 'Все вопросы',
                                 '1' => '25 вопросов'
                             ], null, ['class' => 'form-control', 'required' => true]) }}
@@ -42,9 +42,9 @@
                     </div>
 
                     <div class="form-group row">
-                        {{ Form::label('show_correct', 'Режим тестирования', ['class' => 'col-md-3 col-form-label']) }}
+                        {{ Form::label('display_correct', 'Режим тестирования', ['class' => 'col-md-3 col-form-label']) }}
                         <div class="col-md-9">
-                            {{ Form::select('show_correct', [
+                            {{ Form::select('display_correct', [
                                 '1' => 'Подготовка (с указанием верного ответа)',
                                 '0' => 'Аки сессия (нельзя подсмотреть верный ответ)'
                             ], null, ['class' => 'form-control', 'required' => true]) }}

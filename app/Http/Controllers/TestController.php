@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\LogicModels\QuestionTest;
 use App\Models\Document;
 use App\ViewModels\DocumentFrontShowViewModel;
+use App\ViewModels\TestQuestionViewModel;
 use Carbon\Carbon;
 use Illuminate\Cookie\CookieJar;
 use Illuminate\Http\Request;
@@ -33,6 +34,8 @@ class TestController extends Controller
 
     public function question(Request $request)
     {
+        $model = new TestQuestionViewModel();
+        $doc = $request->input('document_id');
 
         return view('front.test.question');
     }

@@ -20,7 +20,7 @@ class Question
     private $answer;
 
     /** @var int Изначальный орядок вопроса в тесте */
-    private $orderIndex = -1;
+    private $id = -1;
 
     /**
      * Question constructor.
@@ -34,7 +34,7 @@ class Question
         $this->content = $content;
         $this->answer = $answer;
         $this->variants = $variants;
-        $this->orderIndex = $index;
+        $this->id = $index;
     }
 
     /**
@@ -47,14 +47,15 @@ class Question
     }
 
     /**
-     * Возвращает изначальный индекс порядка вопроса, даже если была совершена сортировка
+     * Возвращает айди как изначальный индекс порядка вопроса, даже если была совершена сортировка
      * @return int
      */
-    public function getOrderIndex(): int
+    public function getId(): int
     {
-        return $this->orderIndex;
+        return $this->id;
     }
 
+    #region Геттеры
     /**
      * Получение контента
      * @return string
@@ -103,6 +104,8 @@ class Question
     {
         $this->variants = $variants;
     }
+
+    #endregion
 
 
 }

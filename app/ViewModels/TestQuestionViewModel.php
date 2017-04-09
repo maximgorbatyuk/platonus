@@ -30,7 +30,7 @@ class TestQuestionViewModel
     public $limit = 25;
 
     /** @var bool Есть ли кнопка "Показать верный" */
-    public $could_see_correct = true;
+    public $display_correct = true;
 
     /** @var array Массив айдишников вопросов по рандомному порядку */
     public $question_order = [];
