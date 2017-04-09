@@ -15,4 +15,6 @@ abstract class Constants
     const Error = "danger";
     const Info = "info";
     const Warning = "warning";
+
+    const NotFoundSmile = '¯\_(ツ)_/¯';
 }

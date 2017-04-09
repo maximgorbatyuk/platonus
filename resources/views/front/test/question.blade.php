@@ -3,6 +3,7 @@
 
 @php
     /** @var App\ViewModels\TestQuestionViewModel $model */;
+    $variants = $model->current_question->getVariants();
 @endphp
 
 @section('title', 'Вопрос #')
@@ -31,15 +32,21 @@
                     <p>
                         {{ $model->current_question->getContent() }}
                     </p>
-                    @foreach($model->current_question->getVariants() as $variant)
-
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="answer"> {{ $variant }}
-                        </label>
-
-                    @endforeach
-
                 </div>
+
+                @for($i = 0; $i < count($variants); $i++)
+
+                    <div class="form-group">
+                        <label class="form-check-label">
+                            <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="answer"
+                                    value="{{ $variants[$i] }}" {{ ($i == 0 ? "checked" : "") }}> {{ $variants[$i] }}
+                        </label>
+                    </div>
+
+                @endfor
 
                 {{Form::close()}}
 

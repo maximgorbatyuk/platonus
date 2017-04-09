@@ -73,7 +73,7 @@ class QuestionTest
      * @param bool $withVars
      * @return bool
      */
-    public function shuffleQuestions(bool $withVars = false) : bool
+    public function shuffleQuestions(bool $withVars = true) : bool
     {
         $res = shuffle($this->questions);
         if ($withVars == true) {
