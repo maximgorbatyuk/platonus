@@ -29,7 +29,7 @@
 
                     {{ Form::hidden('document_id', $model->document->id) }}
                     {{ Form::hidden('question_count', $model->document->question_count) }}
-                    {{ Form::hidden('current_id', null) }}
+                    {{ Form::hidden('current_pos', null) }}
 
                     <div class="form-group row">
                         {{ Form::label('limit', 'Лимит вопросов', ['class' => 'col-md-3 col-form-label']) }}

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Constants;
+use App\Helpers\VarDumper;
+use App\LogicModels\Question;
 use App\LogicModels\QuestionTest;
 use App\Models\Document;
 use App\ViewModels\DocumentFrontShowViewModel;
@@ -50,8 +52,8 @@ class TestController extends Controller
         $model->display_correct = $request->input('display_correct');
         $model->limit = $request->input('limit');
 
-        $currentQuestionId = $request->input('current_id');
-        if (is_null($currentQuestionId))
+        $current_pos = $request->input('current_pos');
+        if (is_null($current_pos))
         {
             // Если текущий вопрос null, значит тест только начался
             $test->shuffleQuestions(true);
@@ -61,25 +63,67 @@ class TestController extends Controller
             {
                 $q_order[$i] = $model->questions[$i]->getId();
             }
-
-            $model->current_question = $model->questions[0];
-            $model->current_id = 0;
+            $model->question_order = $q_order;
+            $model->current_pos = 0;
+            $model->current_question = $model->questions[$model->current_pos];
             $model->answered_questions = [];
             $model->answers = [];
-
+            $model->question_count = count($model->questions);
+            $model->progress_value = 0;
         }
         else
         {
+            $model->question_order = \GuzzleHttp\json_decode($request->input('question_order'));
+            $model->questions = $this->getQuestionsInOrder($test, $model->question_order);
 
+            $model->answered_questions = \GuzzleHttp\json_decode($request->input('answered_questions'));
+            $model->answers = \GuzzleHttp\json_decode($request->input('answers'));
+
+            $model->current_pos = intval($request->input('current_pos'));
+
+            $model->answered_questions[$model->current_pos] =$model->questions[$model->current_pos]->getId();
+            $model->answers[$model->current_pos] = $request->input('answer');
+
+            $model->current_pos = $model->current_pos + 1;
+
+            $model->current_question = $model->questions[$model->current_pos];
+
+            $model->limit = intval($request->input('limit'));
+            $model->display_correct = intval($request->input('display_correct'));
+            $model->question_count = count($model->questions);
+            $model->progress_value = intval(($model->current_pos / $model->question_count) * 100);
+
+            if ($model->current_pos == $model->question_count - 1) {
+                $model->progress_value = 100;
+                $model->is_last = true;
+            }
+            //VarDumper::VarExport($model);
         }
 
 
         return view('front.test.question', ['model' => $model]);
     }
 
-    public function result(Request $request, int $id)
+    public function result(Request $request)
     {
+        VarDumper::VarExport($request->input());
         return view('front.test.result');
+    }
+
+    /**
+     * @param QuestionTest $test
+     * @param array $order
+     * @return Question[]
+     */
+    private function getQuestionsInOrder(QuestionTest $test, array $order) : array
+    {
+        $result = [];
+        for($i = 0; $i < count($order); $i++)
+        {
+            $result[$i] = $test->getQuestion($order[$i]);
+        }
+        return $result;
+
     }
 
 }

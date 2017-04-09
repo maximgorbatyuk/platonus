@@ -25,6 +25,7 @@ trait TestProcessingTrait
 
         $result = [];
         $questionSplit = $this->splitContentByQuestions($fileContent);
+        $index = 0;
 
         for($i = 0; $i < count($questionSplit); $i++)
         {
@@ -32,7 +33,8 @@ trait TestProcessingTrait
             $qSource = $this->getQuestionSource($item);
 
             if (count($qSource) < 3) continue;
-            $result[] = $this->convertSourceToQuestion($i, $qSource);
+            $result[] = $this->convertSourceToQuestion($index, $qSource);
+            $index++;
         }
 
         return $result;

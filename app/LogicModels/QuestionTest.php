@@ -45,7 +45,7 @@ class QuestionTest
      */
     public function getQuestion(int $index)
     {
-        if ($index < 0 || $index > count($this->questions)) {
+        if ($index < 0 || $index >= count($this->questions)) {
             return null;
         }
         return $this->questions[$index];

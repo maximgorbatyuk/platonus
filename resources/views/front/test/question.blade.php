@@ -15,16 +15,29 @@
 
             <div class="d-flex w-100 justify-content-between">
                 <h2>Тестирование </h2>
-                <div class="text-muted">5 вопрос из 25</div>
+                <div class="text-muted">{{ $model->current_pos+1 }} вопрос из {{ $model->question_count }}</div>
+            </div>
+
+            <div class="progress my-3">
+                <div class="progress-bar"
+                     role="progressbar"
+                     style="width: {{ $model->progress_value }}%"
+                     aria-valuenow="{{ $model->progress_value }}"
+                     aria-valuemin="0"
+                     aria-valuemax="100"></div>
             </div>
 
             @if (isset($model))
 
-                {{ Form::open(['action' => 'TestController@question', 'id' => 'question_form']) }}
+                @php
+                    $action = $model->is_last == true ? 'TestController@result' : 'TestController@question';
+                @endphp
+
+                {{ Form::open(['action' => $action, 'id' => 'question_form']) }}
 
                 {{ Form::hidden('document_id', $model->document->id) }}
                 {{ Form::hidden('limit', $model->limit) }}
-                {{ Form::hidden('current_id', $model->current_question->getId()) }}
+                {{ Form::hidden('current_pos', $model->current_pos) }}
                 {{ Form::hidden('display_correct', $model->display_correct) }}
 
                 {{ Form::hidden('question_order', \GuzzleHttp\json_encode($model->question_order)) }}
@@ -51,9 +64,7 @@
 
                 @endfor
 
-                <div class="progress my-3">
-                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+
 
                 <div class="form-group row">
                     <div class="col-md-6">

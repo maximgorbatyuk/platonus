@@ -18,7 +18,7 @@ class TestQuestionViewModel
     public $document;
 
     /** @var int Номер текущего вопроса */
-    public $current_id;
+    public $current_pos;
 
     /** @var Question[] Массив вопросов в том порядке и кол-ве, в котором их нужно выводить */
     public $questions;
@@ -40,4 +40,13 @@ class TestQuestionViewModel
 
     /** @var array Массив ответов юзера на вопросы */
     public $answers = [];
+
+    /** @var int Значение прогресс-бара */
+    public $progress_value = 0;
+
+    /** @var int Кол-во вопросов */
+    public $question_count = 0;
+
+    /** @var bool Сигнализирует о том, последний ли вопрос выведен */
+    public $is_last = false;
 }
