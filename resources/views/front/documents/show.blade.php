@@ -33,60 +33,48 @@
 
                 </div>
 
-                <div class="mt-1">
+                <div class="mt-1 d-flex w-100 justify-content-between">
 
-                    <a class="btn btn-secondary float-md-left"
-                       data-toggle="collapse" href="#questions" aria-expanded="false" aria-controls="questions">Раскрыть вопросы</a>
-                    {{ link_to_action('TestController@start', 'Начать тестирование',
-                        ['id' => $model->document->id],
-                        ['class'=>'btn btn-primary float-md-right']) }}
+                    <a href="{{ url('test') }}" class="btn btn-secondary">К документам</a>
+                    <a href="{{ url('test/start/'.$model->document->id) }}" class="btn btn-primary">Начать тест <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
 
                 </div>
             </div>
         </div>
-        <div class="mt-1">
 
-            <div class="collapse" id="questions">
-                <div class="card card-block">
-                    <h3>Вопросы</h3>
-                    @for($i = 1; $i <= count($model->questions); $i++)
+        <div class="list-group mt-1">
 
-                        @php
-                            /** @var \App\LogicModels\Question $question */
-                            $question = $model->questions[$i - 1];
-                        @endphp
-                        <dl class="row">
-                            <dt class="col-sm-6">
-                                {{ $i - 1 }}) {{ $question->getContent() }}
-                            </dt>
-                            <dd class="col-sm-6">
-                                <ul>
-                                    @php($variants = $question->getVariants())
-                                    @for($n = 0; $n < count($variants); $n++)
-                                        <li>
-                                            @if ($n == 0)
-                                                <i><u>{{ $variants[$n] }}</u></i>
-                                            @else
-                                                <span class="text-muted">
-                                                    {{ $variants[$n] }}
-                                                </span>
-                                            @endif
-                                        </li>
-                                    @endfor
-                                </ul>
+            @for($i = 1; $i <= count($model->questions); $i++)
 
-                            </dd>
+                @php
+                    /** @var \App\LogicModels\Question $question */
+                    $question = $model->questions[$i - 1];
+                @endphp
 
-                        </dl>
-                        <hr>
-                    @endfor
+                <div class="list-group-item flex-column align-items-start">
+                    <p class="my-1">
+                        {{ $i - 1 }}) {{ $question->getContent() }}
+                    </p>
+                    <div class="mb-1">
+                        <ul>
+                            @php($variants = $question->getVariants())
+                            @for($n = 0; $n < count($variants); $n++)
+                                <li>
+                                    @if ($n == 0)
+                                        <i><u>{{ $variants[$n] }}</u></i>
+                                    @else
+                                        <span class="text-muted">
+                                                {{ $variants[$n] }}
+                                            </span>
+                                    @endif
+                                </li>
+                            @endfor
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-
-
+            @endfor
         </div>
-
     </div>
 
 @endsection

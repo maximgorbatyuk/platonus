@@ -24,41 +24,42 @@
                 </div>
             </div>
 
-            <div class="my-2 d-flex w-100 justify-content-between">
-                <button>Выйти</button>
-                <button>Поделиться</button>
+            <div class="d-md-flex w-100 justify-content-between">
+                {{ link_to_action('DocumentFrontController@index', 'Выбрать тест',
+                        [], ['class'=>'btn btn-outline-primary']) }}
+
+                {{ link_to_action('TestController@start', 'Начать снова',
+                    ['id' => $model->document->id],
+                    ['class'=>'btn btn-primary']) }}
+
             </div>
+        </div>
+        <div class="list-group mt-1">
+            @for($i = 0; $i < count($model->user_answers); $i++)
+                @php
+                    $answer = $model->user_answers[$i];
+                    $bg = $answer->isCorrect ? "bg-success-answer" : "bg-danger-answer";
+                    $point = $answer->isCorrect ? 1 : 0;
+                @endphp
 
-            <div class="list-group mt-1">
-                @for($i = 0; $i < count($model->user_answers); $i++)
-                    @php
-                        $answer = $model->user_answers[$i];
-                        $bg = $answer->isCorrect ? "bg-success-answer" : "bg-danger-answer";
-                        $point = $answer->isCorrect ? 1 : 0;
-                    @endphp
 
-
-                    <div href="#" class="list-group-item flex-column align-items-start {{$bg}}">
-                        <div class="d-flex w-100 justify-content-between">
-                            <div class="mb-1 h5">Вопрос #{{ $i + 1 }}</div>
-                            <small>Балл: {{ $point }}</small>
-                        </div>
-                        <p class="mb-1">{{ $answer->content }}</p>
-                        <p class="mb-1"><u><i>Правильный ответ:</i></u> {{ $answer->answer }}</p>
-
-                        <small>
-                            @if($answer->isCorrect)
-                                Ответ правильный
-                            @else
-                                {{ $answer->answered }}
-                            @endif
-                        </small>
+                <div href="#" class="list-group-item flex-column align-items-start {{$bg}}">
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="mb-1 h5">Вопрос #{{ $i + 1 }}</div>
+                        <small>Балл: {{ $point }}</small>
                     </div>
-                @endfor
-            </div>
+                    <p class="mb-1">{{ $answer->content }}</p>
+                    <p class="mb-1"><u><i>Правильный ответ:</i></u> {{ $answer->answer }}</p>
 
-
-
+                    <small>
+                        @if($answer->isCorrect)
+                            Ответ правильный
+                        @else
+                            {{ $answer->answered }}
+                        @endif
+                    </small>
+                </div>
+            @endfor
         </div>
     </div>
 @endsection

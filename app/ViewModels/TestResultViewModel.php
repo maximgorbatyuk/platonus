@@ -36,5 +36,5 @@ class TestResultViewModel
      * Шаринг для сетей
      */
 
-    
+
 }

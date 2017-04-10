@@ -64,11 +64,9 @@
 
 
 
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-outline-danger">Закончить</button>
-                    </div>
-                    <div class="col-md-6 text-md-right">
+                <div class="form-group d-flex w-100 justify-content-between">
+                    <button type="button" class="btn btn-outline-danger">Закончить</button>
+                    <div>
                         <button type="button" class="btn btn-outline-success">Правильный</button>
                         <button type="submit" class="btn btn-primary">Далее <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                     </div>
