@@ -137,3 +137,11 @@ footer {
     -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
 }
+
+.bg-success-answer {
+    background-color: rgba(92, 184, 92, 0.5) !important;
+}
+
+.bg-danger-answer{
+    background-color: rgba(217, 83, 79, 0.5) !important;
+}

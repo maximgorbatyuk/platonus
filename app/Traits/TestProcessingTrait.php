@@ -70,11 +70,12 @@ trait TestProcessingTrait
      */
     protected function convertSourceToQuestion(int $index, array $questionSource) : Question
     {
-        $content = $questionSource[0];
-        $correct = $questionSource[1];
+        $content = trim($questionSource[0]);
+        $correct = trim($questionSource[1]);
         $vars = [];
         for ($i = 1; $i < 6;$i++) {
-            $vars[] = $questionSource[$i] ?? "[Вариант $i потерялся]";
+            $variant = $questionSource[$i] ?? "[Вариант $i потерялся]";
+            $vars[] = trim($variant);
         }
 
         $result = new Question($index, $content, $correct, $vars);

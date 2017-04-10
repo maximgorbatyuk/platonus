@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="mt-0 w-100">
-                <a href="#" class="btn-card btn-primary w-100">Открыть</a>
+                <a href="{{ url('documents/'.$instance->id) }}" class="btn-card btn-primary w-100">Открыть</a>
             </div>
         </div>
     </div>

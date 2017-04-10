@@ -26,8 +26,8 @@ class TestQuestionViewModel
     /** @var Question Текущий вопрос */
     public $current_question;
 
-    /** @var int Устанровленый лимит вопросов */
-    public $limit = 25;
+    /** @var bool Устанровленый лимит вопросов */
+    public $limit = true;
 
     /** @var bool Есть ли кнопка "Показать верный" */
     public $display_correct = true;

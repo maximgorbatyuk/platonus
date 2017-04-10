@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Cheer;
 use App\Helpers\Constants;
+use App\Helpers\Swears;
 use App\Helpers\VarDumper;
+use App\LogicModels\AnsweredQuestion;
 use App\LogicModels\Question;
 use App\LogicModels\QuestionTest;
 use App\Models\Document;
 use App\ViewModels\DocumentFrontShowViewModel;
 use App\ViewModels\TestQuestionViewModel;
+use App\ViewModels\TestResultViewModel;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -46,9 +50,9 @@ class TestController extends Controller
         $model = new TestQuestionViewModel();
 
         $model->document = $document;
-        $model->display_correct = $request->input('display_correct');
-        $model->show_swears = $request->input('show_correct', false);
-        $model->limit = $request->input('limit');
+        $model->display_correct = filter_var($request->input('display_correct') , FILTER_VALIDATE_BOOLEAN);
+        $model->show_swears     = filter_var($request->input('show_correct') , FILTER_VALIDATE_BOOLEAN);
+        $model->limit           = filter_var($request->input('limit') , FILTER_VALIDATE_BOOLEAN);
 
         $current_pos = $request->input('current_pos');
         if (is_null($current_pos))
@@ -79,11 +83,11 @@ class TestController extends Controller
 
             $model->current_pos = intval($request->input('current_pos'));
 
-            $model->answered_questions[$model->current_pos] =$model->questions[$model->current_pos]->getId();
+            $model->answered_questions[$model->current_pos] = $model->questions[$model->current_pos]->getId();
             $model->answers[$model->current_pos] = $request->input('answer');
 
-            $model->limit = intval($request->input('limit'));
-            $model->display_correct = intval($request->input('display_correct'));
+
+
             $model->question_count = count($model->questions);
 
             if ($model->current_pos == $model->question_count - 1) {
@@ -96,6 +100,7 @@ class TestController extends Controller
 
             $model->current_pos = $model->current_pos + 1;
             $model->current_question = $model->questions[$model->current_pos];
+            $model->current_question->shuffleVariants();
             $model->progress_value = intval(($model->current_pos / $model->question_count) * 100);
 
             if ($model->current_pos == $model->question_count - 1) {
@@ -114,12 +119,46 @@ class TestController extends Controller
         /** @var TestQuestionViewModel $model */
         $model = $request->session()->get('model');
         if (is_null($model)) {
-            flash('Произошла ошибка при сохранении вопросов '.Constants::NotFoundSmile.' Начни, пожалуйста, снова',
+            flash('Произошла ошибка при сохранении вопросов '.Constants::NotFoundSmile.
+                '. Начни, пожалуйста, снова и не расстраивайся, сервис развивается, всякое бывает',
                 Constants::Warning);
             return \Redirect::action('TestController@start');
         }
-        VarDumper::VarExport($model);
-        return view('front.test.result');
+
+
+
+        $resultModel = new TestResultViewModel();
+        $resultModel->document = $model->document;
+        $resultModel->question_count = $model->question_count;
+
+        $correctAnswersCount = 0;
+        $answeredQuestions = [];
+        for($i = 0; $i < count($model->answered_questions);$i++)
+        {
+
+            $id = $model->answered_questions[$i];
+            $question = $model->questions[$i];
+
+            $answeredQuestion = new AnsweredQuestion();
+            $answeredQuestion->content = $question->getContent();
+            $answeredQuestion->answer = $question->getAnswer();
+            $answeredQuestion->answered = $model->answers[$i];
+            $answeredQuestion->isCorrect = trim($answeredQuestion->answered) == trim($answeredQuestion->answer);
+
+            if ($answeredQuestion->isCorrect) {
+                $correctAnswersCount++;
+            }
+            $answeredQuestions[$i] = $answeredQuestion;
+        }
+
+
+        $resultModel->correct_answers = $correctAnswersCount;
+        $resultModel->percent = ($correctAnswersCount / $resultModel->question_count) * 100;
+        $resultModel->comment = $model->show_swears ? Swears::getComment($resultModel->percent) : Cheer::getComment($resultModel->percent);
+        $resultModel->user_answers = $answeredQuestions;
+        //VarDumper::VarExport($model);
+
+        return view('front.test.result', ['model' => $resultModel]);
     }
 
     /**

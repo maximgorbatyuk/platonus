@@ -12,7 +12,7 @@ namespace App\Helpers;
 
 abstract class Cheer
 {
-    public static function getComment(double $value) {
+    public static function getComment(int $value) {
         return "Не расстраивайся";
     }
 }

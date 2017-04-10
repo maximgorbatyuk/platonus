@@ -11,7 +11,7 @@ namespace App\Helpers;
 
 abstract class Swears
 {
-    public static function getComment(double $value) {
+    public static function getComment(int $value) {
         return "Ну ты и балда";
     }
 }

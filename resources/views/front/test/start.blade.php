@@ -35,8 +35,8 @@
                         {{ Form::label('limit', 'Лимит вопросов', ['class' => 'col-md-3 col-form-label']) }}
                         <div class="col-md-9">
                             {{ Form::select('limit', [
-                                '0' => 'Все вопросы',
-                                '1' => '25 вопросов'
+                                'false' => 'Все вопросы',
+                                'true' => '25 вопросов'
                             ], null, ['class' => 'form-control', 'required' => true]) }}
                         </div>
                     </div>
@@ -45,8 +45,8 @@
                         {{ Form::label('display_correct', 'Режим тестирования', ['class' => 'col-md-3 col-form-label']) }}
                         <div class="col-md-9">
                             {{ Form::select('display_correct', [
-                                '1' => 'Подготовка (с указанием верного ответа)',
-                                '0' => 'Аки сессия (нельзя подсмотреть верный ответ)'
+                                'true' => 'Подготовка (с указанием верного ответа)',
+                                'false' => 'Аки сессия (нельзя подсмотреть верный ответ)'
                             ], null, ['class' => 'form-control', 'required' => true]) }}
                         </div>
                     </div>
@@ -55,8 +55,8 @@
                     {{ Form::label('show_swears', 'Выводить ругательные комменты', ['class' => 'col-md-3 col-form-label']) }}
                     <div class="col-md-9">
                         {{ Form::select('show_swears', [
-                            '0' => 'Нет, пожалуйста, я нежинка',
-                            '1' => 'Да, давай по хардкору'
+                            'false' => 'Нет, пожалуйста, я нежинка',
+                            'true' => 'Да, давай по хардкору'
                         ], null, ['class' => 'form-control', 'required' => true]) }}
                         <br>
                         <small class="text-muted">
