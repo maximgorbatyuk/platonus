@@ -39,7 +39,7 @@
                 <ol>
                     <li>Выбираешь тест из списка или загружаешь свой <i class="fa fa-check text-success" aria-hidden="true"></i></li>
                     <li>Проходишь тест здесь пока не зазубришь <i class="fa fa-check text-success" aria-hidden="true"></i></li>
-                    <li>Сдаешь на соточку аки Бог <i class="fa fa-check text-success" aria-hidden="true"></i></li>
+                    <li>Сдаешь тест на сессии на соточку аки Бог <i class="fa fa-check text-success" aria-hidden="true"></i></li>
                     <li>При необходимости повторить <i class="fa fa-check text-success" aria-hidden="true"></i></li>
                 </ol>
             </div>
@@ -53,7 +53,7 @@
             <div class="my-4">
                 <div class="h4 text-center">Пожелания</div>
                 В общем, удачи тебе, дорогой друг, сдавай сессию на все 146% и радуйся жизни. Если тебе понравился портал и сервис, который он предоставляет,
-                ты можешь поблагодарить разработчика, <a href="{{ url('about/#donate') }}" title="Перейти на страниу поддержки проекта">поддержав проект</a> на здесь же. Разработчик будет благодарен тебе
+                ты можешь поблагодарить разработчика, <a href="{{ url('about/#donate') }}" title="Перейти на страниу поддержки проекта">поддержав проект</a> здесь же. Разработчик будет благодарен тебе
             </div>
         </div>
 
