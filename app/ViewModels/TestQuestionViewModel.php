@@ -49,4 +49,7 @@ class TestQuestionViewModel
 
     /** @var bool Сигнализирует о том, последний ли вопрос выведен */
     public $is_last = false;
+
+    /** @var bool Показывать ли ругательства на сайте */
+    public $show_swears = false;
 }

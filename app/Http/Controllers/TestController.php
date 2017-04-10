@@ -9,14 +9,11 @@ use App\LogicModels\QuestionTest;
 use App\Models\Document;
 use App\ViewModels\DocumentFrontShowViewModel;
 use App\ViewModels\TestQuestionViewModel;
-use Carbon\Carbon;
-use Illuminate\Cookie\CookieJar;
 use Illuminate\Http\Request;
-use Session;
-use Symfony\Component\HttpFoundation\Cookie;
 
 class TestController extends Controller
 {
+
     /**
      * Открывает страницу, принимая и гет, и пост-параметры
      * @param Request $request
@@ -50,6 +47,7 @@ class TestController extends Controller
 
         $model->document = $document;
         $model->display_correct = $request->input('display_correct');
+        $model->show_swears = $request->input('show_correct', false);
         $model->limit = $request->input('limit');
 
         $current_pos = $request->input('current_pos');
@@ -84,13 +82,20 @@ class TestController extends Controller
             $model->answered_questions[$model->current_pos] =$model->questions[$model->current_pos]->getId();
             $model->answers[$model->current_pos] = $request->input('answer');
 
-            $model->current_pos = $model->current_pos + 1;
-
-            $model->current_question = $model->questions[$model->current_pos];
-
             $model->limit = intval($request->input('limit'));
             $model->display_correct = intval($request->input('display_correct'));
             $model->question_count = count($model->questions);
+
+            if ($model->current_pos == $model->question_count - 1) {
+                // Если был принят последний вопрос
+                $model->progress_value = 100;
+                $model->is_last = true;
+                session(['model' => $model]);
+                return \Redirect::action('TestController@result');
+            }
+
+            $model->current_pos = $model->current_pos + 1;
+            $model->current_question = $model->questions[$model->current_pos];
             $model->progress_value = intval(($model->current_pos / $model->question_count) * 100);
 
             if ($model->current_pos == $model->question_count - 1) {
@@ -106,7 +111,14 @@ class TestController extends Controller
 
     public function result(Request $request)
     {
-        VarDumper::VarExport($request->input());
+        /** @var TestQuestionViewModel $model */
+        $model = $request->session()->get('model');
+        if (is_null($model)) {
+            flash('Произошла ошибка при сохранении вопросов '.Constants::NotFoundSmile.' Начни, пожалуйста, снова',
+                Constants::Warning);
+            return \Redirect::action('TestController@start');
+        }
+        VarDumper::VarExport($model);
         return view('front.test.result');
     }
 

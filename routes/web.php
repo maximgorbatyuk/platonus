@@ -27,11 +27,13 @@ Route::resource('documents', 'DocumentFrontController');
 
 #region Тестирование
 
-Route::get('test/start/{id}', 'TestController@start');
-Route::get('test/question', 'TestController@question');
-Route::post('test/question', 'TestController@question');
-Route::get('test/result', 'TestController@result');
-Route::post('test/result', 'TestController@result');
+Route::group(['prefix' => 'test'], function() {
+    Route::get('/', 'DocumentFrontController@index');
+    Route::get('start/{id}', 'TestController@start');
+    Route::post('question', 'TestController@question');
+    Route::get('result', 'TestController@result');
+});
+
 #endregion
 
 
