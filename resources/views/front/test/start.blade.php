@@ -51,6 +51,21 @@
                         </div>
                     </div>
 
+                <div class="form-group row">
+                    {{ Form::label('show_swears', 'Выводить ругательные комменты', ['class' => 'col-md-3 col-form-label']) }}
+                    <div class="col-md-9">
+                        {{ Form::select('show_swears', [
+                            '0' => 'Нет, пожалуйста, я нежинка',
+                            '1' => 'Да, давай по хардкору'
+                        ], null, ['class' => 'form-control', 'required' => true]) }}
+                        <br>
+                        <small class="text-muted">
+                            Не волнуйся, мата здесь точно не будет, всего лишь полушуточные немного оскорбительные комментарии по поводу твоего результата.
+                            По умолчанию ругательства выключены, поэтому твое эго не будет задето.
+                        </small>
+                    </div>
+                </div>
+
                     <div class="form-group text-md-right">
                         <button type="submit" class="btn btn-primary">Начать тестирование</button>
                     </div>

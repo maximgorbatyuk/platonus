@@ -21,5 +21,5 @@ class AnsweredQuestion
     public $answered;
 
     /** @var bool Правильный вариант ответа */
-    public $isCorrect;
+    public $isCorrect = false;
 }

@@ -8,7 +8,7 @@
     <div class="container my-2">
         <div class="card card-block">
 
-            <h1>О портале</h1>
+            <h2>Результат тестирования</h2>
 
 
 

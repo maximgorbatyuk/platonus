@@ -29,16 +29,14 @@
 
             @if (isset($model))
 
-                @php
-                    $action = $model->is_last == true ? 'TestController@result' : 'TestController@question';
-                @endphp
-
-                {{ Form::open(['action' => $action, 'id' => 'question_form']) }}
+                {{ Form::open(['action' => 'TestController@question', 'id' => 'question_form']) }}
 
                 {{ Form::hidden('document_id', $model->document->id) }}
                 {{ Form::hidden('limit', $model->limit) }}
                 {{ Form::hidden('current_pos', $model->current_pos) }}
                 {{ Form::hidden('display_correct', $model->display_correct) }}
+                {{ Form::hidden('show_swears', $model->show_swears) }}
+                {{ Form::hidden('early_finish', false) }}
 
                 {{ Form::hidden('question_order', \GuzzleHttp\json_encode($model->question_order)) }}
                 {{ Form::hidden('answered_questions', \GuzzleHttp\json_encode($model->answered_questions)) }}
