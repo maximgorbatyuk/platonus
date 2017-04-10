@@ -27,8 +27,38 @@
     </div>
 
     <div class="container ">
+
         <div class="card card-block my-3">
-            <h3 class="text-center" id="loadNew">Загрузи документ и начни тест</h3>
+            <h3 class="text-center" id="loadNew">О портале вкратце</h3>
+            <div class="mt-4">
+                Портал разработан для подготовки студентов, у которых сессия проходит методом тестирования в Платонусе (Platonus).
+                Здесь ты можешь выучить тест за 5 минут до начала экзамена, и испытать себя пробным тестированием.
+            </div>
+            <div class="mt-4">
+                <div class="h4 text-center">Правила пользования порталом просты</div>
+                <ol>
+                    <li>Выбираешь тест из списка или загружаешь свой <i class="fa fa-check text-success" aria-hidden="true"></i></li>
+                    <li>Проходишь тест здесь пока не зазубришь <i class="fa fa-check text-success" aria-hidden="true"></i></li>
+                    <li>Сдаешь на соточку аки Бог <i class="fa fa-check text-success" aria-hidden="true"></i></li>
+                    <li>При необходимости повторить <i class="fa fa-check text-success" aria-hidden="true"></i></li>
+                </ol>
+            </div>
+            <div class="mt-4">
+                <div class="h4 text-center">Требования для документов</div>
+                Самое главное, чтобы тесты были <u><i>оформлены правильно</i></u>:
+                вопрос должен быть помечен тегом <u>&lt;question&gt;</u>, а варианты - <u>&lt;variant&gt;</u>.
+                Это - первое правило нашего клуба - только отформатированные тесты.
+                Иначе система просто не распознает текст {{ \App\Helpers\Constants::NotFoundSmile }}
+            </div>
+            <div class="my-4">
+                <div class="h4 text-center">Пожелания</div>
+                В общем, удачи тебе, дорогой друг, сдавай сессию на все 146% и радуйся жизни. Если тебе понравился портал и сервис, который он предоставляет,
+                ты можешь поблагодарить разработчика, <a href="{{ url('about/#donate') }}" title="Перейти на страниу поддержки проекта">поддержав проект</a> на здесь же. Разработчик будет благодарен тебе
+            </div>
+        </div>
+
+        <div class="card card-block my-3">
+            <div class="h3 text-center" id="loadNew">Загрузи документ и начни тест</div>
             <p class="text-center">
                 Загрузи тест для того, чтобы начать тестирование и узнать, насколько ты заучка =)
             </p>
@@ -36,7 +66,7 @@
         </div>
 
         <div class="card card-block my-3">
-            <h3 class="text-center" id="topQuestions">Топ-6 документов</h3>
+            <div class="h3 text-center" id="topQuestions">Топ-6 документов</div>
             <div class="mt-1 text-center">
                 Выбери тест из наиболее популярных и начни тест. Не нашел свой? <a href="{{ url('documents') }}">Поищи</a> в списке всех загруженных.
                 <span class="float-md-right"><a href="{{ url('documents') }}" class="btn btn-outline-info">Все документы</a></span>
@@ -73,9 +103,9 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">
+                    <div class="h5 modal-title">
                         Ошибка записи файла
-                    </h5>
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
