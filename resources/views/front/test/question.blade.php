@@ -65,7 +65,8 @@
             <div class="form-group d-flex w-100 justify-content-between">
                 <button type="button" class="btn btn-outline-danger" id="confirmStart" data-toggle="modal" data-target="#confirm">Закончить</button>
                 <div>
-                    <button type="button" class="btn btn-outline-success" id="displayCorrectBtn">Правильный</button>
+                    @php($active = $model->display_correct ? "" : "disabled")
+                    <button type="button" class="btn btn-outline-success" id="displayCorrectBtn" {{ $active }}>Правильный</button>
                     <button type="submit" class="btn btn-primary" id="sbtBtn">Далее <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                 </div>
             </div>
@@ -120,9 +121,11 @@
                 helper.EarlyFinish();
             });
 
-            $('#displayCorrectBtn').on('click', function() {
-                helper.DisplayCorrectAnswer();
-            });
+            @if ($model->display_correct)
+                $('#displayCorrectBtn').on('click', function() {
+                    helper.DisplayCorrectAnswer();
+                });
+            @endif
 
 
         }());
