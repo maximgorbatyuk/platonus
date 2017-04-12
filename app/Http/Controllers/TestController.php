@@ -51,7 +51,7 @@ class TestController extends Controller
 
         $model->document = $document;
         $model->display_correct = filter_var($request->input('display_correct') , FILTER_VALIDATE_BOOLEAN);
-        $model->show_swears     = filter_var($request->input('show_correct') , FILTER_VALIDATE_BOOLEAN);
+        $model->show_swears     = filter_var($request->input('show_swears') , FILTER_VALIDATE_BOOLEAN);
         $model->limit           = filter_var($request->input('limit') , FILTER_VALIDATE_BOOLEAN);
         $model->early_finish    = filter_var($request->input('early_finish') , FILTER_VALIDATE_BOOLEAN);
 
@@ -155,7 +155,7 @@ class TestController extends Controller
 
         $resultModel->correct_answers = $correctAnswersCount;
         $resultModel->percent = ($correctAnswersCount / $resultModel->question_count) * 100;
-        $resultModel->comment = $model->show_swears ? Swears::getComment($resultModel->percent) : Cheer::getComment($resultModel->percent);
+        $resultModel->comment = $model->show_swears == true ? Swears::getComment($resultModel->percent) : Cheer::getComment($resultModel->percent);
         $resultModel->user_answers = $answeredQuestions;
         //VarDumper::VarExport($model);
 

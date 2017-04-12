@@ -30,10 +30,10 @@
             {{ Form::open(['action' => 'TestController@question', 'id' => 'question_form']) }}
 
             {{ Form::hidden('document_id', $model->document->id) }}
-            {{ Form::hidden('limit', $model->limit) }}
+            {{ Form::hidden('limit', $model->limit ? 1 : 0) }}
             {{ Form::hidden('current_pos', $model->current_pos) }}
-            {{ Form::hidden('display_correct', $model->display_correct) }}
-            {{ Form::hidden('show_swears', $model->show_swears) }}
+            {{ Form::hidden('display_correct', $model->display_correct ? "true" : "false") }}
+            {{ Form::hidden('show_swears', $model->show_swears ? "true" : "false") }}
             {{ Form::hidden('early_finish', false, ['id' => 'early_finish']) }}
 
             {{ Form::hidden('question_order', \GuzzleHttp\json_encode($model->question_order)) }}
