@@ -27,64 +27,104 @@
                      aria-valuemax="100"></div>
             </div>
 
-            @if (isset($model))
+            {{ Form::open(['action' => 'TestController@question', 'id' => 'question_form']) }}
 
-                {{ Form::open(['action' => 'TestController@question', 'id' => 'question_form']) }}
+            {{ Form::hidden('document_id', $model->document->id) }}
+            {{ Form::hidden('limit', $model->limit) }}
+            {{ Form::hidden('current_pos', $model->current_pos) }}
+            {{ Form::hidden('display_correct', $model->display_correct) }}
+            {{ Form::hidden('show_swears', $model->show_swears) }}
+            {{ Form::hidden('early_finish', false) }}
 
-                {{ Form::hidden('document_id', $model->document->id) }}
-                {{ Form::hidden('limit', $model->limit) }}
-                {{ Form::hidden('current_pos', $model->current_pos) }}
-                {{ Form::hidden('display_correct', $model->display_correct) }}
-                {{ Form::hidden('show_swears', $model->show_swears) }}
-                {{ Form::hidden('early_finish', false) }}
+            {{ Form::hidden('question_order', \GuzzleHttp\json_encode($model->question_order)) }}
+            {{ Form::hidden('answered_questions', \GuzzleHttp\json_encode($model->answered_questions)) }}
+            {{ Form::hidden('answers', \GuzzleHttp\json_encode($model->answers)) }}
 
-                {{ Form::hidden('question_order', \GuzzleHttp\json_encode($model->question_order)) }}
-                {{ Form::hidden('answered_questions', \GuzzleHttp\json_encode($model->answered_questions)) }}
-                {{ Form::hidden('answers', \GuzzleHttp\json_encode($model->answers)) }}
+            <div class="form-group">
+                <p>
+                    {{ $model->current_question->getContent() }}
+                </p>
+            </div>
+
+            @for($i = 0; $i < count($variants); $i++)
 
                 <div class="form-group">
-                    <p>
-                        {{ $model->current_question->getContent() }}
-                    </p>
+                    <label class="form-check-label variant w-100 py-2">
+                        <input
+                                class="form-check-input"
+                                type="radio"
+                                name="answer"
+                                value="{{ $variants[$i] }}" {{ ($i == 0 ? "checked" : "") }}> {{ $variants[$i] }}
+                    </label>
                 </div>
 
-                @for($i = 0; $i < count($variants); $i++)
-
-                    <div class="form-group">
-                        <label class="form-check-label variant">
-                            <input
-                                    class="form-check-input"
-                                    type="radio"
-                                    name="answer"
-                                    value="{{ $variants[$i] }}" {{ ($i == 0 ? "checked" : "") }}> {{ $variants[$i] }}
-                        </label>
-                    </div>
-
-                @endfor
+            @endfor
 
 
 
-                <div class="form-group d-flex w-100 justify-content-between">
-                    <button type="button" class="btn btn-outline-danger">Закончить</button>
-                    <div>
-                        <button type="button" class="btn btn-outline-success">Правильный</button>
-                        <button type="submit" class="btn btn-primary">Далее <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+            <div class="form-group d-flex w-100 justify-content-between">
+                <button type="button" class="btn btn-outline-danger" id="confirmStart" data-toggle="modal" data-target="#confirm">Закончить</button>
+                <div>
+                    <button type="button" class="btn btn-outline-success" id="displayCorrectBtn">Правильный</button>
+                    <button type="submit" class="btn btn-primary" id="sbtBtn">Далее <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                </div>
+            </div>
+
+
+
+        {{Form::close()}}
+
+        <!-- Modal -->
+            <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Завершение тестирования</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Ты уверен, что хочешь закончить тестирование раньше времени?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет, миссклик</button>
+                            <button type="button" class="btn btn-danger" id="earlyFinish">Да, уверен</button>
+                        </div>
                     </div>
                 </div>
-
-
-
-                {{Form::close()}}
-
-            @else
-                <pre>
-                   {{ \App\Helpers\VarDumper::dump(Request::all()) }}
-                </pre>
-
-            @endif
-
-
+            </div>
 
         </div>
     </div>
+@endsection
+
+@section('scripts')
+
+    <script src="{{ asset('custom/js/TestHelper.js') }}"></script>
+    <script>
+        (function(){
+
+            var config = {
+                correctAnswer : "{{ $model->current_question->getAnswer() }}",
+                variantClassName : "variant",
+                submitBtnId : "sbtBtn",
+                formId : "question_form",
+                confirmStartId : "confirmStart",
+                displayCorrectBtnId : "displayCorrectBtn",
+                earlyFinInputId : "early_finish"
+            };
+            var helper = new TestHelper(config);
+
+            $('#earlyFinish').on('click', function() {
+                helper.EarlyFinish();
+            });
+
+            $('#displayCorrectBtn').on('click', function() {
+                helper.DisplayCorrectAnswer();
+            });
+
+
+        }());
+    </script>
 @endsection
