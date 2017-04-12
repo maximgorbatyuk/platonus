@@ -53,6 +53,7 @@ class TestController extends Controller
         $model->display_correct = filter_var($request->input('display_correct') , FILTER_VALIDATE_BOOLEAN);
         $model->show_swears     = filter_var($request->input('show_correct') , FILTER_VALIDATE_BOOLEAN);
         $model->limit           = filter_var($request->input('limit') , FILTER_VALIDATE_BOOLEAN);
+        $model->early_finish    = filter_var($request->input('early_finish') , FILTER_VALIDATE_BOOLEAN);
 
         $current_pos = $request->input('current_pos');
         if (is_null($current_pos))
@@ -60,7 +61,7 @@ class TestController extends Controller
             // Если текущий вопрос null, значит тест только начался
             $test->shuffleQuestions(true);
             $q_order = [];
-            $model->questions = $test->getQuestions();
+            $model->questions = $test->getQuestions($model->limit);
             for ($i = 0; $i < count($model->questions); $i++)
             {
                 $q_order[$i] = $model->questions[$i]->getId();
@@ -90,7 +91,7 @@ class TestController extends Controller
 
             $model->question_count = count($model->questions);
 
-            if ($model->current_pos == $model->question_count - 1) {
+            if (($model->current_pos == $model->question_count - 1) || $model->early_finish) {
                 // Если был принят последний вопрос
                 $model->progress_value = 100;
                 $model->is_last = true;
@@ -129,11 +130,11 @@ class TestController extends Controller
 
         $resultModel = new TestResultViewModel();
         $resultModel->document = $model->document;
-        $resultModel->question_count = $model->question_count;
+        $resultModel->question_count = count($model->answered_questions);
 
         $correctAnswersCount = 0;
         $answeredQuestions = [];
-        for($i = 0; $i < count($model->answered_questions);$i++)
+        for($i = 0; $i < $resultModel->question_count;$i++)
         {
 
             $id = $model->answered_questions[$i];

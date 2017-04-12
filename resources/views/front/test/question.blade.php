@@ -34,7 +34,7 @@
             {{ Form::hidden('current_pos', $model->current_pos) }}
             {{ Form::hidden('display_correct', $model->display_correct) }}
             {{ Form::hidden('show_swears', $model->show_swears) }}
-            {{ Form::hidden('early_finish', false) }}
+            {{ Form::hidden('early_finish', false, ['id' => 'early_finish']) }}
 
             {{ Form::hidden('question_order', \GuzzleHttp\json_encode($model->question_order)) }}
             {{ Form::hidden('answered_questions', \GuzzleHttp\json_encode($model->answered_questions)) }}
@@ -42,7 +42,7 @@
 
             <div class="form-group">
                 <p>
-                    {{ $model->current_question->getContent() }}
+                    {{$model->current_question->getId()}}) {{ $model->current_question->getContent() }}
                 </p>
             </div>
 

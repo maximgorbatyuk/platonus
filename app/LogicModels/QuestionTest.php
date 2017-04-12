@@ -31,11 +31,20 @@ class QuestionTest
 
     /**
      * ВОзвращает массив вопросов
-     * @return Question[]
+     * @param bool $withLimit
+     * @return Question[]|array
      */
-    public function getQuestions(): array
+    public function getQuestions($withLimit = false): array
     {
+        if ($withLimit) {
+            $question = [];
+            for($i = 0; $i < 25; $i++) {
+                $question[] = $this->questions[$i];
+            }
+            return $question;
+        }
         return $this->questions;
+
     }
 
     /**

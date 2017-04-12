@@ -52,7 +52,8 @@ TestHelper.prototype.DisplayCorrectAnswer = function(){
 
 TestHelper.prototype.EarlyFinish = function(){
 
-    $('#'+this._earlyFinInputId).val(true);
+    var input = $('#'+this._earlyFinInputId);
+    input.val(true);
     this.SubmitForm(true);
 };
 

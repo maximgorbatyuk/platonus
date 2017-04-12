@@ -50,6 +50,9 @@ class TestQuestionViewModel
     /** @var bool Сигнализирует о том, последний ли вопрос выведен */
     public $is_last = false;
 
+    /** @var bool Сигнализирует, раньеш времени ли закончен тест */
+    public $early_finish = false;
+
     /** @var bool Показывать ли ругательства на сайте */
     public $show_swears = false;
 }
