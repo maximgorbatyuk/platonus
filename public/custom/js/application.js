@@ -19,7 +19,7 @@ var application = {
             self.id = $(self.card).attr('data-document-id');
 
             var onClickHandler = function() {
-                urlHelpers.goTo('/documents/' + self.id);
+                application.goTo('/documents/' + self.id);
             };
             $(self.card).on('click', onClickHandler);
         }
