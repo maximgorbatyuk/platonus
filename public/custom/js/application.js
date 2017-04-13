@@ -29,7 +29,10 @@ var application = {
 
         var btn = $('#back-to-top');
         $(window).scroll(function(){
-            if ($(this).scrollTop() > 100) {
+
+            var scrollTop = $(this).scrollTop();
+
+            if (scrollTop > 100 && scrollTop < ($('html').height() - 800)) {
                 btn.fadeIn();
             } else {
                 btn.fadeOut();

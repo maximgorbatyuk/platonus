@@ -55,7 +55,7 @@
                     {{ Form::label('show_swears', 'Выводить ругательные комменты', ['class' => 'col-md-3 col-form-label']) }}
                     <div class="col-md-9">
                         {{ Form::select('show_swears', [
-                            'false' => 'Нет, пожалуйста, я нежинка',
+                            'false' => 'Нет, пожалуйста, я неженка',
                             'true' => 'Да, давай по хардкору'
                         ], null, ['class' => 'form-control', 'required' => true]) }}
                         <br>
