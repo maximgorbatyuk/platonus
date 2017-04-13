@@ -49,16 +49,10 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('thirdparty/dataTables/datatables.min.js') }}"></script>
-    <script src="{{ asset('custom/js/DataTable.js') }}"></script>
-    <script>
-        $(document).ready(function(){
-            var dataTable = new DataTable('dataTable');
-            $(".dataTables_wrapper").css("width","100%");
-        });
-    </script>
-@endsection
 
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('thirdparty/dataTables/datatables.min.css') }}">
+    <script>
+        (function(){
+            application.initCardClickHandlers();
+        }());
+    </script>
 @endsection

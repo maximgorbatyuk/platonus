@@ -130,10 +130,10 @@
     <script src="{{ asset('thirdparty/fineuploader/fine-uploader.js') }}" type="text/javascript"></script>
     <script src="{{ asset('custom/js/fineWrapper.js') }}" type="text/javascript"></script>
     <script>
-        fineUploader.Initiate();
-
-
-
+        (function(){
+            fineUploader.Initiate();
+            application.initCardClickHandlers();
+        }());
 
     </script>
 @endsection

@@ -4,11 +4,11 @@
     @endphp
 
     <div class="col-md-4 mt-md-2 my-4">
-        <div class="card h-100">
+        <div class="card h-100 document-card" data-document-id="{{ $instance->id }}">
             <div class="card-block mb-0">
-                <a href="{{ url('documents/'.$instance->id) }}" class="h5">
-                    #{{ $instance->title }}
-                </a>
+                <div class="h5">
+                    {{ $instance->title }}
+                </div>
 
                 <div class="text-muted d-flex w-100 justify-content-between">
                     <div>ID: {{ $instance->id }}</div>

@@ -32,9 +32,16 @@
 
     <noscript><div><img src="https://mc.yandex.ru/watch/43965764" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <script type="text/javascript"  src="{{ asset('thirdparty/yandex/metrica.js') }}"></script>
-    <script src="{{ asset('thirdparty/jquery/jquery-3.1.1.slim.min.js') }}"></script>
+    <script src="{{ asset('thirdparty/jquery/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('thirdparty/jquery/tether-1.4.0.min.js') }}"></script>
     <script src="{{ asset('bt/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('custom/js/application.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            application.initScrollerToTop();
+        });
+
+    </script>
 
     @yield('scripts')
 </body>
