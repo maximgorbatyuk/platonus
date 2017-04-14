@@ -12,15 +12,27 @@
             <ul class="navbar-nav">
 
                 <li class="nav-item">
-                    {{ link_to_action('DocumentFrontController@create', 'Загрузить', [], ['class' => 'nav-link active']) }}
+                    @php
+                        $url = 'documents/create';
+                        $isActive = Request::is($url) ? " active" : "";
+                    @endphp
+                    <a href="{{ url($url) }}" class="nav-link {{$isActive}}">Загрузить</a>
                 </li>
 
                 <li class="nav-item">
-                    {{ link_to_action('DocumentFrontController@index', 'Документы', [], ['class' => 'nav-link']) }}
+                    @php
+                        $url = 'documents';
+                        $isActive = Request::is($url) ? " active" : "";
+                    @endphp
+                    <a href="{{ url($url) }}" class="nav-link {{$isActive}}">Документы</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('about') }}" class="nav-link">О портале</a>
+                    @php
+                        $url = 'about';
+                        $isActive = Request::is($url) ? " active" : "";
+                    @endphp
+                    <a href="{{ url($url) }}" class="nav-link {{$isActive}}">О портале</a>
                 </li>
 
 
