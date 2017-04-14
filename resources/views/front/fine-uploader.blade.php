@@ -17,9 +17,11 @@
         <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
             <span class="qq-upload-drop-area-text-selector"></span>
         </div>
+
         <div class="qq-upload-button-selector qq-upload-button">
             <div>Загрузить файл</div>
         </div>
+
         <span class="qq-drop-processing-selector qq-drop-processing">
                 <span>Обработка загруженных файлов...</span>
                 <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
@@ -66,4 +68,5 @@
             </div>
         </dialog>
     </div>
+
 </script>

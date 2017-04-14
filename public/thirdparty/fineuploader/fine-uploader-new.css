@@ -46,13 +46,13 @@
     background-color: #f7ffec;
 }
 .qq-upload-pause, .qq-upload-continue {
-    background-color: #00ABC7;
+    background-color: #1663AB;
     color: #FAFAFA;
-    border-color: #2dadc2;
+    border-color: #4c7cab;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.55);
 }
 .qq-upload-pause:hover, .qq-upload-continue:hover {
-    background-color: #0fbad6;
+    background-color: #1663AB;
 }
 
 /* Upload Button
@@ -64,17 +64,17 @@
     padding: 7px 10px;
     text-align: center;
     float: left;
-    background: #00ABC7;
+    background: #1663AB;
     color: #FFFFFF;
     border-radius: 2px;
-    border: 1px solid #2dadc2;
+    border: 1px solid #4c7cab;
     box-shadow: 0 1px 1px rgba(255, 255, 255, 0.37) inset,
                 1px 0 1px rgba(255, 255, 255, 0.07) inset,
                 0 1px 0 rgba(0, 0, 0, 0.36),
                 0 -2px 12px rgba(0, 0, 0, 0.08) inset;
 }
 .qq-upload-button-hover {
-    background: #33B6CC;
+    background: #1950ab;
 }
 .qq-upload-button-focus {
     outline: 1px dotted #000000;
@@ -244,7 +244,7 @@
 .qq-progress-bar {
     display: block;
     display: block;
-    background: #00abc7;
+    background: #1663AB;
     width: 0%;
     height: 15px;
     border-radius: 6px;
