@@ -6,6 +6,7 @@ use App\Models\Document;
 use Auth;
 use Illuminate\Http\Request;
 use App\ViewModels\HomePageViewModel;
+use Jenssegers\Agent\Agent;
 
 class HomeController extends Controller
 {
@@ -23,8 +24,17 @@ class HomeController extends Controller
     }
 
 
-    public function donate(){
-        return view('front.donate.page');
+    public function donate(Request $request){
+
+
+        $referrer = $request->input('referrer');
+        if ($referrer == 'yandex.money') {
+            return view('front.donate.result');
+        }
+        $agent = new Agent();
+        $mobile = $agent->isMobile();
+
+        return view('front.donate.page', ['mobile' => $mobile]);
     }
 
     public function about(){

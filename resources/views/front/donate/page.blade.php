@@ -72,7 +72,7 @@
                     </dl>
                 </div>
 
-                @if()
+                @if(!$mobile)
                 <div class="col-md-6">
                     <div class="h5">Яндекс.Деньги</div>
                     <p>
@@ -87,6 +87,7 @@
                             width="450"
                             height="270"></iframe>
                 </div>
+                @endif
 
             </div>
 

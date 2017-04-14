@@ -18,7 +18,7 @@
                         <span class="h5">Найти <i class="fa fa-search ml-1" aria-hidden="true"></i></span>
                     </a>
                     <a class="btn btn-outline-orange ml-auto" href="#loadNew">
-                        <span class="h5">Загрузить <i class="fa fa-download ml-1" aria-hidden="true"></i></span></span>
+                        <span class="h5">Загрузить <i class="fa fa-download ml-1" aria-hidden="true"></i></span>
                     </a>
                 </div>
             </div>
