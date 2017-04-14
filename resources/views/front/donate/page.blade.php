@@ -1,6 +1,6 @@
 @extends('layouts._FrontLayout')
 
-@section('title', 'Platest - о портале')
+@section('title', 'Platest - поддержка портала')
 
 @section('content')
 
@@ -49,41 +49,49 @@
 
         <div class="card card-block my-2">
             <h3>Финансовая поддержка</h3>
-            <div class="my-2">
-                К сожалению, казахстанского сервиса приема платежей без конских комиссий как для жертвующего, так и для меня, я не нашел,
-                поэтому буду благодарен, если ты закинешь деньги на <a href="https://kaspi.kz/guide/wallet/#q28" title="Kaspi.kz" target="_blank">Kaspi Кошелек</a>.
-                Необходимо ввести номер телефона владельца кошелька (мой номер) и дату рождения. Не торопись закидывать деньги сразу, будь внимателен.
-                Будет обидно, если ты закинешь денег другому человеку по ошибке, и в итоге придется "выхаживать" свои деньги назад через различные инстанции.
-                Мои контактные данные для внесения платежа:
+            <p>
+                Поддержать проект финансово можно двумя способами:
+                с помощью нашего казахстанского сервиса <a href="https://kaspi.kz/guide/wallet/#q28" title="Kaspi.kz" target="_blank">Kaspi Кошелек</a> или через Яндекс.Деньги.
+                Каким образом ты желаешь помочь мне - твой выбор, я уже благодарен за твое желание оказать поддержку
+            </p>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="h5">Каспи кошелек</div>
+                    <p>
+                        Необходимо ввести номер телефона владельца кошелька (мой номер) и дату рождения. Не торопись закидывать деньги сразу, будь внимателен.
+                        Будет обидно, если ты закинешь денег другому человеку по ошибке, и в итоге придется "выхаживать" свои деньги назад через различные инстанции.
+                        Мои контактные данные для внесения платежа:
+                    </p>
+                    <dl>
+                        <dt>Номер телефона</dt>
+                        <dd>+7 (701) 762-07-87</dd>
+
+                        <dt>Дата рождения</dt>
+                        <dd>19 октября 1993 (19.10.1993)</dd>
+                    </dl>
+                </div>
+
+                @if()
+                <div class="col-md-6">
+                    <div class="h5">Яндекс.Деньги</div>
+                    <p>
+                        С Яндекс.Деньги гораздо легче осуществить пожертвование. Нужно лишь ввести данные карточки в форму.
+                        Введите комментарий, сумму пожертвования и нажмите "Далее".
+                    </p>
+                    <iframe
+                            frameborder="0"
+                            allowtransparency="true"
+                            scrolling="no"
+                            src="https://money.yandex.ru/quickpay/shop-widget?account=410013945410045&quickpay=shop&payment-type-choice=on&writer=seller&targets=%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0+%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0&targets-hint=&default-sum=100&button-text=04&comment=on&hint=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9+%D0%BF%D0%BE+%D0%B6%D0%B5%D0%BB%D0%B0%D0%BD%D0%B8%D1%8E&successURL=http%3A%2F%2Fplatest.tk%2F%3Freferrer%3Dyandex.money"
+                            width="450"
+                            height="270"></iframe>
+                </div>
 
             </div>
 
-            <div class="">
-                <dl class="mt-2">
-                    <dt>Номер телефона</dt>
-                    <dd>+7 (701) 762-07-87</dd>
 
-                    <dt>Дата рождения</dt>
-                    <dd>19 октября 1993 (19.10.1993)</dd>
-                </dl>
-            </div>
+
         </div>
     </div>
-@endsection
-
-@section('scripts')
-
-    <script>
-        $(function() {
-            $("#icegif").hover(
-                function() {
-                    $(this).attr("src", "{{ asset('images/iceking.gif') }}");
-                },
-                function() {
-                    $(this).attr("src", "{{ asset('images/iceking.jpg') }}");
-                }
-            );
-        });
-    </script>
-
 @endsection

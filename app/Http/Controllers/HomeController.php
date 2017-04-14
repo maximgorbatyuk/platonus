@@ -24,7 +24,7 @@ class HomeController extends Controller
 
 
     public function donate(){
-        return view('front.donate');
+        return view('front.donate.page');
     }
 
     public function about(){

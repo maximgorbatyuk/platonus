@@ -11,6 +11,7 @@
         "filp/whoops": "^2.1",
         "fineuploader/php-traditional-server": "^1.2",
         "guzzlehttp/guzzle": "^6.2",
+        "jenssegers/agent": "^2.5",
         "laracasts/flash": "^2.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
