@@ -106,8 +106,10 @@
     <script>
         (function(){
 
+
+            var answer = $('<textarea />').html("{{   $model->current_question->getAnswer(true) }}").text();
             var config = {
-                correctAnswer : "{{ $model->current_question->getAnswer() }}",
+                correctAnswer : answer,
                 variantClassName : "variant",
                 submitBtnId : "sbtBtn",
                 formId : "question_form",

@@ -79,6 +79,7 @@ class DocumentFrontController extends Controller
         return view('front.documents.show', [ 'model' => $model ]);
     }
 
+
     public function edit($id)
     {
         throw new NotFoundHttpException();

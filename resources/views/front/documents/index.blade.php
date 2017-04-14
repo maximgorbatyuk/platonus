@@ -16,7 +16,7 @@
             </p>
             <div class="my-1 text-center">
 
-                {{ link_to_action('DocumentFrontController@create', 'Создать запись', [], ['class'=>'btn btn-outline-info', 'id' => 'load-button']) }}
+                {{ link_to_action('DocumentFrontController@create', 'Создать запись', [], ['class'=>'btn btn-outline-indigo', 'id' => 'load-button']) }}
             </div>
         </div>
 

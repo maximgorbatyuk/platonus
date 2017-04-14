@@ -1,5 +1,16 @@
 
-var application = {
+
+(function(){
+
+    if (window.application)
+    {
+        return;
+    }
+    window.application = {};
+
+}());
+
+application = {
     /**
      * Переход на url
      * @param location
@@ -15,11 +26,12 @@ var application = {
         var docCards = $('.document-card');
         for (var i = 0; i < docCards.length; i++) {
             var self = this;
-            self.card = docCards[i];
-            self.id = $(self.card).attr('data-document-id');
+            this.card = docCards[i];
+            this.id = $(self.card).attr('data-document-id');
 
             var onClickHandler = function() {
-                application.goTo('/documents/' + self.id);
+                var id = $(this).attr('data-document-id');
+                application.goTo('/documents/' + id);
             };
             $(self.card).on('click', onClickHandler);
         }
@@ -32,7 +44,7 @@ var application = {
 
             var scrollTop = $(this).scrollTop();
 
-            if (scrollTop > 100 && scrollTop < ($('html').height() - 800)) {
+            if(scrollTop > 100 && (scrollTop+ $(window).height() < $(document).height() - 100)) {
                 btn.fadeIn();
             } else {
                 btn.fadeOut();

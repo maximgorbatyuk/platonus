@@ -53,7 +53,7 @@
             <div class="my-4">
                 <div class="h4 text-center">Пожелания</div>
                 В общем, удачи тебе, дорогой друг, сдавай сессию на все 146% и радуйся жизни. Если тебе понравился портал и сервис, который он предоставляет,
-                ты можешь поблагодарить разработчика, <a href="{{ url('about/#donate') }}" title="Перейти на страниу поддержки проекта">поддержав проект</a> здесь же. Разработчик будет благодарен тебе
+                ты можешь поблагодарить разработчика, <a href="{{ url('donate') }}" title="Перейти на страниу поддержки проекта">поддержав проект</a> здесь же. Разработчик будет благодарен тебе
             </div>
         </div>
 
@@ -69,7 +69,9 @@
             <div class="h3 text-center" id="topQuestions">Топ-6 документов</div>
             <div class="mt-1 text-center">
                 Выбери тест из наиболее популярных и начни тест. Не нашел свой? <a href="{{ url('documents') }}">Поищи</a> в списке всех загруженных.
-                <span class="float-md-right"><a href="{{ url('documents') }}" class="btn btn-outline-info">Все документы</a></span>
+                <div class="mt-1">
+                    <a href="{{ url('documents') }}" class="btn btn-outline-indigo">Все документы</a>
+                </div>
             </div>
 
             @for($i = 0; $i < count($model->documents); $i++)
@@ -114,7 +116,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ну окей, бывает</button>
+                    <button type="button" class="btn btn-indigo" data-dismiss="modal">Ну окей, бывает</button>
                 </div>
             </div>
         </div>

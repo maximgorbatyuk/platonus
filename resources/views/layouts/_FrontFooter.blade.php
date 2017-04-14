@@ -1,7 +1,7 @@
 
 <!-- Скроллер в топ -->
 <a id="back-to-top" href="#"
-   class="btn btn-primary btn-lg back-to-top"
+   class="btn btn-indigo btn-lg back-to-top"
    role="button" title="Click to return on the top page"
    data-toggle="tooltip" data-placement="left">
     <i class="fa fa-chevron-up" aria-hidden="true"></i>
@@ -18,10 +18,10 @@
                         <a href="https://vk.com/maximgorbatyuk">Профиль разработчика</a>
                     </li>
                     <li>
-                        <a href="{{ url('about/#donate') }}">Поддержать проект</a>
+                        <a href="{{ url('donate') }}">Поддержать проект</a>
                     </li>
                     <li>
-                        <a href="{{ url('about/') }}">О портале</a>
+                        <a href="{{ url('about') }}">О портале</a>
                     </li>
                 </ul>
             </div>

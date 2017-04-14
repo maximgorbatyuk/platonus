@@ -22,6 +22,11 @@ class HomeController extends Controller
         return view('front.home', ['model' => $model]);
     }
 
+
+    public function donate(){
+        return view('front.donate');
+    }
+
     public function about(){
         return view('front.about');
     }

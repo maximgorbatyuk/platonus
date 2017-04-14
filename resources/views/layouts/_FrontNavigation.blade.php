@@ -1,7 +1,10 @@
 
 <nav class="navbar navbar-toggleable-sm navbar-inverse bg-indigo">
     <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button"
+                data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -34,18 +37,7 @@
                     @endphp
                     <a href="{{ url($url) }}" class="nav-link {{$isActive}}">О портале</a>
                 </li>
-
-
-
             </ul>
-
-
-
-
-            <!--form class="form-inline my-2 my-sm-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form-->
 
             <ul class="navbar-nav ml-auto float-md-right">
                 @if (Auth::guest())

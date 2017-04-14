@@ -1,6 +1,7 @@
 <?php
 
 namespace App\LogicModels;
+use \Html;
 
 /**
  * Class Question
@@ -74,11 +75,13 @@ class Question
     }
 
     /**
+     * @param bool $decode
      * @return string
      */
-    public function getAnswer(): string
+    public function getAnswer(bool $decode = false): string
     {
-        return $this->answer;
+        $result = $this->answer;
+        return $decode == true ? HTML::decode($result) : $result;
     }
 
     /**
