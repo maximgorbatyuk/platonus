@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <meta name="keywords" content="Platest, Platonus, тесты Плантонус, пробные тесты платонус, тестирование platonus, туран, университет" />
+    <meta name="keywords" content="Platest, Platonus, тесты Плантонус, пробные тесты платонус, тестирование platonus, туран, университет, сессия" />
+    <meta property="description" content="Портал для подготовки к сессии по системе Platonus методом пробных тестирования в домашних условиях.
+      Можно воспользоваться уже загруженным документом, а можно и свой загрузить. Без регистрации и смс.
+      Пройди тест, подготовься, получи высший бал на сессии, побереги себя и своих близких."/>
     @include('layouts._OpenGraphMeta')
 
     <meta name="robots" content="robots.txt">
