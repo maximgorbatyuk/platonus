@@ -28,6 +28,12 @@ trait WordDocTrait
         return $dir;
     }
 
+    /**
+     * Возвращает контент документа
+     * @param $filename
+     * @return string
+     * @throws ErrorException
+     */
     protected function read_docx($filename){
 
         $striped_content = '';
@@ -61,6 +67,40 @@ trait WordDocTrait
     }
 
 
+    protected function read_doc_file($filename)
+    {
+        $result = null;
+        if ( ($fh = fopen($filename, 'r')) !== false ) {
+
+            $headers = fread($fh, 0xA00);
+
+            # 1 = (ord(n)*1) ; Document has from 0 to 255 characters
+            $n1 = ( ord($headers[0x21C]) - 1 );
+
+            # 1 = ((ord(n)-8)*256) ; Document has from 256 to 63743 characters
+            $n2 = ( ( ord($headers[0x21D]) - 8 ) * 256 );
+
+            # 1 = ((ord(n)*256)*256) ; Document has from 63744 to 16775423 characters
+            $n3 = ( ( ord($headers[0x21E]) * 256 ) * 256 );
+
+            # (((ord(n)*256)*256)*256) ; Document has from 16775424 to 4294965504 characters
+            $n4 = ( ( ( ord($headers[0x21F]) * 256 ) * 256 ) * 256 );
+
+            # Total length of text in the document
+            $textLength = ($n1 + $n2 + $n3 + $n4);
+
+            $extracted_plaintext = fread($fh, $textLength);
+
+            # if you want the plain text with no formatting, do this
+            //return $extracted_plaintext;
+
+            # if you want to see your paragraphs in a web page, do this
+            return nl2br($extracted_plaintext);
+        }
+        throw new ErrorException('Файл не доступен '.$filename);
+    }
+
+
 
     protected function convertToText($filename) {
         if(!file_exists($filename)) {
@@ -72,7 +112,11 @@ trait WordDocTrait
 
         if($file_ext == "docx")
         {
-            return $this->read_docx($filename);
+            return $this->readZippedXML($filename);
+        }
+        elseif($file_ext == "doc")
+        {
+            return $this->read_doc_file($filename);
         }
         throw new Error('Неразрешенное расширение файла');
     }
@@ -148,7 +192,7 @@ trait WordDocTrait
     protected function readContent($filename)
     {
         $filename = $this->getFullFilename($filename);
-        return $this->readZippedXML($filename);
+        return $this->convertToText($filename);
     }
 
 

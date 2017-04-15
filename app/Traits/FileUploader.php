@@ -189,18 +189,18 @@ trait FileUploader
         // Validate name
         if ($name === null || $name === '')
         {
-            $result->error = 'File name empty.';
+            $result->error = 'Пустое имя файла';
             return $result;
         }
 
         // Validate file size
         if ($size == 0){
-            $result->error = 'File is empty.';
+            $result->error = 'Файл пуст';
             return $result;
         }
 
         if (!is_null($this->sizeLimit) && $size > $this->sizeLimit) {
-            $result->error = 'File is too large.';
+            $result->error = 'Файл слишком большой';
             $result->preventRetry = true;
             return $result;
         }

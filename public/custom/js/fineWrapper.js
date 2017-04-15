@@ -43,7 +43,7 @@ function FineWrapper(config) {
     this.templateId = "qq-template";
     this.fineUploaderDivId = "fine-uploader";
     this.serverHandlerUrl = "/file-uploads";
-    this.allowExtensionArray = ['doc', 'docx', 'txt'];
+    this.allowExtensionArray = ['docx'];
     this.uploadLimit = 1;
 
     FineWrapper.prototype.customOnSuccessHandler = null;
