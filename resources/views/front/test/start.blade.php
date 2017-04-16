@@ -70,7 +70,7 @@
 
                     <div class="form-group d-flex w-100 justify-content-between">
                         <a href="{{ url('documents/'.$model->document->id) }}" class="btn btn-secondary">Подготовиться</a>
-                        <button type="submit" class="btn btn-primary">Начать тест</button>
+                        <button type="submit" class="btn btn-indigo">Начать тест</button>
                     </div>
 
 

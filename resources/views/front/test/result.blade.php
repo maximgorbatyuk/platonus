@@ -26,11 +26,11 @@
 
             <div class="d-md-flex w-100 justify-content-between">
                 {{ link_to_action('DocumentFrontController@index', 'Выбрать тест',
-                        [], ['class'=>'btn btn-outline-primary']) }}
+                        [], ['class'=>'btn btn-outline-indigo']) }}
 
                 {{ link_to_action('TestController@start', 'Начать снова',
                     ['id' => $model->document->id],
-                    ['class'=>'btn btn-primary']) }}
+                    ['class'=>'btn btn-indigo']) }}
 
             </div>
         </div>

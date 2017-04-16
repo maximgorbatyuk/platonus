@@ -67,7 +67,7 @@
                 <div>
                     @php($active = $model->display_correct ? "" : "disabled")
                     <button type="button" class="btn btn-outline-success" id="displayCorrectBtn" {{ $active }}>Правильный</button>
-                    <button type="submit" class="btn btn-primary" id="sbtBtn">Далее <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                    <button type="submit" class="btn btn-indigo" id="sbtBtn">Далее <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                 </div>
             </div>
 
