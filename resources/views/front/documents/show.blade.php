@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-md-6 mt-1">
                         <a href="{{ url('test') }}" class="btn btn-secondary">К документам</a>
-                        <a href="{{ url('download/'.$model->document->id) }}" class="btn btn-secondary">Скачать файл</a>
+                        <a href="{{ url('download/'.$model->document->id) }}" target="_blank" class="btn btn-secondary">Скачать файл</a>
                     </div>
 
                     <div class="col-md-6 text-md-right mt-1">
@@ -35,16 +35,16 @@
 
         <div class="list-group mt-1">
 
-            @for($i = 1; $i <= count($model->questions); $i++)
+            @for($i = 0; $i < count($model->questions); $i++)
 
                 @php
                     /** @var \App\LogicModels\Question $question */
-                    $question = $model->questions[$i - 1];
+                    $question = $model->questions[$i];
                 @endphp
 
                 <div class="list-group-item flex-column align-items-start">
                     <p class="my-1">
-                        {{ $i - 1 }}) {{ $question->getContent() }}
+                        {{ $i + 1 }}) {{ $question->getContent() }}
                     </p>
                     <div class="mb-1">
                         <ul>
