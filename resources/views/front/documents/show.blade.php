@@ -13,31 +13,22 @@
         <div class="card">
             <div class="card-block">
                 <h2>#{{ $model->document->id }} {{ $model->document->title }}</h2>
-
-                <div class="text-muted d-inline-flex">
-                    <dl class="row">
-                        <dt class="col-sm-6  text-md-right">Просмотров</dt>
-                        <dd class="col-sm-6">{{ $model->document->views }}</dd>
-
-                        <dt class="col-sm-6  text-md-right">Вопросов</dt>
-                        <dd class="col-sm-6">{{ $model->document->question_count }}</dd>
-                    </dl>
-
-                    <dl class="row ">
-                        <dt class="col-sm-6 text-md-right">ID</dt>
-                        <dd class="col-sm-6">{{ $model->document->id }}</dd>
-
-                        <dt class="col-sm-6 text-md-right">Создан</dt>
-                        <dd class="col-sm-6">{{ $model->document->CreatedAt() }}</dd>
-                    </dl>
-
+                <div class="text-muted mt-md-2 d-md-flex w-100 justify-content-between">
+                    <div>ID: {{ $model->document->id }}.</div>
+                    <div>Создан: {{ $model->document->CreatedAt() }}.</div>
+                    <div>Вопросов: {{ $model->document->question_count }}.</div>
+                    <div>Просмотров: {{ $model->document->views }}.</div>
                 </div>
 
-                <div class="mt-1 d-flex w-100 justify-content-between">
+                <div class="row">
+                    <div class="col-md-6 mt-1">
+                        <a href="{{ url('test') }}" class="btn btn-secondary">К документам</a>
+                        <a href="{{ $model->download_file_url }}" class="btn btn-secondary">Скачать файл</a>
+                    </div>
 
-                    <a href="{{ url('test') }}" class="btn btn-secondary">К документам</a>
-                    <a href="{{ url('test/start/'.$model->document->id) }}" class="btn btn-primary">Начать тест <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
-
+                    <div class="col-md-6 text-md-right mt-1">
+                        <a href="{{ url('test/start/'.$model->document->id) }}" class="btn btn-primary">Начать тест <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+                    </div>
                 </div>
             </div>
         </div>

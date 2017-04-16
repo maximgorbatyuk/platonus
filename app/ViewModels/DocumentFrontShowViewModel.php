@@ -24,6 +24,9 @@ class DocumentFrontShowViewModel
     /** @var  Question[] */
     public $questions;
 
+    /** @var string Ссылка на скачивание файла */
+    public $download_file_url;
+
     /**
      * Можно проиницировать объект сразу
      * DocumentFrontShowViewModel constructor.
