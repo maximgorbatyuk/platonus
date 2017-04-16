@@ -25,6 +25,7 @@ Route::group(['prefix'=>'admin'], function(){
 });
 
 Route::resource('documents', 'DocumentFrontController');
+Route::get('download/{id}', 'DownloadController@document');
 
 #region Тестирование
 

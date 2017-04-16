@@ -75,7 +75,6 @@ class DocumentFrontController extends Controller
 
         $model->test = new QuestionTest($model->document->file->getFileContent());
         $model->questions = $model->test->getQuestions();
-
         return view('front.documents.show', [ 'model' => $model ]);
     }
 
