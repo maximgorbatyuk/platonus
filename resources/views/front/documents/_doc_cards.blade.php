@@ -10,10 +10,10 @@
                     {{ $instance->title }}
                 </div>
 
-                <div class="text-muted d-flex w-100 justify-content-between">
+                <div class="text-muted d-md-flex w-100 justify-content-between">
                     <div>ID: {{ $instance->id }}</div>
-                    <div>Просмотров: {{ $instance->views }} <i class="fa fa-eye" aria-hidden="true"></i></div>
-                    <div>Вопросов: {{ $instance->question_count }} <i class="fa fa-question-circle-o" aria-hidden="true"></i></div>
+                    <div><i class="fa fa-eye" aria-hidden="true"></i> {{ $instance->views }} </div>
+                    <div>Вопросов: {{ $instance->question_count }}</div>
                 </div>
             </div>
             <div class="mt-0 w-100">
