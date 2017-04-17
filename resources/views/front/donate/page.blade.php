@@ -41,7 +41,7 @@
 
                 <div class="col-md-4 h-100 text-md-center">
                     <b>3. Финансовая помощь</b>
-                    <div class="text-muted">Не будет лукавить автор, что он не хочу денег =)</div>
+                    <div class="text-muted">Не будет лукавить автор, что он не хочет денег =)</div>
                 </div>
             </div>
         </div>
