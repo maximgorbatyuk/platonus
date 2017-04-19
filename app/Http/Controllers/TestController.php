@@ -36,6 +36,11 @@ class TestController extends Controller
         return view('front.test.start', ['model' => $model]);
     }
 
+    public function questionGet()
+    {
+        return \Redirect::to('/test');
+    }
+
     public function question(Request $request)
     {
         $doc_id = $request->input('document_id');

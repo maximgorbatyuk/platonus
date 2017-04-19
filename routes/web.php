@@ -33,6 +33,7 @@ Route::group(['prefix' => 'test'], function() {
     Route::get('/', 'DocumentFrontController@index');
     Route::get('start/{id}', 'TestController@start');
     Route::post('question', 'TestController@question');
+    Route::get('question', 'TestController@questionGet');
     Route::get('result', 'TestController@result');
 });
 
