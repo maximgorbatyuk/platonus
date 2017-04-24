@@ -1,4 +1,3 @@
-
 (function (d, w, c) {
     (w[c] = w[c] || []).push(function() {
         try {
@@ -6,7 +5,8 @@
                 id:43965764,
                 clickmap:true,
                 trackLinks:true,
-                accurateTrackBounce:true
+                accurateTrackBounce:true,
+                webvisor:true
             });
         } catch(e) { }
     });
