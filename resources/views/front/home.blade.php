@@ -29,6 +29,23 @@
     <div class="container ">
 
         <div class="card card-block my-3">
+            <h3 class="text-center" id="important">Важная информация</h3>
+            <div class="mt-4">
+                В силу определенных обстоятельств, связанных с тем, что ситуация, когда студенты получают тесты для подготовки, не очень-то и <u>легальна</u>,
+                разработчик вынужден ограничить возможности неавторизованных пользователей, а именно запретить доступ без авторизации к следующим функциям:
+            </div>
+            <ul>
+                <li>Загрузка новых документов</li>
+                <li>Просмотр списка всех загруженных документов</li>
+            </ul>
+            <div class="mt-4">
+                Остальные пользователи все так же могут просматривать документы по прямым ссылкам на них вида <u>http://platest.tk/documents/{id документа}</u>.
+                Это не очень удобно, но другой выход требует времени на реализацию, а его у разработчика нет,
+                ведь проект разрабатывается в свободное от работы время и держится лишь на энтузиазме.
+            </div>
+        </div>
+
+        <div class="card card-block my-3">
             <h3 class="text-center" id="loadNew">О портале вкратце</h3>
             <div class="mt-4">
                 Портал разработан для подготовки студентов, у которых сессия проходит методом тестирования в Платонусе (Platonus).
@@ -57,7 +74,7 @@
             </div>
         </div>
 
-        <div class="card card-block my-3">
+        <!--div class="card card-block my-3">
             <div class="h3 text-center" id="loadNew">Загрузи документ и начни тест</div>
             <p class="text-center">
                 Загрузи тест для того, чтобы начать тестирование и узнать, насколько ты заучка =) Принимаются только файлы *.docx
@@ -68,9 +85,9 @@
                 Принимаются только файлы Word 2007-2016 (docx)
             </p>
             @include('front.fine-uploader')
-        </div>
+        </div-->
 
-        <div class="card card-block my-3">
+        <!--div class="card card-block my-3">
             <div class="h3 text-center" id="topQuestions">Топ-6 документов</div>
             <div class="mt-1 text-center">
                 Выбери тест из наиболее популярных и начни тест. Не нашел свой? <a href="{{ url('documents') }}">Поищи</a> в списке всех загруженных.
@@ -100,7 +117,7 @@
 
             @endfor
 
-        </div>
+        </div-->
 
 
 
@@ -138,8 +155,8 @@
     <script src="{{ asset('custom/js/fineWrapper.js') }}" type="text/javascript"></script>
     <script>
         (function(){
-            fineUploader.Initiate();
-            application.initCardClickHandlers();
+            //fineUploader.Initiate();
+            //application.initCardClickHandlers();
         }());
 
     </script>

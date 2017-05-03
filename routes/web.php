@@ -47,6 +47,7 @@ Route::any('/file-uploads/{uuid}', 'UploadController@fineUploadDelete');
 
 
 if (env('APP_DEBUG') == true) {
+    Route::get('/error403', 'HomeController@error403');
     Route::get('/error404', 'HomeController@error404');
     Route::get('/error500', 'HomeController@error500');
     Route::get('/error503', 'HomeController@error503');

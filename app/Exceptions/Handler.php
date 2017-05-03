@@ -92,4 +92,6 @@ class Handler extends ExceptionHandler
             $e->getHeaders()
         );
     }
+
+
 }
