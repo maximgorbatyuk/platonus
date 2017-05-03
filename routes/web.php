@@ -20,7 +20,7 @@ Route::get('/home', 'HomeController@index');
 Route::get('/about', 'HomeController@about');
 Route::get('/donate', 'HomeController@donate');
 
-Route::group(['prefix'=>'admin'], function(){
+Route::group(['prefix'=>'admin', 'middleware' => 'admin'], function(){
     Route::resource('documents', 'DocumentController');
 });
 
