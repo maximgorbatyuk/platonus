@@ -71,6 +71,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
                             {{ link_to_action('DocumentController@index', 'Документы', [], ['class' => 'dropdown-item']) }}
+                            {{ link_to_action('UserController@index', 'Пользователи', [], ['class' => 'dropdown-item']) }}
 
                         </div>
                     </li>

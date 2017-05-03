@@ -30,6 +30,7 @@ class AdminAccess extends Authenticate
         {
             return response('Unauthorized.', 401);
         }
+        abort(403);
         return response('Unauthorized.', 403);
     }
 }

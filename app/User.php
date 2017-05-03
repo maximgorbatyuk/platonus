@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * App\User
@@ -21,6 +22,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+
+    public static $rules = array(
+        'name'                  => 'required|between:3,80',
+        'email'                 => 'required|between:5,255|email|unique:users',
+        'password'              => 'required|min:6|confirmed',
+        'password_confirmation' => 'required|min:6',
+    );
 
     /**
      * The attributes that are mass assignable.

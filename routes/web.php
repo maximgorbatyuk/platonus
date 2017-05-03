@@ -22,6 +22,7 @@ Route::get('/donate', 'HomeController@donate');
 
 Route::group(['prefix'=>'admin', 'middleware' => 'admin'], function(){
     Route::resource('documents', 'DocumentController');
+    Route::resource('users', 'UserController');
 });
 
 Route::resource('documents', 'DocumentFrontController');
