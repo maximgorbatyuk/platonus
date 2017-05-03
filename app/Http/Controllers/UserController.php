@@ -8,6 +8,7 @@ use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Validation\Rules\In;
+use Redirect;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Validator;
@@ -43,7 +44,8 @@ class UserController extends Controller
             return redirect('/admin/users');
         }
         flash('Обнаружены проблемы валидации', Constants::Error);
-        return redirect('/')
+        return Redirect::back()
+            ->withInput()
             ->withErrors($validator->errors());
     }
 
@@ -68,7 +70,7 @@ class UserController extends Controller
         /** @var User $instance */
         $instance = User::find($id);
         $instance->delete();
-        return \Redirect::action('DocumentController@index')
+        return \Redirect::action('UserController@index')
             ->with('success', "Пользователь $id был удален");
     }
 }

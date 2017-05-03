@@ -11,8 +11,7 @@
                     <div class="card-block">
                         <h3 class="my-2">Регистрация нового участника системы</h3>
 
-                        <form method="POST">
-                            {{ csrf_field() }}
+                        {!! Form::open(['action' => ['UserController@store']]) !!}
 
                             <div class="form-group row {{ $errors->has('name') ? 'has-error' : '' }}">
                                 {{ Form::label('name', 'Имя', ['class' => 'col-4 col-form-label']) }}
@@ -77,7 +76,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                        {!! Form::close() !!}
 
                     </div>
                 </div>

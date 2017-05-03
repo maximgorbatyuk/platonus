@@ -10,6 +10,10 @@
     <div class="container">
         <h1 class="mt-2">Пользователи системы</h1>
 
+        <div class="my-2">
+            <a href="{{ url('/admin/users/create') }}" class="btn btn-link">Создать запись</a>
+        </div>
+
         <table class="table table-striped dataTable">
             <thead>
             <tr>
