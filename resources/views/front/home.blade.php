@@ -14,10 +14,10 @@
                     Пробное тестирование Platonus
                 </p>
                 <div class="mt-1 mb-1">
-                    <a class="btn btn-outline-orange mr-1" href="#topQuestions">
+                    <a class="btn btn-outline-orange mr-1" href="{{ url('documents') }}">
                         <span class="h5">Найти <i class="fa fa-search ml-1" aria-hidden="true"></i></span>
                     </a>
-                    <a class="btn btn-outline-orange ml-auto" href="#loadNew">
+                    <a class="btn btn-outline-orange ml-auto" href="{{ url('documents/create') }}">
                         <span class="h5">Загрузить <i class="fa fa-download ml-1" aria-hidden="true"></i></span>
                     </a>
                 </div>
