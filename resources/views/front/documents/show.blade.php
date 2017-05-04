@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-md-6 mt-1">
                         <a href="{{ url('test') }}" class="btn btn-secondary">К документам</a>
-                        <a href="{{ url('download/'.$model->document->id) }}" target="_blank" class="btn btn-secondary">Скачать файл</a>
+                        <!--a href="{{ url('download/'.$model->document->id) }}" target="_blank" class="btn btn-secondary disabled">Скачать файл</a-->
                     </div>
 
                     <div class="col-md-6 text-md-right mt-1">
