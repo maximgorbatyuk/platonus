@@ -18,10 +18,6 @@ class DocumentFrontController extends Controller
 
     public function index()
     {
-        if (\Auth::guest()){
-            abort(403);
-        }
-
         $instances = Document::all();
         return view('front.documents.index', ['instances' => $instances]);
     }
@@ -29,9 +25,6 @@ class DocumentFrontController extends Controller
 
     public function create()
     {
-        if (\Auth::guest()){
-            abort(403);
-        }
         return view('front.documents.create');
     }
 
