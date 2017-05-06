@@ -51,6 +51,7 @@
             <div class="row">
                 <div class="col-md-6">
                     {{ link_to_action('DocumentController@index', 'В список', null, ['class' => 'btn btn-secondary']) }}
+                    <a href="{{ url('download/'.$document->id) }}" target="_blank" class="btn btn-secondary disabled">Скачать файл</a>
                 </div>
 
                 <div class="col-md-6 text-sm-right">
