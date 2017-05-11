@@ -14,6 +14,7 @@
     @include('layouts._OpenGraphMeta')
 
     <meta name="robots" content="robots.txt">
+    <meta name="yandex-verification" content="0eeb461100a51ff9" />
 
     <title>@yield('title', config('app.name', 'Platest').' - тесты, радость и веселье')</title>
 
