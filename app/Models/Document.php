@@ -53,7 +53,9 @@ class Document extends Ardent
      */
     public function delete()
     {
-        $this->file->delete();
+        if (!is_null($this->file)){
+            $this->file->delete();
+        }
         return parent::delete();
     }
 
