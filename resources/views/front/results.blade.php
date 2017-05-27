@@ -1,5 +1,5 @@
 @extends('layouts._FrontLayout')
-@section('title', 'Благодарности пользователям портала')
+@section('title', 'Результаты внедрения и статистика')
 
 @section('content')
 
