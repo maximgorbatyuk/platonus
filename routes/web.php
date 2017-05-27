@@ -23,6 +23,7 @@ Route::get('/results', 'HomeController@result');
 
 Route::group(['prefix'=>'admin', 'middleware' => 'admin'], function(){
     Route::resource('documents', 'DocumentController');
+    Route::get('destroyAllDocuments', 'DocumentController@destroyAllDocuments');
     Route::resource('users', 'UserController');
 });
 

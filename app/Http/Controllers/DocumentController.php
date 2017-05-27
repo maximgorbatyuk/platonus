@@ -99,6 +99,24 @@ class DocumentController extends Controller
         $document->delete();
         return Redirect::action('DocumentController@index')
             ->with('success', "Документ $id был удален");
+    }
 
+    public function destroyAllDocuments(){
+
+        /** @var Document[] $documents */
+        $documents = Document::where('id', '>=', 5)->get();
+        $result = [];
+        foreach ($documents as $document) {
+            $id = $document->id;
+            $title = $document->title;
+
+            $del = $document->delete();
+            $result[] = [
+                'id' => $id,
+                'title' => $title,
+                'del' => $del
+            ];
+        }
+        return \Response::json($result);
     }
 }
