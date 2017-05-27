@@ -41,6 +41,10 @@ class HomeController extends Controller
         return view('front.about');
     }
 
+    public function result(){
+        return view('front.results');
+    }
+
     #region Errors
 
     public function error403() {

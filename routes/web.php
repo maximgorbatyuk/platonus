@@ -19,6 +19,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::get('/about', 'HomeController@about');
 Route::get('/donate', 'HomeController@donate');
+Route::get('/results', 'HomeController@result');
 
 Route::group(['prefix'=>'admin', 'middleware' => 'admin'], function(){
     Route::resource('documents', 'DocumentController');
