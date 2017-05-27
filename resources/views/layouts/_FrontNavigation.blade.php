@@ -45,6 +45,14 @@
                     @endphp
                     <a href="{{ url($url) }}" class="nav-link {{$isActive}}">Поддержать проект</a>
                 </li>
+
+                <li class="nav-item">
+                    @php
+                        $url = 'results';
+                        $isActive = Request::is($url) ? " active" : "";
+                    @endphp
+                    <a href="{{ url($url) }}" class="nav-link {{$isActive}}">Итоги летней сессии</a>
+                </li>
             </ul>
 
             <ul class="navbar-nav ml-auto float-md-right">
