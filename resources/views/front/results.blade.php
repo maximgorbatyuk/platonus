@@ -123,9 +123,6 @@
                 <dd class="col-6 text-right">Вторая самая непопулярная страница</dd>
                 <dt class="col-6 text-left"><a href="{{ url('donate') }}">Поддержать проект</a> (790 просмотра)</dt>
 
-                <dd class="col-6 text-right">Среднее время на сайте</dd>
-                <dt class="col-6 text-left">1 час 25 минут 35 секунд</dt>
-
                 <dd class="col-6 text-right">Кол-во просмотренных страниц одним посетителем в среднем</dd>
                 <dt class="col-6 text-left">84,3 страницы</dt>
 
@@ -153,7 +150,7 @@
                 <dt class="col-6 text-left">3 человека</dt>
 
                 <dd class="col-6 text-right"><u>Поддержали</u> донатом реально</dd>
-                <dt class="col-6 text-left">0 человек</dt>
+                <dt class="col-6 text-left">1 человек</dt>
 
                 <dd class="col-6 text-right"><u>Пообещали</u> поддержать шоколадом</dd>
                 <dt class="col-6 text-left">1 человек</dt>
@@ -192,10 +189,10 @@
                 <dt class="col-6 text-left">20$ за хостинг, 40 часов личного времени и душа в количестве 1 ед.</dt>
 
                 <dd class="col-6 text-right">Собрано за счет поддержки пользователей</dd>
-                <dt class="col-6 text-left">0$</dt>
+                <dt class="col-6 text-left">200 тенге (~ 0.65$)</dt>
 
                 <dd class="col-6 text-right">Заработок проекта</dd>
-                <dt class="col-6 text-left">минус 20$</dt>
+                <dt class="col-6 text-left">минус 19.35$</dt>
             </dl>
         </div>
 
