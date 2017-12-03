@@ -118,4 +118,10 @@ abstract class VarDumper
         var_export($data);
         die();
     }
+
+    public static function VarExportShow($data) {
+        echo "<pre>";
+        var_export($data);
+        echo "</pre>";
+    }
 }

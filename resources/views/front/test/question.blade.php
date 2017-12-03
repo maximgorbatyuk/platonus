@@ -4,6 +4,8 @@
 @php
     /** @var App\ViewModels\TestQuestionViewModel $model */;
     $variants = $model->current_question->getVariants();
+    $current_position = $model->current_pos;
+    $question_number = $current_position + 1;
 @endphp
 
 @section('title', 'Вопрос #')
@@ -15,7 +17,7 @@
 
             <div class="d-flex w-100 justify-content-between">
                 <h2>Тестирование </h2>
-                <div class="text-muted">{{ $model->current_pos+1 }} вопрос из {{ $model->question_count }}</div>
+                <div class="text-muted">{{ $question_number }} вопрос из {{ $model->question_count }}</div>
             </div>
 
             <div class="progress my-3">
@@ -29,16 +31,17 @@
 
             {{ Form::open(['action' => 'TestController@question', 'id' => 'question_form']) }}
 
-            {{ Form::hidden('document_id', $model->document->id) }}
-            {{ Form::hidden('limit', $model->limit ? 1 : 0) }}
-            {{ Form::hidden('current_pos', $model->current_pos) }}
-            {{ Form::hidden('display_correct', $model->display_correct ? "true" : "false") }}
-            {{ Form::hidden('show_swears', $model->show_swears ? "true" : "false") }}
-            {{ Form::hidden('early_finish', false, ['id' => 'early_finish']) }}
+            <!-- Почему-то не рендерилось значение через хелпер Form::hidden -->
+            <input type="hidden" name="document_id"     value="{{ $model->document->id }}" >
+            <input type="hidden" name="limit"           value="{{ $model->limit ? "true" : "false" }}" >
+            <input type="hidden" name="current_pos"     value="{{ $current_position }}" >
+            <input type="hidden" name="display_correct" value="{{ $model->display_correct ? "true" : "false" }}" >
+            <input type="hidden" name="show_swears"     value="{{ $model->show_swears ? "true" : "false" }}" >
+            <input type="hidden" name="early_finish"    value="{{ $model->early_finish ? "true" : "false" }}" id="early_finish">
 
-            {{ Form::hidden('question_order', \GuzzleHttp\json_encode($model->question_order)) }}
-            {{ Form::hidden('answered_questions', \GuzzleHttp\json_encode($model->answered_questions)) }}
-            {{ Form::hidden('answers', \GuzzleHttp\json_encode($model->answers)) }}
+            <input type="hidden" name="question_order"  value="{{ \GuzzleHttp\json_encode($model->question_order) }}" >
+            <input type="hidden" name="answered_questions" value="{{ \GuzzleHttp\json_encode($model->answered_questions) }}" >
+            <input type="hidden" name="answers"         value="{{ \GuzzleHttp\json_encode($model->answers) }}" >
 
             <div class="form-group">
                 <p>

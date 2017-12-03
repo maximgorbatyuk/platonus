@@ -92,8 +92,6 @@ class TestController extends Controller
             $model->answered_questions[$model->current_pos] = $model->questions[$model->current_pos]->getId();
             $model->answers[$model->current_pos] = $request->input('answer');
 
-
-
             $model->question_count = count($model->questions);
 
             if (($model->current_pos == $model->question_count - 1) || $model->early_finish) {
@@ -103,7 +101,6 @@ class TestController extends Controller
                 session(['model' => $model]);
                 return \Redirect::action('TestController@result');
             }
-
             $model->current_pos = $model->current_pos + 1;
             $model->current_question = $model->questions[$model->current_pos];
             $model->current_question->shuffleVariants();
@@ -113,7 +110,7 @@ class TestController extends Controller
                 $model->progress_value = 100;
                 $model->is_last = true;
             }
-            //VarDumper::VarExport($model);
+            //VarDumper::VarExport($model->current_pos);
         }
 
 
@@ -130,15 +127,13 @@ class TestController extends Controller
                 Constants::Warning);
             return \Redirect::action('TestController@start');
         }
-
-
-
         $resultModel = new TestResultViewModel();
         $resultModel->document = $model->document;
         $resultModel->question_count = count($model->answered_questions);
 
         $correctAnswersCount = 0;
         $answeredQuestions = [];
+        //VarDumper::VarExport($resultModel);
         for($i = 0; $i < $resultModel->question_count;$i++)
         {
 

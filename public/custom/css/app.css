@@ -22,6 +22,9 @@ footer {
     font-size: 10pt;
 }
 
+.btn {
+    cursor: pointer;
+}
 
 .nav-container {
     margin-left: inherit;
